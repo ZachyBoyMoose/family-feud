@@ -277,8 +277,9 @@ body.is-tv{overflow:hidden;background:#000}
         </div>
       </div>
       <div class="card">
-        <h2>✨ AI Surveys &amp; Answer Judge <span class="badge" id="lKeyBadge">Optional</span></h2>
-        <p style="margin:0;font-size:14px;line-height:1.5;color:#c9d6ff">Paste a <b>Google Gemini API key</b> for endless fresh surveys and an AI "close enough" judge. The key is saved only in this browser (<code>localStorage</code>) and is only ever sent to Google's Gemini API.</p>
+        <h2>✨ Optional Gemini AI Boost <span class="badge" id="lKeyBadge">Not needed</span></h2>
+        <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:#c9d6ff">Feud Night already includes an <b>unlimited survey generator</b> and a <b>smart close-enough judge</b> that run entirely in your browser, with nothing to set up.</p>
+        <p style="margin:0;font-size:14px;line-height:1.5;color:#c9d6ff">If you'd like, paste your own free <b>Google Gemini API key</b> and both features switch to live AI. Your key is saved only in this browser (<code>localStorage</code>) and is sent only to Google. It never goes into the page's code, so it's safe even if this site lives in a public GitHub repo.</p>
         <div class="keyrow">
           <input class="field" id="lKey" type="password" placeholder="Paste your Gemini API key (starts with AIza…)" autocomplete="off" spellcheck="false">
           <button class="btn sm" id="lKeyShow" title="Show/hide key">👁</button>
@@ -295,7 +296,7 @@ body.is-tv{overflow:hidden;background:#000}
             <li>Click <b>Create API key</b>, then copy it.</li>
             <li>Paste it above and click <b>Save &amp; Test Key</b>.</li>
           </ol>
-          <div class="tip">The free tier has rate limits. If you hit one mid-game, the app tells you and switches to the built-in surveys.</div>
+          <div class="tip">The free tier has rate limits. If you hit one mid-game, Feud Night quietly switches to the built-in generator and judge.</div>
         </details>
         <details>
           <summary>Advanced: model</summary>
@@ -306,10 +307,10 @@ body.is-tv{overflow:hidden;background:#000}
     </div>
     <div class="cta">
       <button class="btn gold lg" id="lPlay">▶ Play Immediately with Built-In Surveys</button>
-      <button class="btn lg" id="lPlayAI">✨ Start with an AI Survey</button>
+      <button class="btn lg" id="lPlayAI">✨ Start with a Freshly Generated Survey</button>
       <button class="btn lg" id="lResume" hidden>↩ Resume Game in Progress</button>
     </div>
-    <p class="tip" style="text-align:center;margin-top:14px">33 built-in surveys included, no setup needed. The Host Controller opens in this tab.</p>
+    <p class="tip" style="text-align:center;margin-top:14px" id="lCount">No sign-up or API key needed. The Host Controller opens in this tab.</p>
   </div>
 </section>
 
@@ -387,7 +388,7 @@ body.is-tv{overflow:hidden;background:#000}
       <div class="card">
         <h3>Next Survey</h3>
         <div class="row" style="flex-wrap:nowrap">
-          <input class="field" id="sTheme" placeholder="Theme, e.g. Road trips (blank = Surprise me)" maxlength="80">
+          <input class="field" id="sTheme" placeholder="Any theme, e.g. Road trips (blank = surprise me)" maxlength="80">
           <button class="btn gold" id="sGen">✨ Generate New Survey</button>
         </div>
         <div class="chips" id="sChips"></div>
@@ -510,43 +511,246 @@ const Bus = (() => {
 })();
 
 /* ============================================================
-   Built-in survey library (each sums to 100)
+   Built-in survey library + Infinite Survey Engine (no network)
+   Curated: [question, category, "Answer=points|..."] (sums to 100)
    ============================================================ */
-const SURVEYS = [
- {q:"Name something people do at the beach.", a:[["Swim",32],["Sunbathe",24],["Build Sandcastles",14],["Surf",10],["Read",8],["Play Volleyball",7],["Collect Shells",5]]},
- {q:"Name something you bring on a camping trip.", a:[["Tent",35],["Sleeping Bag",22],["Flashlight",14],["Food",11],["Bug Spray",8],["Matches / Lighter",6],["Marshmallows",4]]},
- {q:"Name something people do to get ready for bed.", a:[["Brush Teeth",38],["Shower / Bath",20],["Put On Pajamas",15],["Set Alarm",10],["Read",8],["Wash Face",5],["Pray",4]]},
- {q:"Name a food people eat with their hands.", a:[["Pizza",30],["Burger",22],["Chicken Wings",15],["Tacos",12],["Fries",9],["Sandwich",7],["Hot Dog",5]]},
- {q:"Name something people pass around at a party.", a:[["Chips / Snacks",34],["Drinks",22],["Phone / Photos",12],["Gossip",11],["A Baby",9],["Aux Cord",8],["Gifts",4]]},
- {q:"Name a reason you might be late for work.", a:[["Traffic",40],["Overslept",28],["Car Trouble",12],["Kids",9],["Weather",6],["Lost Keys",5]]},
- {q:"Name an animal you'd see on a farm.", a:[["Cow",36],["Pig",22],["Chicken",18],["Horse",12],["Sheep",7],["Goat",5]]},
- {q:"Name something you'd find in a junk drawer.", a:[["Batteries",28],["Rubber Bands",18],["Pens",16],["Tape",12],["Keys",10],["Takeout Menus",9],["Paper Clips",7]]},
- {q:"Name a popular pizza topping.", a:[["Pepperoni",42],["Sausage",18],["Mushrooms",13],["Extra Cheese",9],["Onions",7],["Peppers",6],["Pineapple",5]]},
- {q:"Name something people are afraid of.", a:[["Spiders",30],["Heights",22],["Snakes",18],["Dying",11],["Clowns",8],["The Dark",6],["Public Speaking",5]]},
- {q:"Name something people do on a road trip.", a:[["Sing Along",26],["Sleep",20],["Eat Snacks",18],["Play Games",14],["Stop for Gas",10],["Take Photos",7],["Ask \"Are We There Yet?\"",5]]},
- {q:"Name something that has a lot of buttons.", a:[["Remote Control",38],["Phone",18],["Keyboard",16],["Shirt",12],["Calculator",8],["Elevator",5],["Game Controller",3]]},
- {q:"Name something people do on their phone in the bathroom.", a:[["Scroll Social Media",40],["Text",22],["Play Games",14],["Read the News",10],["Call Someone",7],["Shop Online",4],["Watch Videos",3]]},
- {q:"Name a job where you wear a uniform.", a:[["Police Officer",34],["Nurse / Doctor",20],["Firefighter",16],["Military",12],["Chef",8],["Mail Carrier",6],["Pilot",4]]},
- {q:"Name something you associate with Halloween.", a:[["Candy",40],["Costumes",24],["Pumpkins",14],["Ghosts",8],["Witches",6],["Trick-or-Treating",5],["Haunted Houses",3]]},
- {q:"Name something kids beg their parents for.", a:[["Candy",28],["Toys",24],["A Phone",16],["A Pet",14],["Video Games",9],["Staying Up Late",6],["Money",3]]},
- {q:"Name a reason people go to the kitchen in the middle of the night.", a:[["A Snack",46],["Water",30],["Medicine",8],["Heard a Noise",7],["Can't Sleep",5],["Feed the Baby",4]]},
- {q:"Name something you might lose at an amusement park.", a:[["Your Kid",30],["Phone",20],["Wallet",16],["Hat",12],["Your Lunch",10],["Sunglasses",7],["Keys",5]]},
- {q:"Name a place where people whisper.", a:[["Library",48],["Church",22],["Movie Theater",12],["Hospital",7],["Funeral",6],["Classroom",5]]},
- {q:"Name something you'd see at a wedding.", a:[["Bride",28],["Cake",24],["Rings",16],["Flowers",12],["Dancing",9],["Tears",6],["Champagne",5]]},
- {q:"Name a chore people put off doing.", a:[["Laundry",26],["Dishes",18],["Vacuuming",16],["Cleaning the Bathroom",15],["Taking Out Trash",10],["Mowing the Lawn",9],["Making the Bed",6]]},
- {q:"Name something you see in the sky.", a:[["Clouds",34],["Sun",24],["Birds",15],["Stars",10],["Moon",8],["Airplanes",6],["Rainbow",3]]},
- {q:"Name a sport that uses a ball.", a:[["Basketball",30],["Football",26],["Baseball",16],["Soccer",14],["Tennis",8],["Golf",6]]},
- {q:"Name something college students can't live without.", a:[["Coffee",30],["Ramen",20],["Laptop",18],["Phone",14],["Wi-Fi",9],["Pizza",5],["Money",4]]},
- {q:"Name a reason someone might cancel plans.", a:[["Sick",40],["Tired",20],["Work",14],["Weather",10],["Family Emergency",8],["No Money",5],["Better Offer",3]]},
- {q:"Name something you'd find in a grandmother's purse.", a:[["Tissues",30],["Candy / Mints",26],["Lipstick",14],["Wallet",10],["Glasses",9],["Coupons",7],["Hand Lotion",4]]},
- {q:"Name something people do when they can't sleep.", a:[["Watch TV",30],["Read",24],["Count Sheep",14],["Scroll on Phone",12],["Eat",8],["Drink Milk / Tea",7],["Toss & Turn",5]]},
- {q:"Name a dessert people eat at Thanksgiving.", a:[["Pumpkin Pie",56],["Apple Pie",16],["Pecan Pie",12],["Cheesecake",6],["Sweet Potato Pie",5],["Ice Cream",5]]},
- {q:"Name something you eat at Thanksgiving dinner.", a:[["Turkey",50],["Stuffing",16],["Mashed Potatoes",12],["Cranberry Sauce",8],["Pumpkin Pie",6],["Gravy",5],["Green Bean Casserole",3]]},
- {q:"Name something people do at a red light.", a:[["Check Phone",34],["Sing",18],["Pick Nose",14],["Fix Hair / Makeup",12],["Change the Radio",10],["Eat",7],["Daydream",5]]},
- {q:"Name a word that rhymes with \"cat.\"", a:[["Hat",30],["Bat",24],["Rat",18],["Mat",12],["Sat",8],["Fat",5],["Pat",3]]},
- {q:"Name something that's sticky.", a:[["Glue",34],["Honey",26],["Tape",16],["Gum",12],["Syrup",8],["Candy",4]]},
- {q:"Name something associated with winter.", a:[["Snow",44],["Cold",18],["Christmas",12],["Hot Chocolate",10],["Snowman",8],["Coats",5],["Skiing",3]]}
+const CURATED = [
+ // ---- Everyday Life ----
+ ["Name something people do at the beach.","travel","Swim=32|Sunbathe=24|Build Sandcastles=14|Surf=10|Read=8|Play Volleyball=7|Collect Shells=5"],
+ ["Name something people do to get ready for bed.","everyday","Brush Teeth=38|Shower / Bath=20|Put On Pajamas=15|Set Alarm=10|Read=8|Wash Face=5|Pray=4"],
+ ["Name a reason you might be late for work.","work","Traffic=40|Overslept=28|Car Trouble=12|Kids=9|Weather=6|Lost Keys=5"],
+ ["Name something you'd find in a junk drawer.","everyday","Batteries=28|Rubber Bands=18|Pens=16|Tape=12|Keys=10|Takeout Menus=9|Paper Clips=7"],
+ ["Name something that has a lot of buttons.","everyday","Remote Control=38|Phone=18|Keyboard=16|Shirt=12|Calculator=8|Elevator=5|Game Controller=3"],
+ ["Name something people do on their phone in the bathroom.","weird","Scroll Social Media=40|Text=22|Play Games=14|Read the News=10|Call Someone=7|Shop Online=4|Watch Videos=3"],
+ ["Name a reason people go to the kitchen in the middle of the night.","everyday","A Snack=46|Water=30|Medicine=8|Heard a Noise=7|Can't Sleep=5|Feed the Baby=4"],
+ ["Name a place where people whisper.","everyday","Library=48|Church=22|Movie Theater=12|Hospital=7|Funeral=6|Classroom=5"],
+ ["Name a chore people put off doing.","everyday","Laundry=26|Dishes=18|Vacuuming=16|Cleaning the Bathroom=15|Taking Out Trash=10|Mowing the Lawn=9|Making the Bed=6"],
+ ["Name something you see in the sky.","everyday","Clouds=34|Sun=24|Birds=15|Stars=10|Moon=8|Airplanes=6|Rainbow=3"],
+ ["Name a reason someone might cancel plans.","everyday","Sick=40|Tired=20|Work=14|Weather=10|Family Emergency=8|No Money=5|Better Offer=3"],
+ ["Name something people do when they can't sleep.","everyday","Watch TV=30|Read=24|Count Sheep=14|Scroll on Phone=12|Eat=8|Drink Milk / Tea=7|Toss & Turn=5"],
+ ["Name something people do at a red light.","travel","Check Phone=34|Sing=18|Pick Nose=14|Fix Hair / Makeup=12|Change the Radio=10|Eat=7|Daydream=5"],
+ ["Name something that's sticky.","everyday","Glue=34|Honey=26|Tape=16|Gum=12|Syrup=8|Candy=4"],
+ ["Name something you do first thing in the morning.","everyday","Brush Teeth=30|Check Phone=22|Make Coffee=16|Shower=12|Use the Bathroom=9|Stretch=6|Hit Snooze=5"],
+ ["Name something people are always losing.","everyday","Keys=40|Phone=20|Remote=14|Glasses=10|Socks=7|Wallet=6|Patience=3"],
+ ["Name something you might find under a couch cushion.","everyday","Coins=38|Crumbs=20|Remote=16|Pens=9|Toys=8|Hair Ties=5|Popcorn=4"],
+ ["Name something in a house that might need fixing.","everyday","Toilet=28|Sink=20|Roof=14|Door=12|Light Bulb=10|Washing Machine=9|Fence=7"],
+ // ---- Food & Drink ----
+ ["Name a food people eat with their hands.","food","Pizza=30|Burger=22|Chicken Wings=15|Tacos=12|Fries=9|Sandwich=7|Hot Dog=5"],
+ ["Name a popular pizza topping.","food","Pepperoni=42|Sausage=18|Mushrooms=13|Extra Cheese=9|Onions=7|Peppers=6|Pineapple=5"],
+ ["Name something that's sticky in the kitchen.","food","Honey=34|Syrup=24|Peanut Butter=16|Jam / Jelly=10|Dough=8|Caramel=5|Spilled Soda=3"],
+ ["Name a food that's messy to eat.","food","Spaghetti=30|Ribs=22|Tacos=16|Wings=12|Burger=9|Ice Cream Cone=7|Corn on the Cob=4"],
+ ["Name something you put on a hot dog.","food","Ketchup=40|Mustard=28|Relish=12|Onions=9|Chili=6|Sauerkraut=5"],
+ ["Name a breakfast food.","food","Eggs=34|Pancakes=20|Bacon=16|Cereal=12|Waffles=8|Toast=6|Oatmeal=4"],
+ ["Name a fruit you peel before eating.","food","Banana=46|Orange=30|Apple=8|Grapefruit=6|Kiwi=5|Mango=5"],
+ ["Name something people order at a coffee shop.","food","Latte=30|Black Coffee=22|Cappuccino=14|Muffin=10|Iced Coffee=10|Tea=8|Hot Chocolate=6"],
+ ["Name a food you'd buy at a movie theater.","food","Popcorn=62|Candy=16|Nachos=10|Hot Dog=6|Soda=4|Pretzel=2"],
+ ["Name something college students can't live without.","work","Coffee=30|Ramen=20|Laptop=18|Phone=14|Wi-Fi=9|Pizza=5|Money=4"],
+ // ---- Travel ----
+ ["Name something you bring on a camping trip.","travel","Tent=35|Sleeping Bag=22|Flashlight=14|Food=11|Bug Spray=8|Matches / Lighter=6|Marshmallows=4"],
+ ["Name something people do on a road trip.","travel","Sing Along=26|Sleep=20|Eat Snacks=18|Play Games=14|Stop for Gas=10|Take Photos=7|Ask \"Are We There Yet?\"=5"],
+ ["Name something you might lose at an amusement park.","travel","Your Kid=30|Phone=20|Wallet=16|Hat=12|Your Lunch=10|Sunglasses=7|Keys=5"],
+ ["Name something you pack in a carry-on bag.","travel","Phone Charger=26|Snacks=20|Headphones=16|Book=12|Medicine=10|Change of Clothes=9|Neck Pillow=7"],
+ ["Name something people complain about on airplanes.","travel","Legroom=34|Crying Babies=22|Food=14|Turbulence=10|Delays=9|Seat Kickers=7|Bathrooms=4"],
+ ["Name a place people go on vacation.","travel","Beach=38|Theme Park=16|Mountains=14|Las Vegas=10|Cruise=9|Europe=8|Hawaii=5"],
+ ["Name something you'd see at a hotel.","travel","Pool=28|Front Desk=22|Beds=18|Ice Machine=12|Room Service=9|Elevator=7|Mini Bar=4"],
+ // ---- Holidays ----
+ ["Name something you associate with Halloween.","holidays","Candy=40|Costumes=24|Pumpkins=14|Ghosts=8|Witches=6|Trick-or-Treating=5|Haunted Houses=3"],
+ ["Name a dessert people eat at Thanksgiving.","holidays","Pumpkin Pie=56|Apple Pie=16|Pecan Pie=12|Cheesecake=6|Sweet Potato Pie=5|Ice Cream=5"],
+ ["Name something you eat at Thanksgiving dinner.","holidays","Turkey=50|Stuffing=16|Mashed Potatoes=12|Cranberry Sauce=8|Pumpkin Pie=6|Gravy=5|Green Bean Casserole=3"],
+ ["Name something associated with winter.","holidays","Snow=44|Cold=18|Christmas=12|Hot Chocolate=10|Snowman=8|Coats=5|Skiing=3"],
+ ["Name something you put on a Christmas tree.","holidays","Lights=36|Ornaments=28|Star=16|Tinsel=8|Angel=6|Candy Canes=6"],
+ ["Name something associated with the Fourth of July.","holidays","Fireworks=52|BBQ=18|Flag=12|Parade=8|Hot Dogs=6|Red, White & Blue=4"],
+ ["Name something people give up for a New Year's resolution.","holidays","Junk Food=30|Smoking=24|Drinking=16|Sweets=12|Social Media=9|Soda=9"],
+ ["Name something you see on Valentine's Day.","holidays","Roses=34|Chocolate=26|Hearts=16|Cards=12|Cupid=7|Teddy Bears=5"],
+ // ---- Family & Kids ----
+ ["Name something kids beg their parents for.","family","Candy=28|Toys=24|A Phone=16|A Pet=14|Video Games=9|Staying Up Late=6|Money=3"],
+ ["Name something people pass around at a party.","family","Chips / Snacks=34|Drinks=22|Phone / Photos=12|Gossip=11|A Baby=9|Aux Cord=8|Gifts=4"],
+ ["Name something you'd find in a grandmother's purse.","family","Tissues=30|Candy / Mints=26|Lipstick=14|Wallet=10|Glasses=9|Coupons=7|Hand Lotion=4"],
+ ["Name something kids do that drives parents crazy.","family","Whine=28|Fight with Siblings=22|Don't Listen=18|Make a Mess=14|Ask \"Why?\"=10|Won't Go to Sleep=8"],
+ ["Name something you'd find in a diaper bag.","family","Diapers=42|Wipes=26|Bottle=12|Pacifier=8|Change of Clothes=7|Snacks=5"],
+ ["Name a game families play together.","family","Monopoly=30|Cards=22|Charades=14|Uno=12|Scrabble=9|Video Games=8|Hide & Seek=5"],
+ ["Name something grandparents always say.","family","\"Back in My Day\"=34|\"You've Grown!\"=24|\"Are You Hungry?\"=16|\"Bundle Up\"=10|\"Call More Often\"=9|\"Turn That Down\"=7"],
+ ["Name an animal you'd see on a farm.","family","Cow=36|Pig=22|Chicken=18|Horse=12|Sheep=7|Goat=5"],
+ ["Name something you'd see at a wedding.","family","Bride=28|Cake=24|Rings=16|Flowers=12|Dancing=9|Tears=6|Champagne=5"],
+ // ---- Pop Culture ----
+ ["Name a superhero.","pop","Superman=34|Batman=26|Spider-Man=18|Wonder Woman=10|Iron Man=7|Hulk=5"],
+ ["Name a kind of TV show people binge-watch.","pop","Sitcoms=26|Crime Shows=20|Reality TV=18|Cartoons=12|Documentaries=10|Cooking Shows=8|Soap Operas=6"],
+ ["Name a type of music people dance to.","pop","Pop=30|Hip Hop=24|Salsa=14|Country=12|Disco=10|Techno=6|Rock=4"],
+ ["Name something a celebrity might have.","pop","Bodyguard=28|Mansion=24|Private Jet=16|Fans=12|Sunglasses=9|Personal Chef=6|Personal Trainer=5"],
+ ["Name a type of movie.","pop","Comedy=32|Action=26|Horror=16|Romance=12|Drama=8|Animated=6"],
+ ["Name something people are afraid of.","pop","Spiders=30|Heights=22|Snakes=18|Dying=11|Clowns=8|The Dark=6|Public Speaking=5"],
+ ["Name a sport that uses a ball.","pop","Basketball=30|Football=26|Baseball=16|Soccer=14|Tennis=8|Golf=6"],
+ // ---- Work & School ----
+ ["Name a job where you wear a uniform.","work","Police Officer=34|Nurse / Doctor=20|Firefighter=16|Military=12|Chef=8|Mail Carrier=6|Pilot=4"],
+ ["Name something you'd find on a teacher's desk.","work","Apple=30|Papers=22|Pens=16|Computer=12|Coffee Mug=9|Stapler=7|Grade Book=4"],
+ ["Name a reason someone calls in sick to work.","work","Flu=34|Cold=22|Fever=14|Hangover=12|Stomach Bug=10|Mental Health Day=8"],
+ ["Name something people do during a boring meeting.","work","Doodle=30|Check Phone=26|Daydream=18|Fall Asleep=12|Watch the Clock=9|Eat Snacks=5"],
+ ["Name a school subject.","work","Math=38|English=24|Science=16|History=12|Gym=6|Art=4"],
+ ["Name something you need for a job interview.","work","Resume=38|Nice Clothes=26|Confidence=14|References=10|Firm Handshake=7|Breath Mints=5"],
+ // ---- Weird & Funny ----
+ ["Name a word that rhymes with \"cat.\"","weird","Hat=30|Bat=24|Rat=18|Mat=12|Sat=8|Fat=5|Pat=3"],
+ ["Name something people talk to even though it can't talk back.","weird","Pets=40|Plants=18|TV=14|Car=12|Themselves=10|Computer=6"],
+ ["Name a reason you'd wake up in the middle of the night.","weird","Bathroom=44|Bad Dream=20|Noise=14|Thirsty=10|Too Hot=7|Baby Crying=5"],
+ ["Name something that smells bad.","weird","Garbage=34|Feet=22|Skunk=16|Rotten Eggs=12|Dirty Diaper=10|Gym Socks=6"],
+ ["Name something people sneak into a movie theater.","weird","Candy=44|Snacks=22|Drinks=16|Popcorn=8|Fast Food=6|A Friend=4"],
+ ["Name an excuse for not doing your homework.","weird","The Dog Ate It=44|Forgot=22|Was Sick=14|Too Busy=10|Lost It=6|Didn't Understand=4"]
 ];
+const SURVEYS = CURATED.map(([q, c, a]) => ({q, c, a: to100(parseAns(a))}));
+
+/* Combinatorial templates: question pattern x scenario, each with its own
+   realistic answer pool (most popular first). The engine jitters the weights,
+   picks 5-8 answers, then re-normalizes to exactly 100 so replays differ. */
+const TEMPLATES = [
+ {t:"Name something you'd hate to forget when {x}.", c:"travel", f:[
+  ["going on vacation","Passport|Phone Charger|Toothbrush|Wallet|Medicine|Underwear|Sunscreen|Swimsuit|Glasses"],
+  ["going to the beach","Sunscreen|Towel|Swimsuit|Sunglasses|Umbrella|Cooler|Snacks|Water|Flip-Flops"],
+  ["leaving for work","Keys|Phone|Wallet|Lunch|Laptop|ID Badge|Coffee|Glasses"],
+  ["heading to the gym","Water Bottle|Headphones|Towel|Sneakers|Gym Clothes|Deodorant|Lock|Phone"],
+  ["going on a first date","Wallet|Breath Mints|Deodorant|Phone|Cologne / Perfume|Car Keys|Flowers|Manners", "family"],
+  ["going to a wedding","The Gift|Card|Invitation|Tie|Tissues|Dress Shoes|Phone|Directions", "family"],
+  ["going camping","Tent|Sleeping Bag|Flashlight|Matches|Food|Bug Spray|Water|Toilet Paper"]]},
+ {t:"Name something people lie about {x}.", c:"weird", f:[
+  ["on a first date","Age|Job|Weight|Income|Height|Hobbies|Past Relationships|Cooking Skills"],
+  ["on their resume","Experience|Skills|Education|Salary|Job Title|References|Languages|Hobbies","work"],
+  ["to their doctor","How Much They Drink|Exercise|Diet|Smoking|Flossing|Weight|Sleep|Taking Their Meds"],
+  ["to their parents","Where They Were|Grades|Who They Were With|Money|Curfew|Homework|Dating|Partying","family"],
+  ["on social media","Their Looks|Vacations|Relationship|Money|Job|Happiness|Age|Food","pop"],
+  ["to their boss","Being Sick|Traffic|Workload|Deadlines|Weekend Plans|Liking the Job|Being Busy|Emails","work"]]},
+ {t:"Name a sound you hear {x}.", c:"everyday", f:[
+  ["at the beach","Waves|Seagulls|Kids Laughing|Music|Wind|Ice Cream Truck|Splashing|Lifeguard Whistle","travel"],
+  ["on a farm","Rooster|Cows Mooing|Pigs Oinking|Tractor|Dogs Barking|Chickens Clucking|Horses Neighing|Sheep Baaing","family"],
+  ["at a baseball game","Crowd Cheering|Bat Cracking|Vendors Yelling|Organ Music|Umpire|National Anthem|Announcer|Booing","pop"],
+  ["in a hospital","Beeping Machines|Intercom Pages|Babies Crying|Coughing|Footsteps|Phones Ringing|Sirens|Snoring"],
+  ["in a kitchen","Sizzling|Microwave Beep|Blender|Chopping|Dishwasher|Boiling Water|Timer|Pots Clanging","food"],
+  ["at night in the woods","Crickets|Owls|Wind|Wolves Howling|Twigs Snapping|Frogs|Rustling Leaves|Campfire Crackling","travel"],
+  ["in a classroom","Teacher Talking|School Bell|Whispering|Pencils Scratching|Chairs Scraping|Laughing|Coughing|Paper Rustling","work"]]},
+ {t:"Name something you associate with {x}.", c:"holidays", f:[
+  ["spring","Flowers|Rain|Easter|Allergies|Birds|Spring Cleaning|Baseball|Warm Weather"],
+  ["summer","Sun|Beach|Swimming|Vacation|Ice Cream|Heat|BBQ|No School"],
+  ["fall","Leaves|Pumpkins|Halloween|Football|Thanksgiving|Sweaters|Apple Picking|Pumpkin Spice"],
+  ["New Year's Eve","Fireworks|Champagne|Countdown|Ball Drop|Kissing|Resolutions|Parties|Staying Up Late"],
+  ["Easter","Eggs|Bunny|Candy|Church|Baskets|Chocolate|Ham|Egg Hunt"],
+  ["birthdays","Cake|Presents|Candles|Balloons|Party|Singing|Getting Older|Cards"],
+  ["Mother's Day","Flowers|Cards|Brunch|Breakfast in Bed|Chocolate|Gifts|Hugs|Phone Call","family"],
+  ["the Super Bowl","Football|Commercials|Wings|Halftime Show|Beer|Parties|Betting|Nachos","pop"]]},
+ {t:"Name something you'd find {x}.", c:"everyday", f:[
+  ["in a teenager's bedroom","Dirty Clothes|Phone Charger|Posters|Video Games|Dirty Dishes|Makeup|Laptop|Shoes","family"],
+  ["in a doctor's office","Stethoscope|Magazines|Scale|Thermometer|Exam Table|Needles|Tongue Depressors|Hand Sanitizer"],
+  ["in a glove compartment","Registration|Napkins|Insurance Card|Owner's Manual|Sunglasses|Maps|Pens|Flashlight","travel"],
+  ["in a refrigerator","Milk|Eggs|Leftovers|Butter|Cheese|Juice|Ketchup|Vegetables","food"],
+  ["at a garage sale","Clothes|Toys|Books|Furniture|Dishes|Tools|Old Electronics|Lamps"],
+  ["in a toolbox","Hammer|Screwdriver|Wrench|Nails|Tape Measure|Pliers|Screws|Duct Tape"],
+  ["in a college dorm room","Mini Fridge|Ramen|Laptop|Posters|Dirty Laundry|Microwave|Coffee Maker|String Lights","work"]]},
+ {t:"Name something people do {x}.", c:"everyday", f:[
+  ["while stuck in traffic","Listen to Music|Check Phone|Honk|Sing|Yell|Eat|Make Calls|Daydream","travel"],
+  ["at a family reunion","Eat|Catch Up|Take Photos|Play Games|Gossip|Hug|Argue|Drink","family"],
+  ["on a lazy Sunday","Sleep In|Watch TV|Nap|Eat|Read|Watch Football|Go to Church|Stay in Pajamas"],
+  ["at a wedding reception","Dance|Eat|Drink|Give Toasts|Cut the Cake|Throw the Bouquet|Take Photos|Cry","family"],
+  ["on the first day of vacation","Relax|Sleep|Swim|Eat Out|Unpack|Explore|Take Photos|Drink","travel"],
+  ["the night before a big test","Study|Pray|Cram|Sleep|Panic|Review Notes|Drink Coffee|Make Flash Cards","work"],
+  ["at the gym","Lift Weights|Run|Stretch|Sweat|Take Selfies|Listen to Music|Use the Treadmill|Shower"]]},
+ {t:"Name a reason someone might {x}.", c:"weird", f:[
+  ["quit their job","Low Pay|Bad Boss|Stress|Better Offer|Moving|Burnout|Long Hours|Retirement","work"],
+  ["be late to a party","Traffic|Getting Ready|Kids|Got Lost|Work|Car Trouble|Babysitter|Fashionably Late"],
+  ["walk out of a restaurant","Long Wait|Rude Service|Too Expensive|Dirty|Wrong Order|Emergency|Got Sick|Bad Smell","food"],
+  ["get a puppy","Companionship|Kids Begged|Protection|Loneliness|Exercise|Loves Animals|They're Cute|Birthday Gift","family"],
+  ["move to a new city","New Job|Cheaper Rent|Family|School|Weather|Fresh Start|Love|Retirement"],
+  ["cry at a movie","Sad Ending|The Dog Dies|Love Story|Someone Dies|Happy Ending|Reunion|The Music|Memories","pop"]]},
+ {t:"Name something that {x}.", c:"weird", f:[
+  ["is cold","Ice|Snow|Ice Cream|Freezer|Refrigerator|Popsicle|Winter|Cold Drinks"],
+  ["is round","Ball|Sun|Moon|Wheel|Earth|Pizza|Clock|Coin"],
+  ["is yellow","Sun|Banana|Lemon|School Bus|Taxi|Corn|Duck|Mustard"],
+  ["has wheels","Car|Bike|Bus|Truck|Skateboard|Stroller|Wagon|Shopping Cart","travel"],
+  ["you can fold","Laundry|Paper|Clothes|Napkin|Chair|Map|Towels|Blanket","everyday"],
+  ["gets passed down in families","Jewelry|Recipes|Furniture|Photos|Money|Clothes|Family Bible|Traditions","family"],
+  ["you plug in","Phone Charger|TV|Lamp|Computer|Toaster|Hair Dryer|Microwave|Refrigerator","everyday"]]},
+ {t:"Name a food you might eat {x}.", c:"food", f:[
+  ["at a baseball game","Hot Dog|Peanuts|Popcorn|Nachos|Cracker Jack|Pretzel|Cotton Candy|Burger"],
+  ["at a county fair","Corn Dog|Funnel Cake|Cotton Candy|Turkey Leg|Fried Oreos|Lemonade|Candy Apple|Kettle Corn"],
+  ["on a picnic","Sandwiches|Fried Chicken|Potato Salad|Watermelon|Chips|Fruit|Cookies|Hot Dogs"],
+  ["at a sleepover","Pizza|Popcorn|Candy|Chips|Ice Cream|Cookies|Pancakes|S'mores","family"],
+  ["when you're sick","Soup|Crackers|Toast|Jell-O|Popsicles|Ginger Ale|Tea|Applesauce"],
+  ["at a Super Bowl party","Wings|Pizza|Nachos|Chips & Dip|Sliders|Chili|Pigs in a Blanket|Veggie Tray"],
+  ["on a road trip","Chips|Beef Jerky|Fast Food|Candy|Sunflower Seeds|Sandwiches|Trail Mix|Gas Station Snacks","travel"],
+  ["at a pizza party","Pepperoni Pizza|Cheese Pizza|Breadsticks|Wings|Salad|Garlic Knots|Soda|Cake"]]},
+ {t:"Name something you'd see {x}.", c:"everyday", f:[
+  ["at a zoo","Lions|Monkeys|Elephants|Giraffes|Tigers|Bears|Zebras|Penguins","family"],
+  ["at a circus","Clowns|Elephants|Lions|Acrobats|Ringmaster|Trapeze|Tightrope Walker|Popcorn","pop"],
+  ["in a big city","Tall Buildings|Cars|Crowds|Taxis|Traffic Lights|Pigeons|Buses|Restaurants","travel"],
+  ["at a car wash","Soap|Water|Brushes|Cars|Towels|Vacuums|Foam|Air Fresheners"],
+  ["at a high school dance","Dancing|DJ|Chaperones|Punch|Balloons|Couples|Dresses|Awkward Teens","work"],
+  ["at an airport","Planes|Luggage|Security|Pilots|Long Lines|Flight Attendants|Gates|Duty-Free Shops","travel"]]},
+ {t:"Name something you might say {x}.", c:"weird", f:[
+  ["when you stub your toe","Ouch!|Ow!|A Curse Word|Dang It!|Oh My Gosh!|That Hurt!|Why Me?|Who Put That There?"],
+  ["when you get a gift you don't like","Thank You|I Love It|You Shouldn't Have|How Thoughtful|It's Nice|Oh Wow|Where'd You Get It?|Interesting..."],
+  ["when your alarm goes off","Five More Minutes|Ugh|No!|Already?|Shut Up|Good Morning|I'm Up|Not Today"],
+  ["when you see a cute puppy","Aww!|So Cute!|Can I Pet It?|Puppy!|I Want One|Hi, Baby!|What's His Name?|Look!","family"]]},
+ {t:"Name a job that requires {x}.", c:"work", f:[
+  ["a lot of patience","Teacher|Nurse|Customer Service|Daycare Worker|Doctor|Parent|Therapist|Waiter"],
+  ["working late at night","Nurse|Security Guard|Police Officer|Bartender|Doctor|Truck Driver|Baker|Janitor"],
+  ["strong muscles","Construction Worker|Mover|Firefighter|Farmer|Lumberjack|Athlete|Personal Trainer|Mechanic"],
+  ["good people skills","Salesperson|Teacher|Nurse|Customer Service|Politician|Therapist|Waiter|Receptionist"],
+  ["a steady hand","Surgeon|Dentist|Tattoo Artist|Barber|Painter|Jeweler|Pilot|Watchmaker"]]}
+];
+
+const Engine = (() => {
+  const CAT_NAMES = {everyday:'Everyday Life', food:'Food & Drink', travel:'Travel', holidays:'Holidays', family:'Family & Kids', pop:'Pop Culture', work:'Work & School', weird:'Weird & Funny'};
+  const STOPW = new Set('the and for with you your name something some about what when that this are was can into out our their they have has like a an of on in at to me my'.split(' '));
+  const words = s => String(s).toLowerCase().replace(/&/g,' ').replace(/[^a-z0-9\s]/g,' ').split(/\s+/)
+    .filter(w => w.length > 1 && !STOPW.has(w)).map(w => w.length > 4 ? w.replace(/ies$/,'y').replace(/s$/,'') : w.replace(/s$/,''));
+  const CAT_KW = {
+    everyday:'home house morning night daily life household chore chores bed sleep bathroom kitchen couch everyday',
+    food:'food foods eat eating drink drinks snack snacks dinner lunch breakfast cook cooking restaurant pizza dessert fruit coffee candy burger taco bbq',
+    travel:'travel trip trips road vacation beach airport plane flight hotel camping car drive driving traffic summer cruise',
+    holidays:'holiday holidays christmas halloween thanksgiving easter valentine new year fourth july birthday season seasons winter summer spring fall party',
+    family:'family families kid kids child children parent parents mom dad baby babies grandparent grandma grandpa sibling wedding pet pets dog',
+    pop:'movie movies tv television music celebrity celebrities famous superhero show shows pop culture song songs sport sports game',
+    work:'work office job jobs boss school college dorm class teacher student students meeting homework career interview coworker',
+    weird:'weird funny gross silly strange random embarrassing lie lies excuse excuses awkward'
+  };
+  Object.keys(CAT_KW).forEach(k => CAT_KW[k] = new Set(words(CAT_KW[k])));
+  const pool = [];
+  CURATED.forEach((c, i) => pool.push({q:c[0], cat:c[1], kind:'c', i, text: c[0] + ' ' + c[2].replace(/=\d+/g,'')}));
+  TEMPLATES.forEach(t => t.f.forEach(f => {
+    const q = t.t.replace('{x}', f[0]);
+    pool.push({q, cat: f[2] || t.c, kind:'t', items: parseAns(f[1]), text: q + ' ' + f[1]});
+  }));
+  pool.forEach(c => { c.qw = new Set(words(c.q)); c.aw = new Set(words(c.text)); });
+  function build(c){
+    if(c.kind === 'c') return {q:c.q, a:SURVEYS[c.i].a.map(x => x.slice()), cat:c.cat};
+    const items = c.items.map(([t, w]) => [t, w * (0.72 + Math.random()*0.6)]).sort((a, b) => b[1] - a[1]);
+    const n = Math.min(items.length, 5 + Math.floor(Math.random()*4));
+    return {q:c.q, a:to100(items.slice(0, n)), cat:c.cat};
+  }
+  function score(c, tw){
+    let s = 0;
+    tw.forEach(w => { if(c.qw.has(w)) s += 3; else if(c.aw.has(w)) s += 1.5; if(CAT_KW[c.cat].has(w)) s += 2; });
+    return s;
+  }
+  function pick(theme, isUsed){
+    const tw = words(theme || '');
+    let avail = pool.filter(c => !isUsed(c.q)), reset = false;
+    if(!avail.length){ reset = true; avail = pool.slice(); }
+    let chosen = null, matched = false;
+    if(tw.length){
+      const sc = avail.map(c => [c, score(c, tw)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
+      if(sc.length){ matched = true; const top = sc[0][1], best = sc.filter(x => x[1] >= top*0.6); chosen = best[Math.floor(Math.random()*best.length)][0]; }
+    }
+    if(!chosen) chosen = avail[Math.floor(Math.random()*avail.length)];
+    return Object.assign(build(chosen), {matched, reset});
+  }
+  return {pick, size: pool.length, CAT_NAMES};
+})();
+function parseAns(str){
+  const RANK = [30,22,16,12,9,7,5,4,3,2];
+  return str.split('|').map((s, i) => { const m = s.trim().match(/^(.*?)(?:=(\d+))?$/); return [m[1].trim(), m[2] ? +m[2] : (RANK[i] || 2)]; });
+}
+function to100(ans){
+  const tot = ans.reduce((s, a) => s + a[1], 0) || 1;
+  const r = ans.map(a => [a[0], Math.max(2, Math.round(a[1] * 100 / tot))]).sort((a, b) => b[1] - a[1]);
+  r[0][1] += 100 - r.reduce((s, a) => s + a[1], 0);
+  return r.sort((a, b) => b[1] - a[1]);
+}
 
 /* ============================================================
    Sound effects (Web Audio API, no files)
@@ -854,22 +1058,273 @@ const Confetti = (() => {
 })();
 
 /* ============================================================
-   Close-enough matcher (local fallback)
+   Smart Local Judge (close-enough matcher, no network)
+   Concept groups: every term on a line means the same thing.
    ============================================================ */
+const CONCEPTS = `
+sunscreen, sunblock, sun block, spf, suntan lotion, sun tan lotion, sun cream, tanning lotion, sunscreen lotion, sun lotion, sun screen
+bug spray, insect repellent, bug repellent, deet, mosquito spray, mosquito repellent, repellent
+towel, beach towel, bath towel, towels
+umbrella, parasol, beach umbrella
+phone, cellphone, cell, mobile, smartphone, iphone, android, cell phone, mobile phone
+phone charger, charger, charging cable, charging cord, power cord, cable, power bank
+remote, remote control, clicker, tv remote, channel changer
+keys, key, car keys, house keys, keychain, lost keys
+wallet, purse, billfold, money clip
+glasses, eyeglasses, spectacles, specs, readers, reading glasses
+sunglasses, shades, sunnies, sun glasses
+television, tv, telly, the tube, watch tv, watching tv, tv shows, television shows, netflix, streaming, binge watch
+computer, laptop, pc, desktop, macbook, notebook computer
+headphones, earbuds, earphones, airpods, headset, ear buds
+socks, sock, gym socks
+shoes, sneakers, tennis shoes, trainers, boots, kicks, footwear, flip flops, sandals
+pajamas, pjs, pyjamas, jammies, nightgown, sleepwear, put on pajamas, change into pajamas, stay in pajamas
+coat, jacket, parka, overcoat, coats
+hat, cap, baseball cap, beanie
+toothbrush, brush teeth, brushing teeth, brush your teeth, toothpaste, tooth brush, floss, flossing
+shower, bath, bathe, take a shower, bubble bath, take a bath, showering
+toilet, bathroom, restroom, potty, pee, use the bathroom, go to the bathroom, use bathroom, toilet paper, loo
+bed, mattress, make the bed, making the bed
+sleep, nap, snooze, doze, slumber, rest, go to sleep, fall asleep, sleep in, sleeping in, hit snooze, napping
+couch, sofa, loveseat, settee
+refrigerator, fridge, icebox, mini fridge
+trash, garbage, rubbish, take out trash, taking out the trash, garbage can, trash can, take out the garbage
+dishes, wash dishes, doing dishes, dishwasher, washing dishes, dirty dishes
+laundry, wash clothes, washing machine, dirty clothes, dirty laundry, folding clothes
+vacuum, vacuuming, hoover, sweep, sweeping, mop, mopping
+clean, cleaning, tidy, tidying, chores, housework, clean up, spring cleaning
+batteries, battery
+tape, scotch tape, duct tape, masking tape
+pens, pen, pencil, pencils, marker, markers, sharpie
+rubber bands, rubber band, elastic, elastics
+hair ties, hair tie, scrunchie, ponytail holder, bobby pins
+coins, loose change, quarters, pennies, dimes, nickels, spare change
+tissues, kleenex, tissue, hanky, handkerchief
+candy, sweets, lollipop, lollipops, treats, chocolate, chocolates, candy bar, gummy bears, skittles, m&ms, hershey, hershey bar, snickers, kit kat, reeses
+mints, breath mints, tic tacs, altoids, peppermints
+gum, chewing gum, bubble gum
+lipstick, lip gloss, chapstick, lip balm
+makeup, cosmetics, mascara, foundation, eyeliner, fix makeup, do makeup
+lotion, hand lotion, moisturizer, hand cream
+medicine, meds, pills, medication, aspirin, tylenol, advil, ibuprofen, painkillers, vitamins, prescription
+flashlight, torch, lantern, headlamp
+matches, lighter, match, fire starter, matches lighter
+sleeping bag, bedroll
+map, gps, directions, atlas, navigation, maps
+water, water bottle, bottled water, h2o, thirsty
+money, cash, dollars, bucks, dough, allowance, no money, broke, income, salary, low pay
+pizza, slice, pizza pie, pepperoni pizza, cheese pizza
+burger, hamburger, cheeseburger, whopper, big mac, sliders
+hot dog, hotdog, frank, frankfurter, wiener, hot dogs
+fries, french fries, tater tots, curly fries
+chips, potato chips, crisps, doritos, lays, pringles, tortilla chips, cheetos
+snacks, snack, munchies, junk food, chips, a snack, eat snacks, gas station snacks
+soda, pop, coke, pepsi, soft drink, sprite, cola, root beer, ginger ale
+coffee, java, espresso, latte, cappuccino, cup of joe, black coffee, iced coffee, make coffee, drink coffee
+tea, green tea, iced tea, chai, herbal tea
+beer, brew, cold one, ale, lager, brewski
+wine, champagne, vino, prosecco, bubbly
+alcohol, booze, liquor, drinking, cocktail, cocktails, drunk, beer, wine
+drinks, drink, beverage, beverages, sip
+ice cream, gelato, frozen yogurt, sundae, ice cream cone, soft serve, ice cream truck
+cake, birthday cake, cupcake, cupcakes, wedding cake, cut the cake
+cookies, cookie, biscuits
+eggs, egg, omelet, omelette, scrambled eggs, fried eggs, rotten eggs
+pancakes, flapjacks, hotcakes, waffles
+cereal, cheerios, frosted flakes, granola
+sandwich, sandwiches, sub, hoagie, hero, panini, grilled cheese
+chicken wings, wings, buffalo wings, hot wings
+tacos, taco, burrito, burritos, nachos
+spaghetti, pasta, noodles, linguine, macaroni, mac and cheese
+ramen, instant noodles, cup noodles, top ramen, cup of noodles
+turkey, turkey leg
+stuffing, dressing
+mashed potatoes, potatoes, spuds, baked potato
+popcorn, kettle corn
+marshmallows, marshmallow, smores, s mores
+ketchup, catsup
+mustard, dijon
+cheese, extra cheese, cheddar, mozzarella
+mushrooms, mushroom
+peppers, green peppers, bell peppers, jalapenos, jalapeno
+vegetables, veggies, greens, broccoli, carrots, salad, veggie tray
+soup, chicken soup, broth, chicken noodle soup
+crackers, saltines, ritz
+toast, bread, bagel, bagels
+fruit, fruits, apple, banana, orange, grapes, watermelon
+bbq, barbecue, barbeque, grill, grilling, cookout, cook out
+teeth, tooth
+nose, pick nose, picking nose, nose picking, booger, boogers
+hair, fix hair, brush hair, comb hair, do hair, haircut, hairdo
+feet, foot, toes, stinky feet, smelly feet
+face, wash face, washing face
+eyes, eye
+stomach, tummy, belly, stomach ache, tummy ache, upset stomach, stomach bug, stomach flu, throw up, vomit, puke, got sick
+head, headache, migraine
+happy, glad, joyful, cheerful, excited, happiness
+sad, upset, depressed, unhappy, crying, cry, tears, sob, weep, tear up
+angry, mad, furious, yell, yelling, scream, screaming, shout, curse, cursing, swear, swearing, cuss, curse word, road rage
+scared, afraid, frightened, terrified, fear, panic, panicking
+tired, sleepy, exhausted, fatigued, worn out, burnout, burned out
+bored, boring, boredom
+nervous, anxious, worried, stressed, stress, anxiety
+love, romance, romantic, in love, love story
+sick, ill, flu, cold, fever, under the weather, unwell, not feeling well, was sick, the flu, coughing, sneezing
+hangover, hungover
+dog, puppy, pup, doggy, hound, canine, dogs, dogs barking, dog ate it, the dog ate it
+cat, kitten, kitty, feline, cats
+pets, pet, a pet, dog, cat, goldfish
+cow, cattle, bull, calf, moo, mooing, cows, cows mooing
+pig, hog, swine, piglet, oink, oinking, pigs
+chicken, hen, rooster, chick, cluck, clucking, chickens
+horse, pony, stallion, mare, foal, neigh, neighing, horses
+sheep, lamb, ewe, baa, baaing
+goat, billy goat, goats
+birds, bird, seagull, seagulls, pigeon, pigeons, sparrow, robin, chirping, tweeting
+snake, serpent, python, rattlesnake, snakes
+spider, spiders, tarantula, arachnid
+monkey, monkeys, ape, chimp, chimpanzee, gorilla
+lion, lions
+bear, bears, grizzly
+car, auto, automobile, vehicle, sedan, suv, cars
+truck, pickup, pickup truck, semi
+bike, bicycle, cycle, biking, cycling
+bus, school bus
+airplane, plane, jet, aircraft, airliner, flight, airplanes, planes, flying
+boat, ship, cruise, yacht, cruise ship
+train, subway, metro
+taxi, cab, uber, lyft, taxis
+car trouble, flat tire, car broke down, broke down, dead battery, car wouldn't start, car problems
+traffic, traffic jam, rush hour, gridlock, congestion, stuck in traffic
+overslept, oversleep, slept in, alarm didn't go off, slept through alarm, woke up late
+weather, snow, rain, storm, snowstorm, blizzard, ice
+shirt, t shirt, tshirt, tee, blouse
+pants, jeans, trousers, slacks
+dress, gown, dresses, wedding dress
+underwear, undies, boxers, briefs, panties
+swimsuit, bathing suit, swim trunks, bikini, swimwear, trunks
+tie, necktie, bow tie
+costume, costumes, dress up
+uniform, uniforms
+sweater, sweatshirt, hoodie, cardigan, sweaters
+gloves, mittens
+nice clothes, suit, dress clothes, business attire, outfit, interview outfit
+internet, wifi, wi fi, wireless
+social media, facebook, instagram, tiktok, twitter, snapchat, scroll, scrolling, doomscrolling, scroll social media, scroll on phone
+text, texting, message, messaging, sms, text someone
+call, calling, phone call, call someone, make calls, facetime
+video games, video game, gaming, xbox, playstation, nintendo, game controller, controller
+games, play games, board games, card games, game night
+email, e mail, emails, inbox
+camera, take pictures, take photos, photos, pictures, selfie, selfies, take selfies, photograph, photo
+music, songs, tunes, playlist, radio, listen to music, spotify, change the radio
+movie, movies, film, flick, cinema, watch a movie
+swim, swimming, take a dip, splash, splashing, go swimming
+sunbathe, tan, tanning, sunbathing, lie in the sun, catch some rays, get a tan
+sing, singing, karaoke, sing along, singing along
+dance, dancing, boogie
+eat, eating, munch, grab a bite, dine, eat out, eating out
+read, reading, book, books, novel, magazine, magazines, read a book
+walk, walking, stroll, hike, hiking
+run, running, jog, jogging, sprint
+exercise, workout, gym, lift weights, lifting weights, weights, treadmill, use the treadmill
+talk, chat, chatting, gossip, gossiping, talking, catching up
+laugh, laughing, giggle, chuckle, kids laughing
+pray, praying, prayer, say prayers
+study, studying, cram, cramming, review notes, hit the books, flash cards
+work, job, working, office, career, workload
+shop, shopping, buy, buying, mall, shop online, online shopping
+cook, cooking, bake, baking, chef
+drive, driving
+fight, fighting, argue, arguing, bicker, quarrel, fight with siblings
+hug, hugging, embrace, cuddle, hugs
+kiss, kissing, smooch, make out
+complain, complaining, whine, whining, gripe, nag, nagging
+honk, honking, beep the horn, lean on the horn
+daydream, daydreaming, zone out, space out, stare off
+doodle, doodling, draw, drawing, sketch
+library, bookstore
+church, temple, mosque, synagogue, chapel, mass, go to church
+hospital, emergency room, er, clinic
+school, class, classroom
+beach, shore, seaside, ocean, coast, waves
+restaurant, diner, cafe
+fireworks, firecrackers, sparklers
+christmas, xmas, santa, santa claus
+gifts, presents, present, gift, the gift
+lights, christmas lights, string lights, twinkle lights
+ornaments, decorations, baubles
+star, tree topper
+pumpkin, pumpkins, jack o lantern
+ghost, ghosts, spirit, spooky
+witch, witches
+trick or treating, trick or treat, trick-or-treating
+flowers, roses, bouquet, rose, tulips, throw the bouquet
+cards, card, greeting card, valentine, valentines
+baby, babies, infant, newborn, toddler, a baby, crying babies, babies crying, baby crying
+kids, children, child, kid, your kid, lost child
+heights, high places, being up high, falling, fear of heights
+the dark, darkness, dark, night time
+dying, death, die
+public speaking, speaking in public, giving a speech, speeches, stage fright
+clowns, clown
+police officer, police, cop, cops, policeman, sheriff
+nurse, nurses
+doctor, physician, doc, surgeon, doctors
+firefighter, fireman, firemen
+military, soldier, soldiers, army, navy, marines, armed forces
+mail carrier, mailman, postman, postal worker, mail lady
+pilot, pilots
+teacher, professor, instructor, teachers
+`;
+
 const Matcher = (() => {
-  const STOP = new Set('a an the to of on in at for and or with my your his her their our some someone something somebody thing things put putting puts get getting gets go going goes do doing does make making is are be being been it its they you i we that this from by up out off into really like um uh just'.split(' '));
-  const SYN = {tv:'television', telly:'television', cell:'phone', cellphone:'phone', mobile:'phone', smartphone:'phone', iphone:'phone', auto:'car', automobile:'car', kid:'child', kids:'child', children:'child', mom:'mother', mum:'mother', mommy:'mother', dad:'father', daddy:'father', pop:'soda', sofa:'couch', bike:'bicycle', fridge:'refrigerator', pj:'pajama', pjs:'pajama', jammies:'pajama', pyjama:'pajama', pyjamas:'pajama', doc:'doctor', bathe:'bath', bathing:'bath', showering:'shower', teeth:'tooth', mice:'mouse', geese:'goose', feet:'foot', people:'person'};
+  const STOP = new Set(('a an the to of on in at for and or with my your his her their our some someone something somebody thing things stuff ' +
+    'put putting puts get getting gets got go going goes went do doing does did make making made use using try trying ' +
+    'is are was were be being been it its they them you i me we us he him she that this these those from by up out off into ' +
+    'really like um uh just very so too lot lots kind sort maybe guess probably usually always never much many have has had ' +
+    'would could should will can cant dont im ive youre when while all any one get let lets yeah ok okay oh').split(' '));
+  const IRR = {teeth:'tooth', mice:'mouse', geese:'goose', feet:'foot', people:'person', children:'child', women:'woman', men:'man', leaves:'leaf', knives:'knife', wives:'wife', loaves:'loaf'};
   function stem(w){
-    if(SYN[w]) return SYN[w];
+    if(IRR[w]) return IRR[w];
     if(w.length > 5 && w.endsWith('ing')) w = w.slice(0,-3);
     else if(w.length > 4 && w.endsWith('ies')) w = w.slice(0,-3) + 'y';
-    else if(w.length > 4 && /(ches|shes|xes|ses)$/.test(w)) w = w.slice(0,-2);
+    else if(w.length > 4 && /(ches|shes|xes|sses|zes)$/.test(w)) w = w.slice(0,-2);
+    else if(w.length > 4 && w.endsWith('ied')) w = w.slice(0,-3) + 'y';
     else if(w.length > 4 && w.endsWith('ed')) w = w.slice(0,-2);
-    else if(w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) w = w.slice(0,-1);
-    if(w.length > 3 && /(.)\1$/.test(w)) w = w.slice(0,-1); // swimm -> swim, putt -> put
-    return SYN[w] || w;
+    else if(w.length > 3 && w.endsWith('s') && !w.endsWith('ss') && !w.endsWith('us')) w = w.slice(0,-1);
+    if(w.length > 3 && /([b-df-hj-np-tv-z])\1$/.test(w)) w = w.slice(0,-1);   // swimm -> swim
+    if(w.length > 4 && w.endsWith('e')) w = w.slice(0,-1);                      // bathe -> bath, dance -> danc
+    return w;
   }
-  const toks = s => String(s).toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w => w && !STOP.has(w)).map(stem);
+  const base = s => String(s).toLowerCase().replace(/&/g,' and ').replace(/['’]/g,'').replace(/[^a-z0-9\s]/g,' ')
+    .split(/\s+/).filter(w => w && !STOP.has(w)).map(stem).filter(Boolean);
+  // phrase -> concept ids (spaced key and joined key, so "sun block" == "sunblock")
+  const PHR = new Map(); let MAXL = 1;
+  CONCEPTS.trim().split('\n').forEach((line, gi) => {
+    line.split(',').forEach(term => {
+      const t = base(term); if(!t.length) return;
+      MAXL = Math.max(MAXL, t.length);
+      [t.join(' '), t.join('')].forEach(k => { if(!PHR.has(k)) PHR.set(k, new Set()); PHR.get(k).add(gi); });
+    });
+  });
+  // groups that share a term (e.g. "dog" is in both dog and pets) count as related
+  const LINK = new Map();
+  PHR.forEach(ids => { ids.forEach(x => { if(!LINK.has(x)) LINK.set(x, new Set([x])); ids.forEach(y => LINK.get(x).add(y)); }); });
+  function analyze(s){
+    const t = base(s), out = [];
+    let i = 0;
+    while(i < t.length){
+      let hit = false;
+      for(let L = Math.min(MAXL, t.length - i); L >= 1; L--){
+        const seg = t.slice(i, i+L), k1 = seg.join(' '), k2 = seg.join('');
+        const c = PHR.get(k1) || PHR.get(k2);
+        if(c){ out.push({w: k2, c}); i += L; hit = true; break; }
+      }
+      if(!hit){ out.push({w: t[i], c: new Set()}); i++; }
+    }
+    return out;
+  }
   function lev(a, b){
     if(a === b) return 0; const m = a.length, n = b.length; if(!m) return n; if(!n) return m;
     let prev = Array.from({length:n+1}, (_,j) => j), cur = new Array(n+1);
@@ -877,30 +1332,53 @@ const Matcher = (() => {
     return prev[n];
   }
   const sim = (a, b) => (!a || !b) ? 0 : 1 - lev(a, b) / Math.max(a.length, b.length);
-  function tm(x, y){ if(x === y) return 1; if(x.length >= 4 && y.length >= 4 && (x.startsWith(y) || y.startsWith(x))) return 0.9; const s = sim(x, y); return s >= 0.78 ? s : 0; }
+  // token-vs-token: returns [score, kind]
+  function tm(x, y){
+    if(x.w === y.w) return [1, 'word'];
+    for(const c of x.c) if(y.c.has(c)) return [0.9, 'concept'];
+    for(const c of x.c){ const l = LINK.get(c); if(l) for(const d of y.c) if(l.has(d)) return [0.82, 'concept']; }
+    if(x.w.length >= 4 && y.w.length >= 4 && (x.w.startsWith(y.w) || y.w.startsWith(x.w))) return [0.86, 'word'];
+    const s = sim(x.w, y.w); if(s >= 0.8) return [s*0.95, 'spell'];
+    const [lo, hi] = x.w.length < y.w.length ? [x.w, y.w] : [y.w, x.w];
+    if(lo.length >= 4 && hi.includes(lo)) return [0.7, 'part'];               // "screen" ~ "sunscreen"
+    return [0, ''];
+  }
   function phrase(guess, ans){
-    const g = toks(guess), a = toks(ans);
-    if(!g.length || !a.length) return sim(String(guess).toLowerCase().trim(), String(ans).toLowerCase().trim()) * 0.8;
+    const g = analyze(guess), a = analyze(ans);
+    if(!g.length || !a.length) return {s: sim(String(guess).toLowerCase().trim(), String(ans).toLowerCase().trim()) * 0.8, kind:'spell'};
+    const kinds = new Set();
     let hitA = 0, hitG = 0;
-    a.forEach(t => hitA += Math.max(...g.map(u => tm(t, u))));
-    g.forEach(u => hitG += Math.max(...a.map(t => tm(t, u))));
+    a.forEach(t => { let b = [0,'']; g.forEach(u => { const r = tm(t, u); if(r[0] > b[0]) b = r; }); hitA += b[0]; if(b[1]) kinds.add(b[1]); });
+    g.forEach(u => { let b = 0; a.forEach(t => { b = Math.max(b, tm(t, u)[0]); }); hitG += b; });
     const recall = hitA / a.length, prec = hitG / g.length;
-    const tok = recall*0.7 + prec*0.3;
-    const ch = sim(g.join(' '), a.join(' '));
-    return Math.min(1, Math.max(tok, ch*0.92));
+    const tok = recall*0.72 + prec*0.28;
+    const ch = Math.max(sim(g.map(x => x.w).join(''), a.map(x => x.w).join('')), sim(base(guess).join(''), base(ans).join(''))) * 0.92;
+    const s = Math.min(1, Math.max(tok, ch));
+    const kind = kinds.has('concept') ? 'concept' : kinds.has('part') ? 'part' : kinds.has('spell') ? 'spell' : 'word';
+    return {s, kind: tok >= ch ? kind : 'spell'};
   }
   function score(guess, ans){
     const parts = [ans].concat(String(ans).split(/\s*[\/,]\s*|\s+or\s+/i).filter(Boolean));
-    return Math.max(...parts.map(p => phrase(guess, p)));
+    let best = {s:0, kind:'word'};
+    parts.forEach(p => { const r = phrase(guess, p); if(r.s > best.s) best = r; });
+    return best;
   }
   function best(guess, answers){
-    let bi = -1, bs = 0;
-    answers.forEach((a, i) => { const s = score(guess, a.text) + (a.revealed ? -0.001 : 0); if(s > bs){ bs = s; bi = i; } });
-    const type = bs >= 0.9 ? 'exact' : bs >= 0.6 ? 'close' : bs >= 0.4 ? 'stretch' : 'none';
-    return {matchIndex: type === 'none' ? -1 : bi, matchType: type, score: bs,
-      reason: type === 'none' ? 'No board answer shares enough words with that guess.' : `Word match score ${Math.round(bs*100)}% against "${answers[bi].text}". You make the final call.`};
+    let bi = -1, br = {s:0, kind:''};
+    answers.forEach((a, i) => { const r = score(guess, a.text); const s = r.s - (a.revealed ? 0.001 : 0); if(s > br.s){ br = {s, kind:r.kind}; bi = i; } });
+    const s = br.s;
+    let type = s >= 0.6 ? 'close' : s >= 0.4 ? 'stretch' : 'none';
+    if(s >= 0.97 && br.kind === 'word') type = 'exact';
+    const ans = bi >= 0 ? answers[bi].text : '';
+    const reason = type === 'none' ? "Doesn't match any answer on the board, even counting synonyms."
+      : type === 'exact' ? `Matches "${ans}".`
+      : br.kind === 'concept' ? `"${guess}" means the same thing as "${ans}".`
+      : br.kind === 'spell' ? `Sounds like a near-spelling of "${ans}".`
+      : br.kind === 'part' ? `Partly overlaps with "${ans}". You make the call.`
+      : type === 'stretch' ? `Loosely related to "${ans}". You make the call.` : `Close to "${ans}".`;
+    return {matchIndex: type === 'none' ? -1 : bi, matchType: type, score: s, reason};
   }
-  return {best};
+  return {best, analyze};
 })();
 
 /* ============================================================
@@ -976,7 +1454,7 @@ function initHost(){
     keyBadge();
   }
   function showHost(){ $('#launcher').hidden = true; $('#host').hidden = false; document.title = 'Host Controller — Feud Night'; renderHost(); }
-  function keyBadge(){ const b = $('#lKeyBadge'); const has = Gemini.hasKey(); b.className = 'badge' + (has ? ' ok' : ''); b.textContent = has ? '● Key saved' : 'Optional'; }
+  function keyBadge(){ const b = $('#lKeyBadge'); const has = Gemini.hasKey(); b.className = 'badge' + (has ? ' ok' : ''); b.textContent = has ? '● Gemini on' : 'Not needed'; }
   function applyLauncherTeams(){
     S.teams[0].name = $('#lT1').value.trim() || 'Team 1';
     S.teams[1].name = $('#lT2').value.trim() || 'Team 2';
@@ -986,22 +1464,19 @@ function initHost(){
   $('#lKeyShow').onclick = () => { const i = $('#lKey'); i.type = i.type === 'password' ? 'text' : 'password'; };
   $('#lKeySave').onclick = async () => {
     const k = $('#lKey').value.trim(), out = $('#lKeyMsg');
-    if(!k){ out.innerHTML = '<div class="msg err">Paste a key first, or just play with the built-in surveys.</div>'; return; }
+    if(!k){ out.innerHTML = '<div class="msg info">No key pasted. That is fine: the game works fully without one.</div>'; return; }
     saveKeyField();
     out.innerHTML = '<div class="msg info"><span class="spin"></span> Testing key with Google…</div>';
-    try{ await Gemini.test(k, $('#lModel').value); out.innerHTML = `<div class="msg ok">✓ Key works with <b>${esc(Gemini.model())}</b>. AI surveys and the AI judge are on.</div>`; }
-    catch(e){ out.innerHTML = `<div class="msg err">${esc(e.message)} The key is still saved, and you can play with built-in surveys either way.</div>`; }
+    try{ await Gemini.test(k, $('#lModel').value); out.innerHTML = `<div class="msg ok">✓ Key works with <b>${esc(Gemini.model())}</b>. Gemini now powers surveys and the judge.</div>`; }
+    catch(e){ out.innerHTML = `<div class="msg err">${esc(e.message)} The key is still saved. The game keeps working with the built-in generator either way.</div>`; }
   };
   $('#lKeyDel').onclick = () => { LS.del('geminiKey'); $('#lKey').value = ''; $('#lKeyMsg').innerHTML = '<div class="msg info">Key removed from this browser.</div>'; keyBadge(); };
   $('#lModel').addEventListener('change', saveKeyField);
   $('#lPlay').onclick = () => { saveKeyField(); newGame(false); applyLauncherTeams(); loadBuiltIn(nextBuiltInIndex()); showHost(); };
-  $('#lPlayAI').onclick = () => {
-    saveKeyField();
-    if(!Gemini.hasKey()){ $('#lKeyMsg').innerHTML = '<div class="msg err">Add a Gemini key first, or use "Play Immediately with Built-In Surveys".</div>'; $('#lKey').focus(); return; }
-    newGame(false); applyLauncherTeams(); commit(); showHost(); generate('');
-  };
+  $('#lPlayAI').onclick = () => { saveKeyField(); newGame(false); applyLauncherTeams(); commit(); showHost(); generate(''); };
   $('#lResume').onclick = () => { saveKeyField(); applyLauncherTeams(); commit(); showHost(); };
   $('#hSetup').onclick = showLauncher;
+  $('#lCount').textContent = `${Engine.size} surveys in rotation, with fresh answer mixes and point spreads every time. No sign-up, no API key, no limits.`;
 
   // ---------- state plumbing ----------
   function fx(name, data){
@@ -1095,9 +1570,9 @@ function initHost(){
   }
   async function generate(themeIn){
     const btn = $('#sGen'), msg = $('#sMsg');
-    let theme = (themeIn || '').trim();
-    if(!theme || /^surprise/i.test(theme)) theme = 'Surprise me: pick a fun, everyday topic (for example ' + shuffle(THEMES.slice()).slice(0,3).join(', ') + ')';
-    if(!Gemini.hasKey()){ msg.innerHTML = '<div class="msg info">No Gemini key yet. Add one under ⚙ Setup for AI surveys. Loaded a built-in survey instead.</div>'; if(guardDiscard()) loadBuiltIn(nextBuiltInIndex()); return; }
+    const raw = (themeIn || '').trim(), surprise = !raw || /^surprise/i.test(raw);
+    if(!Gemini.hasKey()){ localGenerate(surprise ? '' : raw); return; }
+    const theme = surprise ? 'Surprise me: pick a fun, everyday topic (for example ' + shuffle(THEMES.slice()).slice(0,3).join(', ') + ')' : raw;
     btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Generating…';
     msg.innerHTML = '<div class="msg info">Asking Gemini for a fresh survey…</div>';
     const recent = Array.from(used).slice(-40);
@@ -1115,14 +1590,25 @@ Rules:
       let r = normalizeSurvey(await Gemini.call(prompt, SCHEMA_SURVEY, {temperature:1.0, thinking:0, timeout:35000}));
       if(used.has(keyQ(r.q))) r = normalizeSurvey(await Gemini.call(prompt + '\nThat question was already used. Write a completely different one.', SCHEMA_SURVEY, {temperature:1.1, thinking:0}));
       if(!guardDiscard()){ msg.innerHTML = '<div class="msg info">Kept the current round. The new survey was discarded.</div>'; return; }
-      loadSurvey(r.q, r.a, 'AI · ' + (themeIn && themeIn.trim() ? themeIn.trim() : 'Surprise'));
-      msg.innerHTML = `<div class="msg ok">✓ New AI survey loaded (${r.a.length} answers).</div>`;
+      loadSurvey(r.q, r.a, 'Gemini AI · ' + (surprise ? 'Surprise' : raw));
+      msg.innerHTML = `<div class="msg ok">✓ Fresh Gemini survey loaded (${r.a.length} answers).</div>`;
     }catch(e){
       console.warn(e);
-      const loadIt = guardDiscard();
-      if(loadIt) loadBuiltIn(nextBuiltInIndex());
-      msg.innerHTML = `<div class="msg err">${esc(e.message)}${loadIt ? ' Loaded a built-in survey so the game keeps moving.' : ''}</div>`;
+      btn.disabled = false; btn.innerHTML = '✨ Generate New Survey';
+      localGenerate(surprise ? '' : raw, esc(e.message) + ' Generated one locally instead.');
     }finally{ btn.disabled = false; btn.innerHTML = '✨ Generate New Survey'; }
+  }
+  // Built-in Infinite Survey Engine: no key, no network
+  function localGenerate(theme, note){
+    const msg = $('#sMsg');
+    if(!guardDiscard()){ msg.innerHTML = '<div class="msg info">Kept the current round.</div>'; return; }
+    const r = Engine.pick(theme, q => used.has(keyQ(q)));
+    if(r.reset){ used.clear(); SS.set('used', []); toast("You've played the whole library. Starting a fresh shuffle with new point spreads.", 'ok', 5000); }
+    const cat = Engine.CAT_NAMES[r.cat] || 'Mixed';
+    loadSurvey(r.q, r.a, 'Fresh · ' + cat);
+    if(note) msg.innerHTML = `<div class="msg info">${note}</div>`;
+    else if(theme && !r.matched) msg.innerHTML = `<div class="msg info">That's every "${esc(theme)}" survey for now, so here's a fresh ${esc(cat)} one.</div>`;
+    else msg.innerHTML = `<div class="msg ok">✓ Fresh ${theme ? '"' + esc(theme) + '" ' : ''}survey ready · ${esc(cat)}</div>`;
   }
 
   // ---------- AI close-enough judge ----------
@@ -1157,12 +1643,12 @@ reason: one short, friendly sentence the host can read.`;
         let type = ['exact','close','stretch','none'].includes(r.matchType) ? r.matchType : 'none';
         if(idx < 0 || idx >= S.answers.length){ idx = -1; type = 'none'; }
         if(type === 'none') idx = -1;
-        res = {matchIndex: idx, matchType: type, reason: String(r.reason || '').slice(0, 300), by:'Gemini'};
+        res = {matchIndex: idx, matchType: type, reason: String(r.reason || '').slice(0, 300), by:'Gemini AI'};
       }catch(e){
-        note = esc(e.message) + ' Used the local word matcher instead.';
+        note = esc(e.message) + ' The built-in judge answered instead.';
       }finally{ btn.disabled = false; btn.innerHTML = 'Check Close Enough'; }
     }
-    if(!res){ res = Object.assign(Matcher.best(guess, S.answers), {by:'Local matcher'}); }
+    if(!res){ res = Object.assign(Matcher.best(guess, S.answers), {by:'Smart judge'}); }
     judge = Object.assign({guess}, res);
     renderJudge(note);
   }
@@ -1182,7 +1668,7 @@ reason: one short, friendly sentence the host can read.`;
         <span class="spacer" style="flex:1"></span><span class="tag">${esc(j.by)}</span></div>
       <div class="reason">${esc(j.reason)}</div>
       <div class="row">${actions}</div>
-      ${note ? `<div class="msg err">${note}</div>` : ''}
+      ${note ? `<div class="msg info">${note}</div>` : ''}
     </div>`;
     const ap = $('#jApprove'); if(ap) ap.onclick = () => { setReveal(j.matchIndex, true); judge = null; $('#gIn').value = ''; renderJudge(); $('#gIn').focus(); };
     const sk = $('#jStrike'); if(sk) sk.onclick = () => { addStrike(); judge = null; $('#gIn').value = ''; renderJudge(); };
@@ -1281,8 +1767,7 @@ reason: one short, friendly sentence the host can read.`;
     if(S.winner != null){ $('#wHide').onclick = () => { S.celebrate = !S.celebrate; commit(); }; $('#wNew').onclick = () => $('#gNew').click(); }
     if(document.activeElement !== $('#gTarget')) $('#gTarget').value = S.target;
     $('#hTvSound').checked = !S.tvMuted; $('#hPreview').checked = prefs.preview;
-    $('#gMode').textContent = Gemini.hasKey() ? '· AI judge (Gemini) on' : '· local word matcher (add a Gemini key in Setup for the AI judge)';
-    $('#sGen').title = Gemini.hasKey() ? '' : 'Needs a Gemini API key (⚙ Setup)';
+    $('#gMode').textContent = Gemini.hasKey() ? '· Gemini AI judge' : '· smart judge, synonyms included';
     updSync();
   }
 
@@ -1309,7 +1794,7 @@ reason: one short, friendly sentence the host can read.`;
   $('#gIn').addEventListener('keydown', e => { if(e.key === 'Enter') check(); if(e.key === 'Escape'){ e.target.value = ''; judge = null; renderJudge(); e.target.blur(); } });
   $('#sGen').onclick = () => generate($('#sTheme').value);
   $('#sTheme').addEventListener('keydown', e => { if(e.key === 'Enter') generate(e.target.value); });
-  $('#sChips').innerHTML = ['Road trips','College dorm life','Pizza toppings','Thanksgiving','Pets','Surprise me'].map(t => `<span class="chip">${t}</span>`).join('');
+  $('#sChips').innerHTML = ['Road trips','Pizza','Holidays','Kids & family','Work & school','Weird & funny','Surprise me'].map(t => `<span class="chip">${t}</span>`).join('');
   $('#sChips').addEventListener('click', e => { if(e.target.classList.contains('chip')){ $('#sTheme').value = e.target.textContent === 'Surprise me' ? '' : e.target.textContent; generate($('#sTheme').value); } });
   $('#sNext').onclick = () => { if(guardDiscard()){ loadBuiltIn(nextBuiltInIndex()); $('#sMsg').innerHTML = ''; } };
   $('#sPick').onchange = e => { const v = e.target.value; if(v !== '' && guardDiscard()){ loadBuiltIn(+v); $('#sMsg').innerHTML = ''; } e.target.value = ''; };
