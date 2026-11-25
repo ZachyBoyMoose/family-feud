@@ -134,6 +134,17 @@ details ol{margin:8px 0 0;padding-left:20px}
 .teamc.ctl{border-color:var(--gold);box-shadow:0 0 0 1px rgba(255,200,61,.4)}
 .winbar{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:linear-gradient(90deg,#5a3d00,#2a1d00);border:1px solid var(--gold);margin-bottom:10px;font-weight:800;color:#ffe7a6;flex-wrap:wrap}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.vibecard{margin-top:18px}
+.vibes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.vibes{grid-template-columns:1fr}}
+.vibes button{text-align:left;padding:12px 14px;border-radius:12px;border:1px solid #2c4392;background:#081133;color:var(--text);display:flex;flex-direction:column;gap:4px;transition:border-color .15s,background .15s}
+.vibes button b{font-size:16px}
+.vibes button span{font-size:13px;color:var(--muted);line-height:1.4}
+.vibes button:hover{border-color:#3d5cc0}
+.vibes button.on{border-color:var(--gold);background:#1a2f78;box-shadow:0 0 0 2px rgba(255,200,61,.35)}
+.vibes button[data-tone=dirty].on{border-color:#ff5866;background:#3a0d20;box-shadow:0 0 0 2px rgba(255,80,100,.35)}
+#hVibe button[data-tone=dirty].on{background:linear-gradient(#ff3b4e,#c80f22);color:#fff}
+#hVibe button[data-tone=family].on{background:linear-gradient(#36e59a,#14a865);color:#04200f}
 .chip{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #2c4392;background:#081133;color:#c9d6ff;cursor:pointer}
 .chip:hover{border-color:var(--gold);color:var(--gold)}
 .sres{margin-top:10px;padding:12px;border-radius:12px;background:#081133;border:1px solid #2c4392}
@@ -279,7 +290,7 @@ body.is-tv{overflow:hidden;background:#000}
       <div class="card">
         <h2>✨ Optional Gemini AI Boost <span class="badge" id="lKeyBadge">Not needed</span></h2>
         <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:#c9d6ff">Feud Night already includes an <b>unlimited survey generator</b> and a <b>smart close-enough judge</b> that run entirely in your browser, with nothing to set up.</p>
-        <p style="margin:0;font-size:14px;line-height:1.5;color:#c9d6ff">If you'd like, paste your own free <b>Google Gemini API key</b> and both features switch to live AI. Your key is saved only in this browser (<code>localStorage</code>) and is sent only to Google. It never goes into the page's code, so it's safe even if this site lives in a public GitHub repo.</p>
+        <p style="margin:0;font-size:14px;line-height:1.5;color:#c9d6ff">If you'd like, paste your own <b>Google Gemini API key</b> and both features switch to live AI. Your key is saved only in this browser (<code>localStorage</code>) and is sent only to Google. It never goes into the page's code, so it's safe even if this site lives in a public GitHub repo.</p>
         <div class="keyrow">
           <input class="field" id="lKey" type="password" placeholder="Paste your Gemini API key (starts with AIza…)" autocomplete="off" spellcheck="false">
           <button class="btn sm" id="lKeyShow" title="Show/hide key">👁</button>
@@ -290,7 +301,7 @@ body.is-tv{overflow:hidden;background:#000}
         </div>
         <div id="lKeyMsg"></div>
         <details>
-          <summary>How to get a free key from Google AI Studio</summary>
+          <summary>How to get a key from Google AI Studio</summary>
           <ol>
             <li>Go to <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> and sign in with a Google account.</li>
             <li>Click <b>Create API key</b>, then copy it.</li>
@@ -300,9 +311,17 @@ body.is-tv{overflow:hidden;background:#000}
         </details>
         <details>
           <summary>Advanced: model</summary>
-          <div class="keyrow"><input class="field" id="lModel" placeholder="gemini-2.5-flash" spellcheck="false"></div>
-          <div class="tip">Leave blank for <code>gemini-2.5-flash</code>. Change it only if Google retires that model.</div>
+          <div class="keyrow"><input class="field" id="lModel" placeholder="gemini-3.8-flash" spellcheck="false"></div>
+          <div class="tip">Leave blank for <code>gemini-3.8-flash</code> (runs with low thinking for speed). Enter another model ID only if your key can't use 3.8 Flash.</div>
         </details>
+      </div>
+    </div>
+    <div class="card vibecard">
+      <h2>🎭 Game Vibe <span class="badge">You can change this between rounds</span></h2>
+      <div class="vibes" id="lVibe">
+        <button data-tone="family"><b>👪 Family Friendly</b><span>G-rated and wholesome. Safe for kids, parents and grandparents.</span></button>
+        <button data-tone="normal"><b>🎤 Normal</b><span>Classic game-show fun with everyday humor for a mixed group.</span></button>
+        <button data-tone="dirty"><b>🌶️ Dirty</b><span>Adults only. Cheeky, spicy party humor and innuendo.</span></button>
       </div>
     </div>
     <div class="cta">
@@ -386,7 +405,10 @@ body.is-tv{overflow:hidden;background:#000}
       </div>
 
       <div class="card">
-        <h3>Next Survey</h3>
+        <div class="row between" style="margin-bottom:10px"><h3 style="margin:0">Next Survey</h3>
+          <div class="row" style="gap:6px"><span class="muted" style="font-size:13px">Vibe</span>
+            <div class="seg" id="hVibe"><button data-tone="family">👪 Family</button><button data-tone="normal">🎤 Normal</button><button data-tone="dirty">🌶️ Dirty</button></div></div>
+        </div>
         <div class="row" style="flex-wrap:nowrap">
           <input class="field" id="sTheme" placeholder="Any theme, e.g. Road trips (blank = surprise me)" maxlength="80">
           <button class="btn gold" id="sGen">✨ Generate New Survey</button>
@@ -560,7 +582,7 @@ const CURATED = [
  ["Name something associated with winter.","holidays","Snow=44|Cold=18|Christmas=12|Hot Chocolate=10|Snowman=8|Coats=5|Skiing=3"],
  ["Name something you put on a Christmas tree.","holidays","Lights=36|Ornaments=28|Star=16|Tinsel=8|Angel=6|Candy Canes=6"],
  ["Name something associated with the Fourth of July.","holidays","Fireworks=52|BBQ=18|Flag=12|Parade=8|Hot Dogs=6|Red, White & Blue=4"],
- ["Name something people give up for a New Year's resolution.","holidays","Junk Food=30|Smoking=24|Drinking=16|Sweets=12|Social Media=9|Soda=9"],
+ ["Name something people give up for a New Year's resolution.","holidays","Junk Food=30|Smoking=24|Drinking=16|Sweets=12|Social Media=9|Soda=9","n"],
  ["Name something you see on Valentine's Day.","holidays","Roses=34|Chocolate=26|Hearts=16|Cards=12|Cupid=7|Teddy Bears=5"],
  // ---- Family & Kids ----
  ["Name something kids beg their parents for.","family","Candy=28|Toys=24|A Phone=16|A Pet=14|Video Games=9|Staying Up Late=6|Money=3"],
@@ -583,7 +605,7 @@ const CURATED = [
  // ---- Work & School ----
  ["Name a job where you wear a uniform.","work","Police Officer=34|Nurse / Doctor=20|Firefighter=16|Military=12|Chef=8|Mail Carrier=6|Pilot=4"],
  ["Name something you'd find on a teacher's desk.","work","Apple=30|Papers=22|Pens=16|Computer=12|Coffee Mug=9|Stapler=7|Grade Book=4"],
- ["Name a reason someone calls in sick to work.","work","Flu=34|Cold=22|Fever=14|Hangover=12|Stomach Bug=10|Mental Health Day=8"],
+ ["Name a reason someone calls in sick to work.","work","Flu=34|Cold=22|Fever=14|Hangover=12|Stomach Bug=10|Mental Health Day=8","n"],
  ["Name something people do during a boring meeting.","work","Doodle=30|Check Phone=26|Daydream=18|Fall Asleep=12|Watch the Clock=9|Eat Snacks=5"],
  ["Name a school subject.","work","Math=38|English=24|Science=16|History=12|Gym=6|Art=4"],
  ["Name something you need for a job interview.","work","Resume=38|Nice Clothes=26|Confidence=14|References=10|Firm Handshake=7|Breath Mints=5"],
@@ -593,9 +615,47 @@ const CURATED = [
  ["Name a reason you'd wake up in the middle of the night.","weird","Bathroom=44|Bad Dream=20|Noise=14|Thirsty=10|Too Hot=7|Baby Crying=5"],
  ["Name something that smells bad.","weird","Garbage=34|Feet=22|Skunk=16|Rotten Eggs=12|Dirty Diaper=10|Gym Socks=6"],
  ["Name something people sneak into a movie theater.","weird","Candy=44|Snacks=22|Drinks=16|Popcorn=8|Fast Food=6|A Friend=4"],
- ["Name an excuse for not doing your homework.","weird","The Dog Ate It=44|Forgot=22|Was Sick=14|Too Busy=10|Lost It=6|Didn't Understand=4"]
+ ["Name an excuse for not doing your homework.","weird","The Dog Ate It=44|Forgot=22|Was Sick=14|Too Busy=10|Lost It=6|Didn't Understand=4"],
+ // ---- Family Friendly extras (kid-focused, tone "k") ----
+ ["Name an animal that lives in the ocean.","family","Shark=30|Whale=24|Dolphin=18|Fish=12|Octopus=8|Jellyfish=5|Starfish=3","k"],
+ ["Name a fairy tale character.","pop","Cinderella=30|Snow White=22|Little Red Riding Hood=16|Goldilocks=12|Big Bad Wolf=9|Rapunzel=7|Jack and the Beanstalk=4","k"],
+ ["Name something you carry in your school backpack.","work","Pencils=30|Lunch=24|Notebook=16|Books=12|Water Bottle=8|Homework=6|Crayons=4","k"],
+ ["Name a flavor of ice cream.","food","Chocolate=38|Vanilla=28|Strawberry=14|Cookie Dough=8|Mint Chip=6|Rocky Road=4|Cookies & Cream=2","k"],
+ ["Name something kids do at recess.","family","Play Tag=30|Swing=24|Go Down the Slide=14|Play Ball=12|Jump Rope=9|Monkey Bars=7|Hopscotch=4","k"],
+ ["Name a color of the rainbow.","everyday","Red=30|Blue=22|Yellow=16|Green=12|Orange=9|Purple=7|Indigo=4","k"],
+ ["Name something you can build out of blocks.","family","House=36|Tower=26|Castle=16|Car=8|Robot=6|Bridge=5|Spaceship=3","k"],
+ ["Name something you see at a kid's birthday party.","holidays","Cake=36|Balloons=22|Presents=16|Candles=10|Party Hats=8|Clown=5|Piñata=3","k"],
+ ["Name an animal that hops.","family","Kangaroo=38|Rabbit=32|Frog=18|Grasshopper=6|Cricket=4|Toad=2","k"],
+ ["Name something you put on a snowman.","holidays","Carrot Nose=38|Hat=22|Scarf=16|Coal Eyes=10|Buttons=8|Stick Arms=6","k"],
+ ["Name a sound an animal makes.","family","Moo=30|Woof=26|Meow=18|Oink=10|Quack=8|Baa=5|Neigh=3","k"],
+ ["Name something you find at a playground.","family","Swings=40|Slide=26|Sandbox=12|Monkey Bars=10|Seesaw=7|Kids=5","k"],
+ ["Name something Santa needs on Christmas Eve.","holidays","Reindeer=34|Sleigh=26|Presents=16|Cookies=12|Milk=7|A Map=5","k"],
+ ["Name something that helps a kid fall asleep.","family","Bedtime Story=30|Teddy Bear=22|Night Light=16|Lullaby=12|Warm Milk=9|Hugs=7|Blanket=4","k"],
+ ["Name a vegetable kids refuse to eat.","food","Broccoli=38|Brussels Sprouts=24|Spinach=14|Peas=10|Carrots=6|Green Beans=5|Cauliflower=3","k"],
+ // ---- Dirty / adult party (tone "d"): cheeky innuendo, nothing explicit ----
+ ["Name something people do after a few too many drinks.","weird","Text Their Ex=30|Dance on Tables=20|Cry=14|Sing Karaoke=12|Order Pizza=10|Fall Asleep=8|Get a Tattoo=6","d"],
+ ["Name a lie people tell on dating apps.","weird","Height=32|Age=24|Weight=16|\"I Love Hiking\"=10|Job=8|\"Not Looking for Anything Serious\"=6|Recent Photos=4","d"],
+ ["Name something you'd hate to hear on a first date.","weird","\"I Live With My Mom\"=28|\"I'm Married\"=24|\"Can You Pay?\"=16|\"My Ex Was Crazy\"=12|\"I Forgot My Wallet\"=8|\"I Have 6 Cats\"=7|\"Want to Meet My Parents?\"=5","d"],
+ ["Name something people do in a hot tub.","travel","Drink=30|Make Out=26|Relax=16|Fart=10|Skinny Dip=8|Fall Asleep=6|Pee=4","d"],
+ ["Name something you'd find in a bachelor's apartment.","everyday","Beer=30|Pizza Boxes=22|Dirty Laundry=16|Video Games=12|Empty Fridge=9|Condoms=6|Dirty Dishes=5","d"],
+ ["Name something that gets bigger when you're excited.","weird","Eyes=28|Smile=24|Heart Rate=14|Your Voice=12|Pupils=10|Your Ego=6|Your Bar Tab=6","d"],
+ ["Name something people do at a bachelorette party.","holidays","Drink=34|Go to a Strip Club=20|Dance=14|Wear Silly Sashes=12|Bar Hop=9|Make Bad Decisions=7|Throw Up=4","d"],
+ ["Name something people secretly do in the shower.","everyday","Sing=34|Pee=26|Cry=12|Talk to Themselves=10|Shave=8|Practice Arguments=6|Think About Their Ex=4","d"],
+ ["Name a body part people love to show off.","pop","Abs=30|Legs=22|Butt=18|Arms=12|Chest=8|Smile=6|Tattoos=4","d"],
+ ["Name something you'd hate to find on your partner's phone.","weird","Dating Apps=34|Texts From Their Ex=24|Racy Photos=14|Secret Bank Account=10|Your Best Friend's Number=8|Search History=6|Gambling Apps=4","d"],
+ ["Name a hangover cure.","food","Water=26|Greasy Food=22|Sleep=16|Coffee=12|Advil=10|More Alcohol=8|Gatorade=6","d"],
+ ["Name something people regret doing at the office holiday party.","work","Drinking Too Much=34|Hitting on the Boss=20|Karaoke=14|Dancing=12|Telling Secrets=9|Kissing a Coworker=7|Photocopying Their Butt=4","d"],
+ ["Name a word that describes a bad kisser.","weird","Sloppy=36|Wet=20|Stiff=14|Too Much Tongue=12|Bad Breath=9|Biter=6|Lazy=3","d"],
+ ["Name something that's better when it's hot.","food","Coffee=26|Showers=22|Pizza=16|Soup=12|Your Date=10|Hot Tubs=8|Weather=6","d"],
+ ["Name something a guy might exaggerate about.","weird","Height=28|Salary=22|Size=16|His Car=12|His Fishing Story=10|His Workout=8|His Cooking=4","d"],
+ ["Name something people do to impress a date.","family","Dress Up=30|Pay the Bill=22|Wear Cologne / Perfume=16|Clean Their Place=12|Lie About Their Job=8|Cook Dinner=7|Hit the Gym=5","d"],
+ ["Name something you yell on a wild night out.","weird","\"Shots!\"=34|\"Woo!\"=24|\"This Is My Song!\"=16|\"I Love You Guys!\"=12|\"One More Drink!\"=8|\"Where's My Phone?\"=6","d"],
+ ["Name a place couples sneak off to at a party.","weird","Bathroom=38|Bedroom=26|Closet=12|Backyard=10|Car=8|Garage=6","d"],
+ ["Name something people do the morning after a wild night.","everyday","Drink Water=26|Check Their Phone=22|Regret Everything=16|Order Breakfast=12|Sleep All Day=10|Take Advil=8|Apologize=6","d"],
+ ["Name something you might find in a nightstand drawer.","everyday","Phone Charger=24|Lotion=18|Condoms=16|Book=12|Tissues=10|Medicine=10|Handcuffs=6|Snacks=4","d"],
+ ["Name something people do on a weekend in Vegas.","travel","Gamble=36|Drink=24|See a Show=12|Lose Money=10|Pool Party=8|Get Married=6|Go to a Strip Club=4","d"]
 ];
-const SURVEYS = CURATED.map(([q, c, a]) => ({q, c, a: to100(parseAns(a))}));
+const SURVEYS = CURATED.map(([q, c, a, t]) => ({q, c, t: t || 'f', a: to100(parseAns(a))}));
 
 /* Combinatorial templates: question pattern x scenario, each with its own
    realistic answer pool (most popular first). The engine jitters the weights,
@@ -609,7 +669,7 @@ const TEMPLATES = [
   ["going on a first date","Wallet|Breath Mints|Deodorant|Phone|Cologne / Perfume|Car Keys|Flowers|Manners", "family"],
   ["going to a wedding","The Gift|Card|Invitation|Tie|Tissues|Dress Shoes|Phone|Directions", "family"],
   ["going camping","Tent|Sleeping Bag|Flashlight|Matches|Food|Bug Spray|Water|Toilet Paper"]]},
- {t:"Name something people lie about {x}.", c:"weird", f:[
+ {t:"Name something people lie about {x}.", c:"weird", o:"n", f:[
   ["on a first date","Age|Job|Weight|Income|Height|Hobbies|Past Relationships|Cooking Skills"],
   ["on their resume","Experience|Skills|Education|Salary|Job Title|References|Languages|Hobbies","work"],
   ["to their doctor","How Much They Drink|Exercise|Diet|Smoking|Flossing|Weight|Sleep|Taking Their Meds"],
@@ -628,11 +688,11 @@ const TEMPLATES = [
   ["spring","Flowers|Rain|Easter|Allergies|Birds|Spring Cleaning|Baseball|Warm Weather"],
   ["summer","Sun|Beach|Swimming|Vacation|Ice Cream|Heat|BBQ|No School"],
   ["fall","Leaves|Pumpkins|Halloween|Football|Thanksgiving|Sweaters|Apple Picking|Pumpkin Spice"],
-  ["New Year's Eve","Fireworks|Champagne|Countdown|Ball Drop|Kissing|Resolutions|Parties|Staying Up Late"],
+  ["New Year's Eve","Fireworks|Champagne|Countdown|Ball Drop|Kissing|Resolutions|Parties|Staying Up Late","holidays","n"],
   ["Easter","Eggs|Bunny|Candy|Church|Baskets|Chocolate|Ham|Egg Hunt"],
   ["birthdays","Cake|Presents|Candles|Balloons|Party|Singing|Getting Older|Cards"],
   ["Mother's Day","Flowers|Cards|Brunch|Breakfast in Bed|Chocolate|Gifts|Hugs|Phone Call","family"],
-  ["the Super Bowl","Football|Commercials|Wings|Halftime Show|Beer|Parties|Betting|Nachos","pop"]]},
+  ["the Super Bowl","Football|Commercials|Wings|Halftime Show|Beer|Parties|Betting|Nachos","pop","n"]]},
  {t:"Name something you'd find {x}.", c:"everyday", f:[
   ["in a teenager's bedroom","Dirty Clothes|Phone Charger|Posters|Video Games|Dirty Dishes|Makeup|Laptop|Shoes","family"],
   ["in a doctor's office","Stethoscope|Magazines|Scale|Thermometer|Exam Table|Needles|Tongue Depressors|Hand Sanitizer"],
@@ -681,7 +741,7 @@ const TEMPLATES = [
   ["at a high school dance","Dancing|DJ|Chaperones|Punch|Balloons|Couples|Dresses|Awkward Teens","work"],
   ["at an airport","Planes|Luggage|Security|Pilots|Long Lines|Flight Attendants|Gates|Duty-Free Shops","travel"]]},
  {t:"Name something you might say {x}.", c:"weird", f:[
-  ["when you stub your toe","Ouch!|Ow!|A Curse Word|Dang It!|Oh My Gosh!|That Hurt!|Why Me?|Who Put That There?"],
+  ["when you stub your toe","Ouch!|Ow!|A Curse Word|Dang It!|Oh My Gosh!|That Hurt!|Why Me?|Who Put That There?","weird","n"],
   ["when you get a gift you don't like","Thank You|I Love It|You Shouldn't Have|How Thoughtful|It's Nice|Oh Wow|Where'd You Get It?|Interesting..."],
   ["when your alarm goes off","Five More Minutes|Ugh|No!|Already?|Shut Up|Good Morning|I'm Up|Not Today"],
   ["when you see a cute puppy","Aww!|So Cute!|Can I Pet It?|Puppy!|I Want One|Hi, Baby!|What's His Name?|Look!","family"]]},
@@ -690,14 +750,56 @@ const TEMPLATES = [
   ["working late at night","Nurse|Security Guard|Police Officer|Bartender|Doctor|Truck Driver|Baker|Janitor"],
   ["strong muscles","Construction Worker|Mover|Firefighter|Farmer|Lumberjack|Athlete|Personal Trainer|Mechanic"],
   ["good people skills","Salesperson|Teacher|Nurse|Customer Service|Politician|Therapist|Waiter|Receptionist"],
-  ["a steady hand","Surgeon|Dentist|Tattoo Artist|Barber|Painter|Jeweler|Pilot|Watchmaker"]]}
+  ["a steady hand","Surgeon|Dentist|Tattoo Artist|Barber|Painter|Jeweler|Pilot|Watchmaker"]]},
+ // ---- Family Friendly templates ----
+ {t:"Name something a kid might bring {x}.", c:"family", o:"k", f:[
+  ["to a sleepover","Pajamas|Pillow|Sleeping Bag|Toothbrush|Teddy Bear|Snacks|Board Games|Flashlight"],
+  ["to the beach","Bucket|Shovel|Sunscreen|Towel|Floaties|Snacks|Beach Ball|Goggles","travel"],
+  ["on a long car ride","Tablet|Books|Snacks|Toys|Pillow|Headphones|Travel Games|Crayons","travel"],
+  ["to show-and-tell","Favorite Toy|Pet|Cool Rock|Family Photo|Trophy|Seashell|Book|Drawing"],
+  ["to grandma's house","Toys|Pajamas|Books|Games|Teddy Bear|Snacks|Tablet|Coloring Book"]]},
+ {t:"Name an animal that {x}.", c:"family", o:"k", f:[
+  ["can fly","Bird|Bat|Eagle|Butterfly|Bee|Owl|Parrot|Duck"],
+  ["lives in the jungle","Monkey|Tiger|Snake|Parrot|Gorilla|Jaguar|Elephant|Sloth"],
+  ["has stripes","Zebra|Tiger|Skunk|Bee|Raccoon|Chipmunk|Cat|Clownfish"],
+  ["is really slow","Turtle|Snail|Sloth|Tortoise|Slug|Koala|Caterpillar|Worm"],
+  ["makes a good pet","Dog|Cat|Fish|Hamster|Bird|Rabbit|Turtle|Guinea Pig"]]},
+ {t:"Name a reason a kid might {x}.", c:"family", o:"k", f:[
+  ["get a gold star","Good Grades|Good Behavior|Helping Out|Sharing|Reading|Finishing Homework|Listening|Cleaning Up","work"],
+  ["giggle uncontrollably","Being Tickled|A Funny Joke|A Silly Face|Cartoons|A Silly Noise|Dad Dancing|A Funny Video|Bubbles"],
+  ["want a night light","Scared of the Dark|Monsters|Bad Dreams|Bathroom Trips|Shadows|Thunder|Ghosts|Can't Sleep"],
+  ["be excited on Saturday morning","Cartoons|No School|Pancakes|Sleepover|Soccer Game|Birthday Party|Park Trip|Video Games"]]},
+ // ---- Dirty / adult party templates (cheeky, nothing explicit) ----
+ {t:"Name something people lie about {x}.", c:"weird", o:"d", f:[
+  ["to their partner","Where They Were|How Much They Spent|Who They Were Texting|Liking the Gift|Being Fine|Their Exes|Being Tired|What They Ate"],
+  ["after a night out","How Much They Drank|Where They Went|What Time They Got Home|Who They Met|How Much They Spent|Being Sober|Kissing Someone|Losing Their Phone"],
+  ["in the bedroom","Having a Headache|Being Tired|Their Experience|Their Body Count|Faking It|Being in the Mood|Liking to Cuddle|Not Being Hungry"]]},
+ {t:"Name something you'd hate to hear {x}.", c:"weird", o:"d", f:[
+  ["during a romantic moment","\"Oops\"|\"What's That Smell?\"|Your Mom's Name|Your Ex's Name|\"Is That It?\"|\"Hold On, I'm Hungry\"|Snoring|A Phone Ringing"],
+  ["from your rideshare driver after a night out","\"You Threw Up\"|\"Wrong Address\"|\"That'll Be $200\"|\"I Know Your Mom\"|\"Get Out\"|\"Nice Singing\"|\"You Cried a Lot\"|\"One Star\"","travel"],
+  ["from your boss at the holiday party","\"You're Fired\"|\"Nice Dance Moves\"|\"I Saw the Video\"|\"Another Drink?\"|\"You Kissed Who?\"|\"Let's Talk Monday\"|\"I Read Your Texts\"|\"Love the Karaoke\"","work"]]},
+ {t:"Name something people do {x}.", c:"weird", o:"d", f:[
+  ["after the bar closes","Eat Pizza|Go to an After-Party|Text Their Ex|Make Out|Get Tacos|Call an Uber|Go Home With Someone|Pass Out"],
+  ["on a walk of shame","Hide Their Face|Carry Their Shoes|Check Their Phone|Get Coffee|Call a Friend|Fix Their Hair|Avoid the Neighbors|Wear Sunglasses"],
+  ["when their partner is out of town","Watch Trashy TV|Eat Junk Food|Sleep in the Middle|Walk Around Naked|Throw a Party|Skip Showering|Play Video Games|Online Shop","family"]]},
+ {t:"Name a reason someone might {x}.", c:"weird", o:"d", f:[
+  ["get kicked out of a bar","Too Drunk|Fighting|Fake ID|No Money|Puking|Hitting on People|Dancing on Tables|Smoking Inside"],
+  ["get dumped","Cheating|Lying|Bad in Bed|Boring|Too Clingy|Money Problems|Bad Hygiene|Snoring","family"],
+  ["have to sleep on the couch","A Fight|Snoring|Came Home Drunk|Forgot the Anniversary|Farting|Flirting|Too Hot|Fell Asleep Watching TV","family"]]},
+ {t:"Name something that's {x}.", c:"weird", o:"d", f:[
+  ["better in the dark","Sleeping|Making Out|Movies|Candlelight Dinner|Stargazing|Dancing|Sneaking Around|Skinny Dipping"],
+  ["awkward to buy at the drugstore","Condoms|Hemorrhoid Cream|Laxatives|Pregnancy Test|Diarrhea Medicine|Lube|Toilet Paper|Wart Remover"],
+  ["long and hard","A Workday|A Road Trip|A Test|Winter|The DMV Line|A Marathon|A Novel|A Breakup"]]}
 ];
 
+const TONE_TAGS = {family:['f','k'], normal:['f','n'], dirty:['d']};
+const TONE_LABEL = {family:'👪 Family Friendly', normal:'🎤 Normal', dirty:'🌶️ Dirty'};
+const getTone = () => { const t = LS.get('tone', 'normal'); return TONE_TAGS[t] ? t : 'normal'; };
 const Engine = (() => {
   const CAT_NAMES = {everyday:'Everyday Life', food:'Food & Drink', travel:'Travel', holidays:'Holidays', family:'Family & Kids', pop:'Pop Culture', work:'Work & School', weird:'Weird & Funny'};
   const STOPW = new Set('the and for with you your name something some about what when that this are was can into out our their they have has like a an of on in at to me my'.split(' '));
   const words = s => String(s).toLowerCase().replace(/&/g,' ').replace(/[^a-z0-9\s]/g,' ').split(/\s+/)
-    .filter(w => w.length > 1 && !STOPW.has(w)).map(w => w.length > 4 ? w.replace(/ies$/,'y').replace(/s$/,'') : w.replace(/s$/,''));
+    .filter(w => w.length > 1 && !STOPW.has(w)).map(w => w.length > 5 ? w.replace(/ing$/,'').replace(/ies$/,'y').replace(/s$/,'') : w.length > 4 ? w.replace(/ies$/,'y').replace(/s$/,'') : w.replace(/s$/,''));
   const CAT_KW = {
     everyday:'home house morning night daily life household chore chores bed sleep bathroom kitchen couch everyday',
     food:'food foods eat eating drink drinks snack snacks dinner lunch breakfast cook cooking restaurant pizza dessert fruit coffee candy burger taco bbq',
@@ -706,14 +808,14 @@ const Engine = (() => {
     family:'family families kid kids child children parent parents mom dad baby babies grandparent grandma grandpa sibling wedding pet pets dog',
     pop:'movie movies tv television music celebrity celebrities famous superhero show shows pop culture song songs sport sports game',
     work:'work office job jobs boss school college dorm class teacher student students meeting homework career interview coworker',
-    weird:'weird funny gross silly strange random embarrassing lie lies excuse excuses awkward'
+    weird:'weird funny gross silly strange random embarrassing lie lies excuse excuses awkward date dating drinking drunk bar hookup bedroom spicy naughty adult party'
   };
   Object.keys(CAT_KW).forEach(k => CAT_KW[k] = new Set(words(CAT_KW[k])));
   const pool = [];
-  CURATED.forEach((c, i) => pool.push({q:c[0], cat:c[1], kind:'c', i, text: c[0] + ' ' + c[2].replace(/=\d+/g,'')}));
+  CURATED.forEach((c, i) => pool.push({q:c[0], cat:c[1], kind:'c', i, tone: c[3] || 'f', text: c[0] + ' ' + c[2].replace(/=\d+/g,'')}));
   TEMPLATES.forEach(t => t.f.forEach(f => {
     const q = t.t.replace('{x}', f[0]);
-    pool.push({q, cat: f[2] || t.c, kind:'t', items: parseAns(f[1]), text: q + ' ' + f[1]});
+    pool.push({q, cat: f[2] || t.c, kind:'t', tone: f[3] || t.o || 'f', items: parseAns(f[1]), text: q + ' ' + f[1]});
   }));
   pool.forEach(c => { c.qw = new Set(words(c.q)); c.aw = new Set(words(c.text)); });
   function build(c){
@@ -724,22 +826,29 @@ const Engine = (() => {
   }
   function score(c, tw){
     let s = 0;
-    tw.forEach(w => { if(c.qw.has(w)) s += 3; else if(c.aw.has(w)) s += 1.5; if(CAT_KW[c.cat].has(w)) s += 2; });
+    tw.forEach(w => { if(c.qw.has(w)) s += 3; else if(c.aw.has(w)) s += 1.5; if(CAT_KW[c.cat].has(w)) s += 1; });
     return s;
   }
-  function pick(theme, isUsed){
+  // tone -> which content tags it may use. f = everyone, k = kid-focused, n = grown-up but clean, d = adult party
+  function pick(theme, isUsed, tone){
+    const allow = new Set(TONE_TAGS[tone] || TONE_TAGS.normal);
     const tw = words(theme || '');
-    let avail = pool.filter(c => !isUsed(c.q)), reset = false;
-    if(!avail.length){ reset = true; avail = pool.slice(); }
+    const base = pool.filter(c => allow.has(c.tone));
+    let avail = base.filter(c => !isUsed(c.q)), reset = false, mixed = false;
+    if(!avail.length && tone === 'dirty'){
+      avail = pool.filter(c => TONE_TAGS.normal.includes(c.tone) && !isUsed(c.q)); mixed = avail.length > 0;
+    }
+    if(!avail.length){ reset = true; avail = base.slice(); }
     let chosen = null, matched = false;
     if(tw.length){
       const sc = avail.map(c => [c, score(c, tw)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
       if(sc.length){ matched = true; const top = sc[0][1], best = sc.filter(x => x[1] >= top*0.6); chosen = best[Math.floor(Math.random()*best.length)][0]; }
     }
     if(!chosen) chosen = avail[Math.floor(Math.random()*avail.length)];
-    return Object.assign(build(chosen), {matched, reset});
+    return Object.assign(build(chosen), {matched, reset, mixed});
   }
-  return {pick, size: pool.length, CAT_NAMES};
+  const count = tone => { const a = new Set(TONE_TAGS[tone] || []); return pool.filter(c => a.has(c.tone)).length; };
+  return {pick, size: pool.length, count, CAT_NAMES};
 })();
 function parseAns(str){
   const RANK = [30,22,16,12,9,7,5,4,3,2];
@@ -1276,6 +1385,21 @@ military, soldier, soldiers, army, navy, marines, armed forces
 mail carrier, mailman, postman, postal worker, mail lady
 pilot, pilots
 teacher, professor, instructor, teachers
+drunk, hammered, wasted, tipsy, buzzed, plastered, sloshed, smashed, trashed, drinking too much, too drunk
+condoms, condom, rubbers, protection
+ex, exes, ex boyfriend, ex girlfriend, ex husband, ex wife, former partner, text their ex, texts from their ex
+fart, farting, toot, pass gas, gas, flatulence, break wind
+pee, peeing, urinate, tinkle, take a leak
+butt, booty, bum, rear end, behind, backside, buns, rear
+naked, nude, skinny dip, skinny dipping, in the buff, birthday suit, walk around naked
+abs, six pack, washboard abs
+make out, making out, hook up, hooking up, kiss, kissing, smooch, kissing a coworker
+strip club, strippers, stripper, gentlemen's club
+gamble, gambling, casino, slots, blackjack, poker, betting
+dating apps, tinder, bumble, hinge, online dating
+handcuffs, cuffs, fuzzy handcuffs
+lube, lubricant
+hangover cure, greasy food, bacon egg and cheese
 `;
 
 const Matcher = (() => {
@@ -1297,8 +1421,11 @@ const Matcher = (() => {
     if(w.length > 4 && w.endsWith('e')) w = w.slice(0,-1);                      // bathe -> bath, dance -> danc
     return w;
   }
-  const base = s => String(s).toLowerCase().replace(/&/g,' and ').replace(/['’]/g,'').replace(/[^a-z0-9\s]/g,' ')
-    .split(/\s+/).filter(w => w && !STOP.has(w)).map(stem).filter(Boolean);
+  const base = s => {
+    const raw = String(s).toLowerCase().replace(/&/g,' and ').replace(/['’]/g,'').replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean);
+    const kept = raw.filter(w => !STOP.has(w));
+    return (kept.length ? kept : raw).map(stem).filter(Boolean);   // "Make Out" is all filler words: keep them
+  };
   // phrase -> concept ids (spaced key and joined key, so "sun block" == "sunblock")
   const PHR = new Map(); let MAXL = 1;
   CONCEPTS.trim().split('\n').forEach((line, gi) => {
@@ -1384,10 +1511,11 @@ const Matcher = (() => {
 /* ============================================================
    Gemini API client
    ============================================================ */
+const DEFAULT_MODEL = 'gemini-3.8-flash';
 const Gemini = (() => {
   class GemErr extends Error { constructor(kind, msg){ super(msg); this.kind = kind; } }
   const key = () => (LS.get('geminiKey', '') || '').trim();
-  const model = () => (LS.get('geminiModel', '') || '').trim() || 'gemini-2.5-flash';
+  const model = () => (LS.get('geminiModel', '') || '').trim() || DEFAULT_MODEL;
   const base = () => `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model())}`;
   function explain(status, body){
     const msg = (body && body.error && body.error.message) || '';
@@ -1401,8 +1529,14 @@ const Gemini = (() => {
     const k = key(); if(!k) throw new GemErr('nokey', 'No Gemini API key set.');
     if(!navigator.onLine) throw new GemErr('network', "You appear to be offline.");
     const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), timeout);
-    const genCfg = {responseMimeType:'application/json', responseSchema: schema, temperature};
-    if(/2\.5/.test(model())) genCfg.thinkingConfig = {thinkingBudget: thinking};
+    const m = model(), genCfg = {responseMimeType:'application/json', responseSchema: schema};
+    if(/^gemini-3/i.test(m)){
+      // Gemini 3.x: low thinking keeps live-game latency down; Google recommends leaving temperature at its default (1.0)
+      genCfg.thinkingConfig = {thinkingLevel: 'low'};
+    } else {
+      genCfg.temperature = temperature;
+      if(/2\.5/.test(m)) genCfg.thinkingConfig = {thinkingBudget: thinking};
+    }
     let res;
     try{
       res = await fetch(base() + ':generateContent', {method:'POST', signal: ctrl.signal,
@@ -1419,7 +1553,7 @@ const Gemini = (() => {
     try{ return JSON.parse(text); }catch(e){ throw new GemErr('parse', 'Gemini returned malformed JSON.'); }
   }
   async function test(k, m){
-    const mm = (m || '').trim() || 'gemini-2.5-flash';
+    const mm = (m || '').trim() || DEFAULT_MODEL;
     let res;
     try{ res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(mm)}`, {headers:{'x-goog-api-key': k}}); }
     catch(e){ throw new GemErr('network', "Couldn't reach Google (network error). Check your connection."); }
@@ -1476,7 +1610,7 @@ function initHost(){
   $('#lPlayAI').onclick = () => { saveKeyField(); newGame(false); applyLauncherTeams(); commit(); showHost(); generate(''); };
   $('#lResume').onclick = () => { saveKeyField(); applyLauncherTeams(); commit(); showHost(); };
   $('#hSetup').onclick = showLauncher;
-  $('#lCount').textContent = `${Engine.size} surveys in rotation, with fresh answer mixes and point spreads every time. No sign-up, no API key, no limits.`;
+  $('#lCount').textContent = `${Engine.size} surveys in rotation (👪 ${Engine.count('family')} · 🎤 ${Engine.count('normal')} · 🌶️ ${Engine.count('dirty')}), with fresh answer mixes every time. No sign-up, no API key, no limits.`;
 
   // ---------- state plumbing ----------
   function fx(name, data){
@@ -1517,10 +1651,20 @@ function initHost(){
   let deck = SS.get('deck', null);
   if(!Array.isArray(deck) || deck.length !== SURVEYS.length){ deck = shuffle(SURVEYS.map((_, i) => i)); SS.set('deck', deck); }
   const keyQ = q => String(q).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-  function markUsed(q){ used.add(keyQ(q)); SS.set('used', Array.from(used).slice(-200)); }
+  function markUsed(q){ used.add(keyQ(q)); SS.set('used', Array.from(used).slice(-1000)); }
+  const toneOk = (ix, tone) => TONE_TAGS[tone].includes(SURVEYS[ix].t);
   function nextBuiltInIndex(){
-    let i = deck.find(ix => !used.has(keyQ(SURVEYS[ix].q)));
-    if(i == null){ SURVEYS.forEach(s => used.delete(keyQ(s.q))); deck = shuffle(SURVEYS.map((_, k) => k)); SS.set('deck', deck); SS.set('used', Array.from(used)); toast('All built-in surveys used. Reshuffling the deck.'); i = deck[0]; }
+    const tone = getTone();
+    let i = deck.find(ix => toneOk(ix, tone) && !used.has(keyQ(SURVEYS[ix].q)));
+    if(i == null && tone === 'dirty'){
+      i = deck.find(ix => toneOk(ix, 'normal') && !used.has(keyQ(SURVEYS[ix].q)));
+      if(i != null) toast('All the 🌶️ Dirty built-ins have been played. Mixing in regular ones.');
+    }
+    if(i == null){
+      SURVEYS.forEach((s, ix) => { if(toneOk(ix, tone)) used.delete(keyQ(s.q)); });
+      deck = shuffle(SURVEYS.map((_, k) => k)); SS.set('deck', deck); SS.set('used', Array.from(used));
+      toast(`All ${TONE_LABEL[tone]} built-ins used. Reshuffling the deck.`); i = deck.find(ix => toneOk(ix, tone));
+    }
     return i;
   }
   function guardDiscard(){
@@ -1540,8 +1684,9 @@ function initHost(){
   function loadBuiltIn(i){ const s = SURVEYS[i]; loadSurvey(s.q, s.a, 'Built-in #' + (i+1)); }
   function buildPicker(){
     const sel = $('#sPick');
-    sel.innerHTML = '<option value="">Or choose a specific built-in survey…</option>' +
-      SURVEYS.map((s, i) => `<option value="${i}">${used.has(keyQ(s.q)) ? '✓ ' : ''}${esc(s.q)}</option>`).join('');
+    const tone = getTone();
+    sel.innerHTML = `<option value="">Or pick a ${TONE_LABEL[tone]} built-in survey…</option>` +
+      SURVEYS.map((s, i) => toneOk(i, tone) ? `<option value="${i}">${used.has(keyQ(s.q)) ? '✓ ' : ''}${esc(s.q)}</option>` : '').join('');
   }
 
   // ---------- AI survey generation ----------
@@ -1568,15 +1713,26 @@ function initHost(){
     let q = r.question.trim(); if(!/[.?!]$/.test(q)) q += '.';
     return {q, a: ans};
   }
+  const TONE_PROMPT = {
+    family: 'FAMILY FRIENDLY (G-rated): wholesome and safe for kids, parents and grandparents. Questions and answers must be answerable by children. No crude jokes, innuendo, alcohol, dating or romance humor, gross-out humor, or profanity.',
+    normal: 'NORMAL (PG to PG-13): the classic TV game-show tone. Relatable, witty, everyday humor that works for a mixed group of adult friends and family. Light references to dating, drinking or office life are fine. No explicit content or profanity.',
+    dirty: 'DIRTY (adults-only party game): a cheeky, risque, late-night roast vibe with innuendo, double entendres, dating and hookup humor, drinking, and embarrassing bodily humor. Keep it suggestive, not explicit: no graphic sexual descriptions, no slurs or hate, nothing involving minors, no non-consensual or violent harm, and no real named people.'
+  };
+  const THEMES_BY_TONE = {
+    family: ['Animals','School','Birthday parties','Playgrounds','Bedtime','Snow days','Pets','Summer camp','Breakfast','The zoo','Holidays','Toys'],
+    dirty: ['First dates','Dating apps','Bachelorette parties','Hangovers','Office holiday parties','Vegas weekends','Walk of shame','Hot tubs','Exes','Last call at the bar','Honeymoons','Spring break']
+  };
   async function generate(themeIn){
     const btn = $('#sGen'), msg = $('#sMsg');
     const raw = (themeIn || '').trim(), surprise = !raw || /^surprise/i.test(raw);
     if(!Gemini.hasKey()){ localGenerate(surprise ? '' : raw); return; }
-    const theme = surprise ? 'Surprise me: pick a fun, everyday topic (for example ' + shuffle(THEMES.slice()).slice(0,3).join(', ') + ')' : raw;
+    const tone = getTone();
+    const theme = surprise ? 'Surprise me: pick a fun topic that fits the tone (for example ' + shuffle((THEMES_BY_TONE[tone] || THEMES).slice()).slice(0,3).join(', ') + ')' : raw;
     btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Generating…';
     msg.innerHTML = '<div class="msg info">Asking Gemini for a fresh survey…</div>';
     const recent = Array.from(used).slice(-40);
-    const prompt = `You write survey questions for a family-friendly "Family Feud" style TV game show.
+    const prompt = `You write survey questions for a "Family Feud" style TV game show.
+Tone: ${TONE_PROMPT[tone]}
 Theme: ${theme}
 
 Write ONE original survey question, phrased the way the show does (e.g. "Name something...", "Name a...", "Tell me a..."). It must be answerable by ordinary people in a few words.
@@ -1584,13 +1740,13 @@ Give between 5 and 8 distinct answers as if 100 people were surveyed, ordered fr
 Rules:
 - Each answer is short (1-4 words), Title Case, and clearly different from the others (no near-synonyms).
 - "points" is how many of the 100 people gave that answer. The points MUST add up to exactly 100. The top answer usually gets 20-45 points, and every answer gets at least 2.
-- Keep it fun, surprising and suitable for all ages. No offensive or political content.
+- Match the tone above exactly, in both the question and every answer. Keep it fun and surprising. No political content.
 - Do not reuse or closely paraphrase any of these earlier questions: ${recent.length ? recent.map(q => '"' + q + '"').join('; ') : '(none)'}`;
     try{
       let r = normalizeSurvey(await Gemini.call(prompt, SCHEMA_SURVEY, {temperature:1.0, thinking:0, timeout:35000}));
       if(used.has(keyQ(r.q))) r = normalizeSurvey(await Gemini.call(prompt + '\nThat question was already used. Write a completely different one.', SCHEMA_SURVEY, {temperature:1.1, thinking:0}));
       if(!guardDiscard()){ msg.innerHTML = '<div class="msg info">Kept the current round. The new survey was discarded.</div>'; return; }
-      loadSurvey(r.q, r.a, 'Gemini AI · ' + (surprise ? 'Surprise' : raw));
+      loadSurvey(r.q, r.a, TONE_LABEL[tone].split(' ')[0] + ' Gemini AI · ' + (surprise ? 'Surprise' : raw));
       msg.innerHTML = `<div class="msg ok">✓ Fresh Gemini survey loaded (${r.a.length} answers).</div>`;
     }catch(e){
       console.warn(e);
@@ -1602,11 +1758,13 @@ Rules:
   function localGenerate(theme, note){
     const msg = $('#sMsg');
     if(!guardDiscard()){ msg.innerHTML = '<div class="msg info">Kept the current round.</div>'; return; }
-    const r = Engine.pick(theme, q => used.has(keyQ(q)));
-    if(r.reset){ used.clear(); SS.set('used', []); toast("You've played the whole library. Starting a fresh shuffle with new point spreads.", 'ok', 5000); }
+    const tone = getTone();
+    const r = Engine.pick(theme, q => used.has(keyQ(q)), tone);
+    if(r.reset){ used.clear(); SS.set('used', []); toast(`You've played every ${TONE_LABEL[tone]} survey. Starting a fresh shuffle with new point spreads.`, 'ok', 5000); }
     const cat = Engine.CAT_NAMES[r.cat] || 'Mixed';
-    loadSurvey(r.q, r.a, 'Fresh · ' + cat);
+    loadSurvey(r.q, r.a, TONE_LABEL[tone].split(' ')[0] + ' Fresh · ' + cat);
     if(note) msg.innerHTML = `<div class="msg info">${note}</div>`;
+    else if(r.mixed) msg.innerHTML = `<div class="msg info">All the 🌶️ Dirty surveys have been played, so here's a regular one. They come back after a reshuffle.</div>`;
     else if(theme && !r.matched) msg.innerHTML = `<div class="msg info">That's every "${esc(theme)}" survey for now, so here's a fresh ${esc(cat)} one.</div>`;
     else msg.innerHTML = `<div class="msg ok">✓ Fresh ${theme ? '"' + esc(theme) + '" ' : ''}survey ready · ${esc(cat)}</div>`;
   }
@@ -1628,6 +1786,7 @@ Survey question: "${S.question}"
 Board answers:
 ${list}
 Player's guess: "${guess}"
+Game tone: ${TONE_PROMPT[getTone()].split(':')[0]}. ${getTone() === 'dirty' ? 'Players may answer with slang, innuendo or crude synonyms. Judge them on meaning like any other guess.' : getTone() === 'family' ? 'Players are often kids, so be generous with simple or kid-style wording.' : ''}
 
 Pick the single best matching board answer, the way a fair but friendly game-show judge would. Allow synonyms, plurals, different wording, and descriptions of the same thing (e.g. "putting on bug spray" matches "Bug Spray").
 - matchType "exact": the same answer, or trivially different wording.
@@ -1794,7 +1953,24 @@ reason: one short, friendly sentence the host can read.`;
   $('#gIn').addEventListener('keydown', e => { if(e.key === 'Enter') check(); if(e.key === 'Escape'){ e.target.value = ''; judge = null; renderJudge(); e.target.blur(); } });
   $('#sGen').onclick = () => generate($('#sTheme').value);
   $('#sTheme').addEventListener('keydown', e => { if(e.key === 'Enter') generate(e.target.value); });
-  $('#sChips').innerHTML = ['Road trips','Pizza','Holidays','Kids & family','Work & school','Weird & funny','Surprise me'].map(t => `<span class="chip">${t}</span>`).join('');
+  const CHIPS = {
+    family: ['Animals','School','Holidays','Food','Playground','Surprise me'],
+    normal: ['Road trips','Pizza','Holidays','Kids & family','Work & school','Weird & funny','Surprise me'],
+    dirty:  ['Dating','Drinking','Office party','Vegas','Bedroom','Surprise me']
+  };
+  function renderTone(){
+    const t = getTone();
+    $$('#lVibe button, #hVibe button').forEach(b => b.classList.toggle('on', b.dataset.tone === t));
+    $('#sChips').innerHTML = CHIPS[t].map(c => `<span class="chip">${c}</span>`).join('');
+  }
+  function setTone(t, announce){
+    if(!TONE_TAGS[t] || t === getTone()) return;
+    LS.set('tone', t); renderTone(); buildPicker();
+    if(announce) toast(`Vibe set to ${TONE_LABEL[t]}. The next survey will match.`, 'ok');
+  }
+  $('#lVibe').addEventListener('click', e => { const b = e.target.closest('button'); if(b) setTone(b.dataset.tone, false); });
+  $('#hVibe').addEventListener('click', e => { const b = e.target.closest('button'); if(b) setTone(b.dataset.tone, true); });
+  renderTone();
   $('#sChips').addEventListener('click', e => { if(e.target.classList.contains('chip')){ $('#sTheme').value = e.target.textContent === 'Surprise me' ? '' : e.target.textContent; generate($('#sTheme').value); } });
   $('#sNext').onclick = () => { if(guardDiscard()){ loadBuiltIn(nextBuiltInIndex()); $('#sMsg').innerHTML = ''; } };
   $('#sPick').onchange = e => { const v = e.target.value; if(v !== '' && guardDiscard()){ loadBuiltIn(+v); $('#sMsg').innerHTML = ''; } e.target.value = ''; };
