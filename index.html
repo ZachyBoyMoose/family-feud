@@ -562,8 +562,9 @@ details.tool .bzroom{font-size:15px}
         </details>
         <details>
           <summary>Advanced: model</summary>
-          <div class="keyrow"><input class="field" id="lModel" placeholder="gemini-3.8-flash" spellcheck="false"></div>
-          <div class="tip">Leave blank for <code>gemini-3.8-flash</code> (runs with low thinking for speed). Enter another model ID only if your key can't use 3.8 Flash.</div>
+          <div class="keyrow"><input class="field" id="lModel" placeholder="gemini-3.5-flash-lite" spellcheck="false" list="lModels"></div>
+          <datalist id="lModels"><option value="gemini-3.5-flash-lite"><option value="gemini-3.8-flash"><option value="gemini-2.5-flash"></datalist>
+          <div class="tip">Leave blank for <code>gemini-3.5-flash-lite</code>, which Feud Night is tuned for: it's fast and cheap, writes surveys with low thinking, and judges guesses with minimal thinking. Other Gemini models also work.</div>
         </details>
       </div>
     </div>
@@ -1077,7 +1078,84 @@ const CURATED = [
  ["Name a place couples sneak off to at a party.","weird","Bathroom=38|Bedroom=26|Closet=12|Backyard=10|Car=8|Garage=6","d"],
  ["Name something people do the morning after a wild night.","everyday","Drink Water=26|Check Their Phone=22|Regret Everything=16|Order Breakfast=12|Sleep All Day=10|Take Advil=8|Apologize=6","d"],
  ["Name something you might find in a nightstand drawer.","everyday","Phone Charger=24|Lotion=18|Condoms=16|Book=12|Tissues=10|Medicine=10|Handcuffs=6|Snacks=4","d"],
- ["Name something people do on a weekend in Vegas.","travel","Gamble=36|Drink=24|See a Show=12|Lose Money=10|Pool Party=8|Get Married=6|Go to a Strip Club=4","d"]
+ ["Name something people do on a weekend in Vegas.","travel","Gamble=36|Drink=24|See a Show=12|Lose Money=10|Pool Party=8|Get Married=6|Go to a Strip Club=4","d"],
+ // ---- More everyday classics (added for the offline edition) ----
+ ["Name something you take on a picnic.","food","Blanket=30|Sandwiches=22|Basket=14|Drinks=12|Fruit=9|Chips=8|Bug Spray=5"],
+ ["Name a reason people go to the mall.","everyday","Shopping=36|Food Court=18|Walk Around=14|Meet Friends=12|Movies=9|Returns=6|Air Conditioning=5"],
+ ["Name something people do in a doctor's waiting room.","everyday","Read Magazines=34|Check Phone=30|Sleep=10|People-Watch=9|Fill Out Forms=8|Complain=5|Watch TV=4"],
+ ["Name something you'd find in a medicine cabinet.","everyday","Aspirin=30|Band-Aids=22|Toothpaste=14|Cough Syrup=12|Razor=9|Vitamins=8|Floss=5"],
+ ["Name something that gets stuck in your teeth.","food","Popcorn=40|Spinach=20|Corn=14|Meat=10|Seeds=8|Caramel=5|Gum=3"],
+ ["Name a reason a dog might bark.","family","Stranger=36|Mail Carrier=20|Hungry=14|Wants Out=12|Another Dog=8|A Noise=6|Squirrel=4"],
+ ["Name a word that comes before \"ball.\"","weird","Basket=28|Foot=24|Base=18|Snow=10|Soft=8|Volley=7|Meat=5"],
+ ["Name something you associate with Hawaii.","travel","Beaches=30|Hula=22|Volcanoes=14|Leis=12|Surfing=10|Pineapple=8|Luau=4"],
+ ["Name something people do on their birthday.","holidays","Eat Cake=34|Have a Party=22|Open Presents=16|Make a Wish=12|Go Out to Eat=8|Sleep In=5|Call Mom=3"],
+ ["Name something you put on a salad.","food","Dressing=40|Croutons=18|Cheese=14|Tomatoes=10|Bacon Bits=8|Cucumbers=6|Onions=4"],
+ ["Name something that comes in pairs.","everyday","Shoes=36|Socks=24|Earrings=12|Twins=10|Gloves=8|Dice=5|Chopsticks=5"],
+ ["Name something people collect.","everyday","Stamps=30|Coins=26|Baseball Cards=14|Dolls=10|Rocks=8|Comic Books=7|Magnets=5"],
+ ["Name something you see at a gas station.","travel","Gas Pumps=34|Snacks=20|Cars=16|Cashier=10|Air Pump=8|Lottery Tickets=7|Bathroom=5"],
+ ["Name something that has stripes.","everyday","Zebra=42|Tiger=22|Flag=12|Candy Cane=9|Referee=7|Shirt=5|Skunk=3"],
+ ["Name something people forget to do before leaving the house.","everyday","Lock the Door=34|Turn Off the Lights=22|Grab Their Keys=14|Turn Off the Stove=12|Brush Teeth=8|Feed the Pet=6|Unplug the Iron=4"],
+ ["Name a reason someone might get up really early.","work","Work=46|School=16|Catch a Flight=12|Exercise=10|Kids=8|Go Fishing=5|Watch the Sunrise=3"],
+ ["Name something you associate with a cowboy.","pop","Horse=38|Hat=26|Boots=14|Lasso=8|Gun=6|Cattle=5|Saloon=3"],
+ ["Name a sound that keeps you up at night.","everyday","Snoring=42|Dog Barking=16|Traffic=12|Crying Baby=10|Neighbors=8|Dripping Faucet=7|Thunder=5"],
+ ["Name something people buy in bulk.","everyday","Toilet Paper=40|Paper Towels=16|Water=12|Rice=10|Snacks=9|Diapers=8|Canned Food=5"],
+ ["Name a reason people go to the hardware store.","everyday","Tools=36|Paint=18|Nails & Screws=14|Lumber=10|Copy a Key=8|Light Bulbs=8|Plants=6"],
+ ["Name something you do at a carnival.","family","Go on Rides=38|Eat=22|Play Games=18|Win Prizes=10|Ferris Wheel=6|Funnel Cake=4|Get Sick=2"],
+ ["Name something you'd see in a barbershop.","everyday","Barber Chair=28|Scissors=22|Clippers=16|Mirror=12|Hair on the Floor=10|Magazines=7|Barber Pole=5"],
+ ["Name something that can be \"hot.\"","weird","Weather=26|Coffee=20|Stove=16|Sun=12|Sauce=10|Shower=9|A Person=7"],
+ ["Name something you'd see at an awards show.","pop","Celebrities=30|Trophies=22|Red Carpet=18|Fancy Gowns=12|Speeches=9|Cameras=6|The Host=3"],
+ ["Name an animal that's popular in cartoons.","pop","Mouse=30|Cat=20|Dog=18|Duck=14|Rabbit=10|Bear=5|Pig=3"],
+ ["Name something people take pictures of.","pop","Food=24|Kids=22|Pets=18|Sunsets=14|Themselves=12|Vacations=6|Friends=4"],
+ ["Name something you'd find at a bowling alley.","family","Bowling Balls=34|Pins=26|Shoes=18|Lanes=8|Snack Bar=6|Arcade=5|Scoreboard=3"],
+ ["Name something you charge overnight.","everyday","Phone=58|Laptop=14|Tablet=10|Car=8|Watch=5|Headphones=5"],
+ ["Name something people are always late for.","work","Work=40|School=18|Appointments=14|Church=10|Meetings=8|Dinner=6|Weddings=4"],
+ ["Name a reason a teenager might roll their eyes.","family","Parents Talking=36|Chores=20|Curfew=14|Being Told No=12|Dad Jokes=10|Lectures=8"],
+ ["Name something that's hard to do with your eyes closed.","weird","Walk=30|Read=26|Drive=18|Cook=10|Write=8|Text=5|Find Things=3"],
+ ["Name a job that uses a lot of math.","work","Accountant=36|Engineer=22|Teacher=14|Banker=12|Cashier=8|Scientist=5|Architect=3"],
+ ["Name something you'd find in a haunted house.","holidays","Ghosts=38|Cobwebs=16|Creaky Doors=14|Screams=12|Skeletons=8|Bats=7|Darkness=5"],
+ ["Name something people do to stay warm.","everyday","Wear a Coat=32|Grab a Blanket=22|Drink Hot Cocoa=14|Sit by a Fire=12|Turn Up the Heat=10|Cuddle=6|Rub Their Hands=4"],
+ ["Name a food that's orange.","food","Carrot=36|Orange=30|Pumpkin=12|Sweet Potato=8|Cheese=6|Cantaloupe=5|Peach=3"],
+ ["Name a place people go on a first date.","family","Restaurant=40|Movies=26|Coffee Shop=12|Bar=8|Park=6|Bowling=5|Mini Golf=3","n"],
+ ["Name something you buy at a drugstore.","everyday","Medicine=36|Makeup=16|Toothpaste=12|Shampoo=10|Candy=10|Greeting Cards=9|Snacks=7"],
+ ["Name something people do while waiting in the car.","travel","Listen to Music=34|Check Phone=28|Sleep=12|Eat=10|Sing=7|People-Watch=5|Honk=4"],
+ ["Name something you'd see on a farm besides animals.","family","Tractor=36|Barn=24|Crops=14|Hay=10|Farmer=8|Silo=5|Scarecrow=3"],
+ ["Name a reason people move to Florida.","travel","Weather=50|Beaches=18|Retirement=14|No State Income Tax=10|Theme Parks=5|Family=3"],
+ ["Name something people do at the DMV.","work","Wait in Line=50|Renew License=20|Take a Test=12|Get Their Photo Taken=8|Complain=6|Fill Out Forms=4"],
+ ["Name something you might find in a tackle box.","travel","Hooks=38|Lures=24|Fishing Line=14|Bobbers=10|Sinkers=8|Pliers=6"],
+ ["Name a famous ship.","pop","Titanic=62|Mayflower=12|Noah's Ark=10|Santa Maria=6|Love Boat=6|Enterprise=4"],
+ ["Name something that goes up and down.","weird","Elevator=36|Seesaw=20|Yo-Yo=14|Roller Coaster=12|Stock Market=8|Temperature=6|Escalator=4"],
+ ["Name something you need to make a sandwich.","food","Bread=50|Meat=18|Cheese=12|Mayo=8|Knife=6|Lettuce=6"],
+ ["Name something people do during a commercial break.","pop","Grab a Snack=38|Bathroom Break=28|Change the Channel=14|Check Phone=10|Get a Drink=6|Fast-Forward=4"],
+ ["Name a holiday when people exchange gifts.","holidays","Christmas=60|Birthday=14|Valentine's Day=10|Hanukkah=8|Mother's Day=5|Anniversary=3"],
+ ["Name something that's slippery.","weird","Ice=44|Banana Peel=18|Soap=14|Wet Floor=10|Oil=8|Fish=6"],
+ ["Name something kids lose at school.","family","Jacket=30|Lunch Box=18|Pencils=16|Homework=12|Gloves=10|Water Bottle=8|Teeth=6"],
+ ["Name something you'd find in a garage.","everyday","Car=34|Tools=24|Bikes=12|Lawn Mower=10|Boxes=8|Paint Cans=7|Old Furniture=5"],
+ // ---- More Family Friendly (kid-focused) ----
+ ["Name something you bring to the swimming pool.","family","Towel=36|Swimsuit=24|Goggles=16|Sunscreen=10|Floaties=8|Pool Noodle=6","k"],
+ ["Name a superpower you'd want.","pop","Flying=46|Super Strength=20|Invisibility=14|Super Speed=10|Mind Reading=6|X-Ray Vision=4","k"],
+ ["Name something that's sweet.","food","Candy=40|Sugar=20|Honey=14|Cake=12|Ice Cream=8|Grandma=6","k"],
+ ["Name an animal with a long tail.","family","Monkey=36|Cat=18|Lizard=14|Mouse=10|Kangaroo=10|Dog=7|Horse=5","k"],
+ ["Name a bug.","family","Ant=30|Spider=22|Fly=16|Bee=12|Ladybug=10|Butterfly=6|Mosquito=4","k"],
+ ["Name a sport kids play.","pop","Soccer=40|Basketball=22|Baseball=16|Football=10|Swimming=6|Tennis=4|Gymnastics=2","k"],
+ ["Name something you'd find in a toy box.","family","Dolls=28|Blocks=22|Toy Cars=18|Balls=12|Stuffed Animals=10|Action Figures=6|Puzzles=4","k"],
+ ["Name something that's purple.","everyday","Grapes=46|Eggplant=16|Plum=12|Crayon=10|Flowers=8|Dinosaur=5|Jelly=3","k"],
+ ["Name a fun thing to do on a rainy day.","family","Watch Movies=34|Board Games=20|Read=14|Jump in Puddles=12|Build a Fort=10|Bake Cookies=6|Nap=4","k"],
+ ["Name something a teacher always says.","work","\"Quiet Down\"=30|\"Open Your Books\"=22|\"Homework Is Due\"=16|\"Line Up\"=12|\"Raise Your Hand\"=10|\"Pay Attention\"=6|\"Good Job\"=4","k"],
+ ["Name an animal that lives in a tree.","family","Bird=36|Monkey=22|Squirrel=18|Owl=10|Koala=8|Sloth=4|Snake=2","k"],
+ ["Name something in outer space.","everyday","Stars=34|Moon=24|Planets=18|Sun=10|Aliens=6|Astronauts=5|Rockets=3","k"],
+ // ---- More Dirty / adult party (innuendo, nothing explicit) ----
+ ["Name something people do on a first date to look cool.","weird","Order Wine=30|Pay the Bill=22|Act Mysterious=14|Dress Up=12|Talk About Their Car=10|Hold the Door=8|Pretend to Like Sushi=4","d"],
+ ["Name a bad excuse for not calling back after a date.","weird","\"I Was Busy\"=34|\"My Phone Died\"=24|\"I Lost Your Number\"=16|\"I Was Sick\"=10|\"Work Was Crazy\"=8|\"I Got Back With My Ex\"=8","d"],
+ ["Name something that happens at a bachelor party.","holidays","Drinking=40|Strippers=20|Gambling=14|Pranks on the Groom=12|Throwing Up=8|Bad Tattoos=6","d"],
+ ["Name a reason someone takes a cold shower.","weird","Too Hot=40|Hungover=18|To Wake Up=14|Hot Water Ran Out=12|Feeling Frisky=10|After a Workout=6","d"],
+ ["Name something you'd find at a college party.","work","Red Cups=34|Beer Pong=22|Empty Bottles=16|Sticky Floors=12|Loud Music=8|Someone Passed Out=8","d"],
+ ["Name something people say to escape a bad date.","weird","\"Early Meeting Tomorrow\"=34|\"My Friend Needs Me\"=20|\"I'm Not Feeling Well\"=16|\"I Have to Feed My Dog\"=12|\"Family Emergency\"=10|\"My Ride's Here\"=8","d"],
+ ["Name something people regret after a weekend in Vegas.","travel","Losing Money=38|Getting Married=20|Too Many Drinks=16|A Tattoo=10|The Strip Club Bill=8|No Sleep=8","d"],
+ ["Name a place people sneak a kiss.","family","Movie Theater=30|Car=24|Behind the Bleachers=14|Elevator=10|Coat Closet=10|Under the Mistletoe=8|Kitchen=4","d"],
+ ["Name something that gets better with age.","food","Wine=46|Cheese=20|Whiskey=12|Jeans=8|Friendships=6|Leather=4|Your Spouse=4","d"],
+ ["Name something you'd do if you were invisible for a day.","weird","Sneak Into a Concert=26|Eavesdrop=22|Rob a Bank=16|Prank People=14|Spy on My Ex=10|Sneak Into the Locker Room=8|Eat for Free=4","d"],
+ ["Name something a husband hides from his wife.","family","Money=34|Snacks=18|Receipts=16|His Phone=12|Beer=10|Gray Hairs=6|Golf Clubs=4","d"],
+ ["Name something a wife hides from her husband.","family","Shopping Bags=36|Receipts=22|Chocolate=14|The Credit Card Bill=10|Her Real Age=8|New Shoes=6|Wine=4","d"]
 ];
 const SURVEYS = CURATED.map(([q, c, a, t]) => ({q, c, t: t || 'f', a: to100(parseAns(a))}));
 
@@ -2052,7 +2130,7 @@ const Matcher = (() => {
 /* ============================================================
    Gemini API client
    ============================================================ */
-const DEFAULT_MODEL = 'gemini-3.8-flash';
+const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
 const Gemini = (() => {
   class GemErr extends Error { constructor(kind, msg){ super(msg); this.kind = kind; } }
   const key = () => (LS.get('geminiKey', '') || '').trim();
@@ -2066,23 +2144,28 @@ const Gemini = (() => {
     if(status >= 500) return new GemErr('server', 'Gemini is having trouble right now (server error ' + status + ').');
     return new GemErr('api', 'Gemini error ' + status + (msg ? ': ' + msg.slice(0, 160) : ''));
   }
-  async function call(prompt, schema, {temperature=0.9, thinking=0, timeout=30000}={}){
+  // Per-model tuning. task 'create' = writing surveys (creative), 'judge' = matching guesses (classification).
+  // Gemini 3.5 Flash-Lite: low thinking for writing (better surveys), minimal for judging (fastest).
+  // Gemini 3.x: leave temperature at Google's recommended default of 1.0.
+  function tuning(m, task){
+    if(/^gemini-3/i.test(m) && /flash-lite/i.test(m)) return {thinkingConfig:{thinkingLevel: task === 'judge' ? 'minimal' : 'low'}};
+    if(/^gemini-3/i.test(m)) return {thinkingConfig:{thinkingLevel:'low'}};
+    if(/2\.5/.test(m)) return {temperature: task === 'judge' ? 0.2 : 1.0, thinkingConfig:{thinkingBudget:0}};
+    return {temperature: task === 'judge' ? 0.2 : 1.0};
+  }
+  async function call(prompt, schema, {task='create', system='', timeout=30000, maxTokens=0}={}){
     const k = key(); if(!k) throw new GemErr('nokey', 'No Gemini API key set.');
     if(!navigator.onLine) throw new GemErr('network', "You appear to be offline.");
     const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), timeout);
-    const m = model(), genCfg = {responseMimeType:'application/json', responseSchema: schema};
-    if(/^gemini-3/i.test(m)){
-      // Gemini 3.x: low thinking keeps live-game latency down; Google recommends leaving temperature at its default (1.0)
-      genCfg.thinkingConfig = {thinkingLevel: 'low'};
-    } else {
-      genCfg.temperature = temperature;
-      if(/2\.5/.test(m)) genCfg.thinkingConfig = {thinkingBudget: thinking};
-    }
+    const m = model(), genCfg = Object.assign({responseMimeType:'application/json', responseSchema: schema}, tuning(m, task));
+    if(maxTokens) genCfg.maxOutputTokens = maxTokens;
+    const req = {contents:[{role:'user', parts:[{text: prompt}]}], generationConfig: genCfg};
+    if(system) req.systemInstruction = {parts:[{text: system}]};
     let res;
     try{
       res = await fetch(base() + ':generateContent', {method:'POST', signal: ctrl.signal,
         headers:{'Content-Type':'application/json', 'x-goog-api-key': k},
-        body: JSON.stringify({contents:[{role:'user', parts:[{text: prompt}]}], generationConfig: genCfg})});
+        body: JSON.stringify(req)});
     }catch(e){
       throw new GemErr(e.name === 'AbortError' ? 'timeout' : 'network', e.name === 'AbortError' ? 'Gemini took too long to answer.' : "Couldn't reach Gemini (network error).");
     }finally{ clearTimeout(timer); }
@@ -2102,7 +2185,7 @@ const Gemini = (() => {
     if(!res.ok){ if(res.status === 404) throw new GemErr('model', `The key works but model "${mm}" wasn't found.`); throw explain(res.status, body); }
     return body;
   }
-  return {call, test, hasKey: () => !!key(), model, GemErr};
+  return {call, test, hasKey: () => !!key(), model, GemErr, tuning};
 })();
 
 /* ============================================================
@@ -2446,6 +2529,80 @@ function initHost(){
     family: ['Animals','School','Birthday parties','Playgrounds','Bedtime','Snow days','Pets','Summer camp','Breakfast','The zoo','Holidays','Toys'],
     dirty: ['First dates','Dating apps','Bachelorette parties','Hangovers','Office holiday parties','Vegas weekends','Walk of shame','Hot tubs','Exes','Last call at the bar','Honeymoons','Spring break']
   };
+  // ===================== Gemini survey producer (tuned for gemini-3.5-flash-lite) =====================
+  // A small model writes far better surveys when it gets: a fixed "head writer" brief as the system
+  // instruction, a few real examples in the house style, and the chance to write several candidates
+  // that we score locally (keeping the most survey-like one).
+  const SMALLW = new Set('a an and as at but by for in of on or the to with vs'.split(' '));
+  const titleCase = t => t.split(' ').map((w, i) => (i && SMALLW.has(w.toLowerCase())) ? w.toLowerCase() : (/^[a-z]/.test(w) && !/[A-Z]/.test(w.slice(1)) ? w[0].toUpperCase() + w.slice(1) : w)).join(' ');
+  function polishSurvey(r){
+    if(!r || typeof r.question !== 'string' || !Array.isArray(r.answers)) return null;
+    let q = r.question.replace(/\s+/g, ' ').trim().replace(/^["“']+|["”']+$/g, '');
+    if(q.length < 8) return null;
+    q = q[0].toUpperCase() + q.slice(1); if(!/[.?!]$/.test(q)) q += '.';
+    let ans = [];
+    r.answers.forEach(a => {
+      let t = String(a && a.text || '').replace(/[\u0000-\u001f<>*_#]/g, '').replace(/\s+/g, ' ').trim().replace(/[.!,;:]+$/, '').slice(0, 40);
+      if(!t) return; t = titleCase(t);
+      const p = Math.max(1, Math.round(+a.points || 0));
+      // fold synonyms/near-duplicates into the more popular answer, the way a real tally would
+      const dup = ans.find(x => x[0].toLowerCase() === t.toLowerCase() || Matcher.best(t, [{text:x[0]}]).score >= 0.88);
+      if(dup) dup[1] += p; else ans.push([t, p]);
+    });
+    ans = ans.sort((a, b) => b[1] - a[1]).slice(0, 8);
+    if(ans.length < 5) return null;
+    ans = to100(ans);
+    let score = 0;
+    score += ans.length >= 6 ? 3 : 1;
+    const top = ans[0][1], low = ans[ans.length - 1][1];
+    if(top >= 22 && top <= 60) score += 3;
+    if(top - low >= 15) score += 2;                                    // lopsided like a real survey, not even steps
+    if(ans[1] && ans[0][1] - ans[1][1] >= 3) score += 1;
+    if(ans.every(x => x[0].split(' ').length <= 4)) score += 2;
+    if(/^(name|tell me|give me|what|where|who|how)\b/i.test(q)) score += 2;
+    if(q.length <= 90) score += 1;
+    const qw = new Set(q.toLowerCase().match(/[a-z]{4,}/g) || []);
+    const echo = ans.filter(x => (x[0].toLowerCase().match(/[a-z]{4,}/g) || []).some(w => qw.has(w))).length;
+    if(echo <= 1) score += 2;                                          // answers shouldn't just parrot the question
+    return {q, a: ans, score};
+  }
+  function fewShot(tone, n){
+    const pool = SURVEYS.filter(x => (TONE_TAGS[tone] || TONE_TAGS.normal).includes(x.t));
+    return shuffle(pool.slice()).slice(0, n).map(x => JSON.stringify({question:x.q, answers:x.a.map(([t, p]) => ({text:t, points:p}))})).join('\n');
+  }
+  function producerBrief(tone, fast){
+    return `You are the head question writer for a "Family Feud" style TV game show. You write survey questions and the answers that 100 ordinary people would really give.
+
+What makes a great survey:
+1. The question is short (under 12 words), concrete, and phrased like the show: "Name something...", "Name a...", "Tell me...". Anyone can answer it in 3 seconds.${fast ? ' These are FAST MONEY questions: even simpler, answerable in 1-2 words instantly.' : ''}
+2. Answers are what real people blurt out, not clever writing. Mostly the obvious, common answers, plus one funny-but-true answer near the bottom.
+3. Each answer is 1-3 words in Title Case. No two answers mean the same thing (never both "Couch" and "Sofa").
+4. Answers never simply repeat the words of the question.
+5. Points are how many of the 100 people said it, sorted from most to least. The top answer gets 25-50, the smallest gets 2-6, and the total is exactly 100. Make it lopsided like a real survey, not even steps.
+6. Give 6 to 8 answers.
+
+Tone: ${TONE_PROMPT[tone]}
+
+Examples of the house style (never reuse these questions):
+${fewShot(tone, 3)}`;
+  }
+  const SCHEMA_SET = n => ({type:'OBJECT', properties:{surveys:{type:'ARRAY', minItems:n, maxItems:n, items:{type:'OBJECT', properties:{
+      question:{type:'STRING'},
+      answers:{type:'ARRAY', minItems:6, maxItems:8, items:{type:'OBJECT', properties:{text:{type:'STRING'}, points:{type:'INTEGER', minimum:1, maximum:80}}, required:['text','points'], propertyOrdering:['text','points']}}
+    }, required:['question','answers'], propertyOrdering:['question','answers']}}}, required:['surveys']});
+  const qWords = q => new Set((q.toLowerCase().match(/[a-z]{4,}/g) || []).filter(w => !['name','something','tell','people','person','would','might','your','that','this','when','with','from','have','thing','things'].includes(w)));
+  const tooSimilar = (a, b) => { const A = qWords(a), B = qWords(b); if(!A.size || !B.size) return false; let n = 0; A.forEach(w => { if(B.has(w)) n++; }); return n / Math.min(A.size, B.size) >= 0.6; };
+  async function aiSurveys({want, ask, theme, tone, fast}){
+    const recent = Array.from(used).slice(-60);
+    const user = `Theme: ${theme}
+Write ${ask} different survey questions${ask > 1 ? ' (different angles on the theme, not rewordings of each other)' : ''}.
+Do not reuse or closely paraphrase any of these earlier questions: ${recent.length ? recent.map(q => '"' + q + '"').join('; ') : '(none)'}`;
+    const r = await Gemini.call(user, SCHEMA_SET(ask), {task:'create', system: producerBrief(tone, fast), timeout: 45000});
+    const out = [];
+    (r && Array.isArray(r.surveys) ? r.surveys : []).map(polishSurvey).filter(Boolean).sort((a, b) => b.score - a.score)
+      .forEach(x => { if(out.length < want && !used.has(keyQ(x.q)) && !recent.some(q => tooSimilar(q, x.q)) && !out.some(y => tooSimilar(y.q, x.q))) out.push(x); });
+    return out;
+  }
   async function generate(themeIn){
     const btn = $('#sGen'), msg = $('#sMsg');
     const raw = (themeIn || '').trim(), surprise = !raw || /^surprise/i.test(raw);
@@ -2454,21 +2611,10 @@ function initHost(){
     const theme = surprise ? 'Surprise me: pick a fun topic that fits the tone (for example ' + shuffle((THEMES_BY_TONE[tone] || THEMES).slice()).slice(0,3).join(', ') + ')' : raw;
     btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Generating…';
     msg.innerHTML = '<div class="msg info">Asking Gemini for a fresh survey…</div>';
-    const recent = Array.from(used).slice(-40);
-    const prompt = `You write survey questions for a "Family Feud" style TV game show.
-Tone: ${TONE_PROMPT[tone]}
-Theme: ${theme}
-
-Write ONE original survey question, phrased the way the show does (e.g. "Name something...", "Name a...", "Tell me a..."). It must be answerable by ordinary people in a few words.
-Give between 5 and 8 distinct answers as if 100 people were surveyed, ordered from most to least popular.
-Rules:
-- Each answer is short (1-4 words), Title Case, and clearly different from the others (no near-synonyms).
-- "points" is how many of the 100 people gave that answer. The points MUST add up to exactly 100. The top answer usually gets 20-45 points, and every answer gets at least 2.
-- Match the tone above exactly, in both the question and every answer. Keep it fun and surprising. No political content.
-- Do not reuse or closely paraphrase any of these earlier questions: ${recent.length ? recent.map(q => '"' + q + '"').join('; ') : '(none)'}`;
     try{
-      let r = normalizeSurvey(await Gemini.call(prompt, SCHEMA_SURVEY, {temperature:1.0, thinking:0, timeout:35000}));
-      if(used.has(keyQ(r.q))) r = normalizeSurvey(await Gemini.call(prompt + '\nThat question was already used. Write a completely different one.', SCHEMA_SURVEY, {temperature:1.1, thinking:0}));
+      let [r] = await aiSurveys({want:1, ask:3, theme, tone});
+      if(!r) [r] = await aiSurveys({want:1, ask:3, theme: theme + ' (try a fresh angle)', tone});
+      if(!r) throw new Gemini.GemErr('shape', "Gemini's surveys didn't pass the quality check.");
       if(!guardDiscard()){ msg.innerHTML = '<div class="msg info">Kept the current round. The new survey was discarded.</div>'; return; }
       loadSurvey(r.q, r.a, TONE_LABEL[tone].split(' ')[0] + ' Gemini AI · ' + (surprise ? 'Surprise' : raw));
       msg.innerHTML = `<div class="msg ok">✓ Fresh Gemini survey loaded (${r.a.length} answers).</div>`;
@@ -2494,39 +2640,50 @@ Rules:
   }
 
   // ---------- AI close-enough judge ----------
-  const SCHEMA_JUDGE = {type:'OBJECT', properties:{
-    matchIndex:{type:'INTEGER'}, matchType:{type:'STRING', enum:['exact','close','stretch','none']}, reason:{type:'STRING'}
-  }, required:['matchIndex','matchType','reason']};
+  const schemaJudge = n => ({type:'OBJECT', properties:{
+    matchIndex:{type:'INTEGER', minimum:0, maximum:n}, matchType:{type:'STRING', enum:['exact','close','stretch','none']}, reason:{type:'STRING'}
+  }, required:['matchIndex','matchType','reason'], propertyOrdering:['matchIndex','matchType','reason']});
+  // Judge brief with worked examples: small models follow examples far more reliably than abstract rules
+  function judgeBrief(tone){
+    return `You are the answer judge on a "Family Feud" style game show: fair, quick and friendly.
+Count a guess when it means the same thing as a board answer: synonyms, plurals, slang, different wording, a brand name for the thing, or a specific example of a general answer.
+Do not count a guess that is only related, or a different item from the same category.
+matchType: "exact" = the same answer; "close" = clearly the same idea; "stretch" = arguable, the host decides; "none" = no fit.
+matchIndex = the board answer's number, or 0 for none. reason = one short, friendly sentence for the host.
+Examples:
+Board: 1. Bug Spray 2. Tent 3. Flashlight · Guess "putting on mosquito repellent" -> 1, close
+Board: 1. Chips 2. Soda 3. Candy · Guess "doritos" -> 1, close
+Board: 1. Dog 2. Cat 3. Fish · Guess "a puppy" -> 1, close
+Board: 1. Dog 2. Cat 3. Fish · Guess "hamster" -> 0, none
+Board: 1. Sleep In 2. Watch TV 3. Nap · Guess "lounge on the couch" -> 2, stretch
+Board: 1. Brush Teeth 2. Shower 3. Read · Guess "brushing my teeth" -> 1, exact
+Game tone: ${TONE_PROMPT[tone].split(':')[0]}.${tone === 'dirty' ? ' Players may use slang, innuendo or crude synonyms. Judge them on meaning like any other guess.' : tone === 'family' ? ' Players may be kids, so be generous with simple wording.' : ''}`;
+  }
   async function check(){
     const guess = $('#gIn').value.trim(), out = $('#gOut'), btn = $('#gBtn');
     if(!guess){ $('#gIn').focus(); return; }
     if(!S.answers.length){ out.innerHTML = '<div class="msg info">Load a survey first.</div>'; return; }
     let res = null, note = '';
-    if(Gemini.hasKey()){
+    const local = Matcher.best(guess, S.answers);
+    if(local.matchType === 'exact') res = Object.assign(local, {by:'Smart judge'});     // obvious match: instant, no API call
+    if(!res && Gemini.hasKey()){
       btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Judging…';
       const list = S.answers.map((a, i) => `${i+1}. ${a.text}${a.revealed ? ' (already revealed)' : ''}`).join('\n');
-      const prompt = `You are the judge on a "Family Feud" style game show. Decide whether the player's spoken guess should count as one of the hidden survey answers.
-Survey question: "${S.question}"
+      const prompt = `Survey question: "${S.question}"
 Board answers:
 ${list}
 Player's guess: "${guess}"
-Game tone: ${TONE_PROMPT[getTone()].split(':')[0]}. ${getTone() === 'dirty' ? 'Players may answer with slang, innuendo or crude synonyms. Judge them on meaning like any other guess.' : getTone() === 'family' ? 'Players are often kids, so be generous with simple or kid-style wording.' : ''}
-
-Pick the single best matching board answer, the way a fair but friendly game-show judge would. Allow synonyms, plurals, different wording, and descriptions of the same thing (e.g. "putting on bug spray" matches "Bug Spray").
-- matchType "exact": the same answer, or trivially different wording.
-- matchType "close": clearly the same idea (synonym, a specific example of it, or a rephrasing).
-- matchType "stretch": arguably related, so it's the host's call.
-- matchType "none": no answer fits. Use matchIndex 0 for none.
-Prefer answers that are not yet revealed when two fit equally.
-matchIndex is the answer's number from the list (1-${S.answers.length}).
-reason: one short, friendly sentence the host can read.`;
+Pick the best matching board answer. Prefer answers not yet revealed when two fit equally.`;
       try{
-        const r = await Gemini.call(prompt, SCHEMA_JUDGE, {temperature:0.2, thinking:0, timeout:20000});
+        const r = await Gemini.call(prompt, schemaJudge(S.answers.length), {task:'judge', system: judgeBrief(getTone()), timeout:20000});
         let idx = (parseInt(r.matchIndex, 10) || 0) - 1;
         let type = ['exact','close','stretch','none'].includes(r.matchType) ? r.matchType : 'none';
         if(idx < 0 || idx >= S.answers.length){ idx = -1; type = 'none'; }
         if(type === 'none') idx = -1;
         res = {matchIndex: idx, matchType: type, reason: String(r.reason || '').slice(0, 300), by:'Gemini AI'};
+        // a second opinion: if Gemini passes but the wording is clearly close, surface it for the host
+        if(type === 'none' && local.matchIndex >= 0 && local.score >= 0.75)
+          res = Object.assign({}, local, {matchType:'stretch', by:'Smart judge', reason:`Gemini didn't count it, but it's worded very close to "${S.answers[local.matchIndex].text}". Your call.`});
       }catch(e){
         note = esc(e.message) + ' The built-in judge answered instead.';
       }finally{ btn.disabled = false; btn.innerHTML = 'Check Close Enough'; }
@@ -2673,24 +2830,10 @@ reason: one short, friendly sentence the host can read.`;
     fm.loading = true; fm.timer.endsAt = null; commit();
     let qs = [], note = '', src = '';
     if(Gemini.hasKey()){
-      msg.innerHTML = '<div class="msg info">Gemini is writing 5 Fast Money questions…</div>';
-      const recent = Array.from(used).slice(-60);
-      const prompt = `You write the FAST MONEY bonus round for a "Family Feud" style TV game show.
-Tone: ${TONE_PROMPT[tone]}
-Theme: ${theme ? theme + ' (at least 3 of the 5 questions should connect to it)' : 'none. Mix five unrelated everyday subjects.'}
-
-Write exactly 5 different quick-fire survey questions. Players get only 20 seconds for all five, so each must be instantly answerable in 1-3 words (like "Name a fruit that's yellow", "Name something you do before bed", "Name an animal with a long neck"). Cover five different subjects.
-For each question give 6 to 8 distinct answers as if 100 people were surveyed, most popular first.
-Rules:
-- "points" is how many of the 100 people gave that answer. Each question's points MUST add up to exactly 100. The top answer usually gets 25-50 points, and every answer gets at least 2.
-- Answers are short (1-3 words), Title Case, and clearly different from each other (no near-synonyms).
-- Match the tone above exactly in every question and answer. No political content.
-- Do not reuse or closely paraphrase any of these earlier questions: ${recent.length ? recent.map(q => '"' + q + '"').join('; ') : '(none)'}`;
+      msg.innerHTML = '<div class="msg info">Gemini is writing Fast Money questions…</div>';
       try{
-        const r = await Gemini.call(prompt, SCHEMA_FM, {temperature:1.0, thinking:0, timeout:45000});
-        const seen = new Set();
-        qs = (r && Array.isArray(r.surveys) ? r.surveys : []).map(x => { try{ return normalizeSurvey(x); }catch(e){ return null; } })
-          .filter(x => { if(!x) return false; const k = keyQ(x.q); if(seen.has(k) || used.has(k)) return false; seen.add(k); return true; }).slice(0, 5);
+        const fmTheme = theme ? theme + ' (at least 3 of the questions should connect to it)' : 'none: mix unrelated everyday subjects, one per question';
+        qs = (await aiSurveys({want:5, ask:7, theme: fmTheme, tone, fast:true})).map(x => ({q:x.q, a:x.a}));
         if(qs.length) src = 'Gemini AI';
         if(qs.length < 5) note = `Gemini gave ${qs.length} usable question${qs.length === 1 ? '' : 's'}. The built-in generator filled the rest.`;
       }catch(e){ console.warn(e); note = esc(e.message) + ' Used the built-in generator instead.'; qs = []; }
@@ -2756,9 +2899,11 @@ Rules:
   }, required:['item','matchIndex','matchType','reason']}}}, required:['results']};
   async function fmJudge(c){
     const fm = S.fm;
-    const rows = [0,1,2,3,4].filter(i => fm.cells[c][i].guess.trim() && !fm.cells[c][i].manual && fm.cells[c][i].shown < 2);
+    let rows = [0,1,2,3,4].filter(i => fm.cells[c][i].guess.trim() && !fm.cells[c][i].manual && fm.cells[c][i].shown < 2);
     if(!rows.length){ toast(`No answers typed for ${fm.names[c]} yet.`); return; }
     rows.forEach(i => fmLocal(c, i));
+    rows = rows.filter(i => fm.cells[c][i].type !== 'exact');          // obvious matches don't need Gemini
+    if(!rows.length){ commit(); toast('All of those were clear matches. No Gemini call needed.', 'ok'); return; }
     if(!Gemini.hasKey()){ commit(); toast(`Judged ${rows.length} answer${rows.length > 1 ? 's' : ''} with the smart judge.`, 'ok'); return; }
     const btn = $('#fmJudge' + c); if(btn){ btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Judging…'; }
     commit();
@@ -2768,19 +2913,9 @@ Rules:
       return `Item ${k+1}. Question: "${q.q}"\n  Answers: ${q.a.map(([t, p], j) => `${j+1}. ${t} (${p})`).join('; ')}\n  Player's guess: "${fm.cells[c][i].guess}"` +
         (c === 1 && p1.match != null && p1.match >= 0 ? `\n  Note: Player 1 already said "${p1.guess}", which counted as answer #${p1.match+1}.` : '');
     }).join('\n');
-    const prompt = `You are the judge for the FAST MONEY round of a "Family Feud" style game show. For each item, decide which survey answer the player's quick guess matches, the way a fair but friendly game-show judge would. Allow synonyms, plurals, slang, different wording, and specific examples of the same idea.
-Game tone: ${TONE_PROMPT[tone].split(':')[0]}.${tone === 'dirty' ? ' Players may use slang, innuendo or crude synonyms. Judge them on meaning like any other guess.' : tone === 'family' ? ' Players may be kids, so be generous with simple wording.' : ''}
-- matchType "exact": the same answer, or trivially different wording.
-- matchType "close": clearly the same idea.
-- matchType "stretch": arguably related, so it's the host's call.
-- matchType "none": no answer fits. Use matchIndex 0.
-matchIndex is the answer's number in that item's list. If a guess means the same thing as Player 1's answer, still return that answer's number (the host handles duplicates).
-reason: one short, friendly sentence.
-Return exactly one result per item, using the item numbers below.
-
-${items}`;
+    const prompt = `Judge each item separately. Return exactly one result per item, using the item numbers below. If a guess means the same thing as Player 1's answer, still return that answer's number (the host handles duplicates).\n\n${items}`;
     try{
-      const r = await Gemini.call(prompt, SCHEMA_FMJ, {temperature:0.2, thinking:0, timeout:25000});
+      const r = await Gemini.call(prompt, SCHEMA_FMJ, {task:'judge', system: judgeBrief(tone), timeout:25000});
       if(S.fm === fm) (r && r.results || []).forEach(x => {
         const k = (parseInt(x.item, 10) || 0) - 1, i = rows[k]; if(i == null) return;
         const cell = fm.cells[c][i]; if(cell.manual || cell.guess !== snap[k] || cell.shown >= 2) return;
