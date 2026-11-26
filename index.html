@@ -93,7 +93,7 @@ details ol{margin:8px 0 0;padding-left:20px}
 .tog{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);user-select:none;cursor:pointer}
 .tog input{accent-color:var(--gold);width:16px;height:16px}
 .spacer{flex:1}
-.hgrid{flex:1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr);gap:14px;padding:14px 18px 10px;align-items:start}
+.hgrid{flex:1;display:grid;grid-template-columns:minmax(0,1.75fr) minmax(360px,1fr);gap:14px;padding:14px 18px 10px;align-items:start}
 @media(max-width:1080px){.hgrid{grid-template-columns:1fr}}
 .col{display:flex;flex-direction:column;gap:14px;min-width:0}
 .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#081133;border:1px solid #2c4392;color:var(--muted);letter-spacing:.03em}
@@ -176,7 +176,7 @@ body.is-tv{overflow:hidden;background:#000}
 .beams{position:absolute;inset:-200px;pointer-events:none;opacity:.55;
   background:conic-gradient(from 200deg at 15% -5%,transparent 0deg,rgba(140,180,255,.18) 8deg,transparent 18deg,transparent 40deg,rgba(140,180,255,.12) 48deg,transparent 58deg),
              conic-gradient(from 110deg at 85% -5%,transparent 0deg,rgba(140,180,255,.18) 8deg,transparent 18deg,transparent 40deg,rgba(140,180,255,.12) 48deg,transparent 58deg);
-  animation:sway 14s ease-in-out infinite alternate}
+}
 @keyframes sway{to{transform:translateX(60px) rotate(1.5deg)}}
 .floor{position:absolute;left:0;right:0;bottom:0;height:260px;background:linear-gradient(transparent,rgba(0,0,0,.45));pointer-events:none}
 .topbar{position:absolute;top:22px;left:56px;right:56px;height:196px;display:flex;align-items:center;justify-content:space-between}
@@ -184,10 +184,10 @@ body.is-tv{overflow:hidden;background:#000}
 .team .tn{height:58px;border-radius:16px 16px 0 0;background:linear-gradient(#ffd75e,#f2a100);color:#1d0f00;display:flex;align-items:center;justify-content:center;padding:0 22px;font-size:38px;white-space:nowrap;overflow:hidden;letter-spacing:.02em;text-transform:uppercase;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
 .team .tn span{display:block;max-width:100%;overflow:hidden}
 .team .ts{flex:1;border-radius:0 0 18px 18px;background:linear-gradient(#0a2370,#04103f);border:5px solid var(--gold);border-top:0;display:flex;align-items:center;justify-content:center;font-size:104px;color:#fff;text-shadow:0 0 22px rgba(120,170,255,.9),0 6px 0 #020a2e;box-shadow:0 18px 40px rgba(0,0,0,.45)}
-.team .tflag{position:absolute;left:50%;top:-16px;transform:translateX(-50%);font-size:20px;padding:4px 16px;border-radius:999px;letter-spacing:.12em;white-space:nowrap;opacity:0;transition:opacity .3s}
+.team .tflag{position:absolute;left:50%;bottom:-20px;z-index:2;transform:translateX(-50%);font-size:20px;padding:4px 16px;border-radius:999px;letter-spacing:.12em;white-space:nowrap;opacity:0;transition:opacity .3s}
 .team.ctl .tflag{opacity:1;background:#fff;color:#0b2a8a;box-shadow:0 0 18px rgba(255,255,255,.7)}
 .team.ctl .ts{box-shadow:0 0 0 4px rgba(255,255,255,.65),0 0 50px rgba(255,220,120,.75)}
-.team.steal .tflag{opacity:1;background:var(--red);color:#fff;box-shadow:0 0 24px rgba(255,40,60,.9);animation:pulse 1s infinite}
+.team.steal .tflag{opacity:1;background:var(--red);color:#fff;box-shadow:0 0 24px rgba(255,40,60,.9)}
 .team.steal .ts{box-shadow:0 0 0 4px rgba(255,60,80,.8),0 0 60px rgba(255,40,60,.75)}
 .team.bump{animation:bump .7s ease}
 @keyframes bump{30%{transform:scale(1.08)}}
@@ -202,8 +202,15 @@ body.is-tv{overflow:hidden;background:#000}
 .qbanner.hiddenq .qt{color:#ffe9a8;letter-spacing:.06em}
 .qbanner.reveal{animation:qin .6s ease}
 @keyframes qin{from{opacity:.2;transform:scaleY(.6)}}
-.board{position:absolute;top:400px;left:84px;right:84px;height:570px;border-radius:34px;background:linear-gradient(#071c64,#04103f);border:12px dotted #ffd56b;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 60px rgba(255,190,60,.5),inset 0 0 50px rgba(0,0,0,.7);padding:22px;animation:bulbs 1.2s steps(2) infinite}
+.board{position:absolute;top:400px;left:84px;right:84px;height:570px;border-radius:34px;background:linear-gradient(#071c64,#04103f);border:12px dotted #ffd56b;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 40px rgba(255,190,60,.32),inset 0 0 50px rgba(0,0,0,.7);padding:22px;transition:box-shadow .6s ease}
 @keyframes bulbs{50%{border-color:#fff1c4}}
+/* motion only on action: a short marquee "chase" when something happens */
+.board.lit,.fmgrid.lit{animation:bulbs .32s steps(2) 7;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 80px rgba(255,200,61,.7),inset 0 0 50px rgba(0,0,0,.7)}
+@keyframes tagin{from{transform:scale(.6);opacity:0}}
+.fmtimer.low.tick span{animation:tickp .35s ease}
+@keyframes tickp{30%{transform:scale(1.1)}}
+.lbteam.joined{animation:bump .7s ease}
+.idle .logo{animation:none}
 .tiles{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);grid-auto-flow:column;gap:16px 22px;height:100%}
 .tile{position:relative;perspective:1600px}
 .tile .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.25,.9,.3,1.05)}
@@ -211,7 +218,7 @@ body.is-tv{overflow:hidden;background:#000}
 .tiles.instant .in{transition:none!important}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;align-items:center;overflow:hidden}
 .front{background:linear-gradient(#1d4fd6,#0c2a86 55%,#0a226e);border:3px solid #5b85ff;box-shadow:inset 0 0 0 3px #071a55,inset 0 14px 22px rgba(255,255,255,.14)}
-.front .num{margin:auto;width:150px;height:80px;border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#3b74ff,#0a2a8e);border:4px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:56px;color:#fff;text-shadow:0 0 16px #a9c6ff;animation:numglow 2.6s ease-in-out infinite}
+.front .num{margin:auto;width:150px;height:80px;border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#3b74ff,#0a2a8e);border:4px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:56px;color:#fff;text-shadow:0 0 14px rgba(169,198,255,.8);box-shadow:0 0 16px rgba(255,200,61,.4)}
 @keyframes numglow{0%,100%{box-shadow:0 0 14px rgba(255,200,61,.45)}50%{box-shadow:0 0 34px rgba(255,210,90,.95),0 0 6px #fff inset}}
 .tile.empty .front{background:linear-gradient(#0b1f66,#071650);border-color:#1b3591;box-shadow:inset 0 0 30px rgba(0,0,0,.4)}
 .tile.empty .num{display:none}
@@ -227,14 +234,14 @@ body.is-tv{overflow:hidden;background:#000}
 .idle .logo b{font-size:120px}
 .idle .logo span{font-size:30px}
 .idle .logo{padding:40px 110px;border-width:10px}
-.idle p{margin:0;font-size:36px;color:#ffe9a8;letter-spacing:.08em;animation:pulse 2s infinite}
+.idle p{margin:0;font-size:36px;color:#ffe9a8;letter-spacing:.08em;opacity:.85}
 .bottombar{position:absolute;left:90px;right:90px;top:988px;height:72px;display:flex;align-items:center;justify-content:space-between}
 .bottombar .side{width:520px;font-size:32px;letter-spacing:.1em;color:#ffe9a8;text-shadow:0 3px 0 #020a2e}
 .bottombar .side.r{text-align:right}
 .bpips{display:flex;gap:16px}
 .bpip{width:66px;height:66px;border-radius:12px;border:4px solid #2a1840;background:rgba(10,5,25,.6);display:grid;place-items:center;font-size:46px;color:#2a1840}
 .bpip.on{border-color:#ff3046;color:#ff3046;background:rgba(60,0,10,.7);box-shadow:0 0 22px rgba(255,40,60,.75);text-shadow:0 0 12px rgba(255,40,60,.9)}
-.stealtag{display:inline-block;background:var(--red);color:#fff;padding:6px 22px;border-radius:999px;border:3px solid #fff;box-shadow:0 0 26px rgba(255,40,60,.85);animation:pulse 1s infinite;letter-spacing:.12em}
+.stealtag{display:inline-block;background:var(--red);color:#fff;padding:6px 22px;border-radius:999px;border:3px solid #fff;box-shadow:0 0 26px rgba(255,40,60,.85);animation:tagin .6s cubic-bezier(.3,1.5,.5,1);letter-spacing:.12em}
 .xov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:50px;pointer-events:none;opacity:0;z-index:50;background:radial-gradient(ellipse at center,rgba(80,0,10,.55),transparent 70%)}
 .xov.show{animation:xin 1.5s ease forwards}
 .xov svg{width:360px;height:440px;filter:drop-shadow(0 0 40px rgba(255,30,50,.95)) drop-shadow(0 10px 20px rgba(0,0,0,.6))}
@@ -246,13 +253,13 @@ body.is-tv{overflow:hidden;background:#000}
 @keyframes ain{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}10%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}16%{transform:translate(-50%,-50%) scale(1)}82%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(.95)}}
 .winov{position:absolute;inset:0;z-index:55;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:radial-gradient(ellipse at center,rgba(10,30,110,.9),rgba(2,6,25,.97));opacity:0;pointer-events:none;transition:opacity .6s}
 .winov.show{opacity:1}
-.winov .trophy{font-size:150px;filter:drop-shadow(0 0 30px rgba(255,200,61,.9));animation:float 2.4s ease-in-out infinite}
+.winov .trophy{font-size:150px;filter:drop-shadow(0 0 30px rgba(255,200,61,.9));animation:float 2.4s ease-in-out 2}
 @keyframes float{50%{transform:translateY(-16px)}}
 .winov .w1{font-size:150px;line-height:1;text-transform:uppercase;text-align:center;max-width:1700px;background:linear-gradient(#fff8d6,#ffd75e 45%,#f29b00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 0 #3a1d00)}
 .winov .w2{font-size:96px;color:#fff;letter-spacing:.12em;text-shadow:0 0 30px rgba(120,170,255,.9)}
 .winov .w3{font-size:40px;color:#ffe9a8;letter-spacing:.06em}
 #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
-#tvUnlock{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:70;background:rgba(5,12,38,.95);border:2px solid var(--gold);color:#ffe9a8;padding:14px 24px;border-radius:999px;font-size:18px;font-weight:700;font-family:var(--ui);box-shadow:0 10px 40px rgba(0,0,0,.6);cursor:pointer;animation:pulse 2s infinite}
+#tvUnlock{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:70;background:rgba(5,12,38,.95);border:2px solid var(--gold);color:#ffe9a8;padding:14px 24px;border-radius:999px;font-size:18px;font-weight:700;font-family:var(--ui);box-shadow:0 10px 40px rgba(0,0,0,.6);cursor:pointer}
 #tvCtl{position:fixed;right:14px;top:14px;z-index:72;display:flex;gap:8px;align-items:center;transition:opacity .4s;font-family:var(--ui)}
 #tvCtl.fade{opacity:0;pointer-events:none}
 #tvCtl button{width:44px;height:44px;border-radius:12px;border:1px solid #3d5cc0;background:rgba(5,12,38,.85);color:#fff;font-size:20px}
@@ -295,9 +302,9 @@ body.is-tv{overflow:hidden;background:#000}
 .fmwho{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:34px;color:#ffe9a8;letter-spacing:.08em;max-width:470px;white-space:nowrap;overflow:hidden;text-shadow:0 3px 0 #020a2e}
 .fmtimer{position:absolute;right:0;top:50%;transform:translateY(-50%);width:164px;height:164px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) calc(var(--p,1)*360deg),rgba(255,255,255,.12) 0);box-shadow:0 0 34px rgba(255,200,61,.5);transition:opacity .3s}
 .fmtimer span{width:134px;height:134px;border-radius:50%;background:radial-gradient(#1b4fd6,#06185a);display:grid;place-items:center;font-size:76px;color:#fff;text-shadow:0 0 18px rgba(150,190,255,.9)}
-.fmtimer.low{background:conic-gradient(#ff3046 calc(var(--p,1)*360deg),rgba(255,255,255,.12) 0);box-shadow:0 0 44px rgba(255,40,60,.8);animation:pulse .5s infinite}
+.fmtimer.low{background:conic-gradient(#ff3046 calc(var(--p,1)*360deg),rgba(255,255,255,.12) 0);box-shadow:0 0 44px rgba(255,40,60,.8)}
 .fmtimer.idle{opacity:.6}
-.fmgrid{position:absolute;top:212px;left:84px;right:84px;height:640px;border-radius:34px;background:linear-gradient(#071c64,#04103f);border:12px dotted #ffd56b;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 60px rgba(255,190,60,.5),inset 0 0 50px rgba(0,0,0,.7);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;animation:bulbs 1.2s steps(2) infinite}
+.fmgrid{position:absolute;top:212px;left:84px;right:84px;height:640px;border-radius:34px;background:linear-gradient(#071c64,#04103f);border:12px dotted #ffd56b;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 40px rgba(255,190,60,.32),inset 0 0 50px rgba(0,0,0,.7);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;transition:box-shadow .6s ease}
 .fmcol{display:grid;grid-template-rows:repeat(5,1fr);gap:12px;border-radius:16px;padding:4px;transition:box-shadow .3s}
 .fmcol.active{box-shadow:0 0 0 3px rgba(255,200,61,.6),0 0 34px rgba(255,200,61,.35)}
 .fmrow{position:relative;display:flex;align-items:stretch;border-radius:12px;background:linear-gradient(#1d4fd6,#0c2a86 55%,#0a226e);border:3px solid #5b85ff;overflow:hidden;box-shadow:inset 0 12px 20px rgba(255,255,255,.12)}
@@ -375,7 +382,7 @@ body.is-tv{overflow:hidden;background:#000}
 .lbroom{font-size:30px;color:#c9d6ff;letter-spacing:.2em}
 .lbroom b{display:block;color:var(--gold);font-size:72px;letter-spacing:.18em;margin-top:6px;text-shadow:0 0 24px rgba(255,200,61,.6)}
 .lbmid .how{font-size:26px;color:#c9d6ff;line-height:1.35;letter-spacing:.02em}
-.lbfoot{position:absolute;bottom:40px;left:0;right:0;text-align:center;font-size:38px;color:#ffe9a8;letter-spacing:.08em;animation:pulse 2.2s infinite}
+.lbfoot{position:absolute;bottom:40px;left:0;right:0;text-align:center;font-size:38px;color:#ffe9a8;letter-spacing:.08em;opacity:.9;transition:color .5s}
 .lobby.ready .lbfoot{color:#7ff0b8;animation:none}
 /* ---------- Phone buzzers: TV callout ---------- */
 .buzzban{position:absolute;left:50%;top:300px;transform:translate(-50%,-50%) scale(.6);opacity:0;z-index:48;display:flex;align-items:center;gap:26px;padding:26px 64px;border-radius:999px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;font-size:72px;white-space:nowrap;border:6px solid #fff;box-shadow:0 0 0 8px #04103f,0 0 120px rgba(255,210,90,.95);pointer-events:none;text-transform:uppercase}
@@ -410,6 +417,32 @@ body.is-buzzer{background:radial-gradient(ellipse at 50% 0%,#1a3fb0,#061650 60%,
 .bzbig.won{background:radial-gradient(circle at 50% 40%,#5dffb0,#14a865 60%,#0b5a36);border-color:#c9ffe4;box-shadow:0 0 90px rgba(60,255,160,.85)}
 .bzbig.locked{background:radial-gradient(circle at 50% 40%,#7a1424,#3a0710 70%);border-color:#ff5866;color:#ffc2c9;opacity:.8}
 .bzbig.wait{background:#0b1640;border-color:#2c4392;color:#93a3d6}
+/* ---------- Host layout: live round first, scoreboard second, tools tucked away ---------- */
+.roundc .hq{margin:12px 0 14px;font-size:24px}
+.roundc .agrid{margin-bottom:2px}
+.sb{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch}
+.sbteam{display:flex;flex-direction:column;align-items:center;gap:7px;padding:10px 8px;border-radius:12px;background:#0a1438;border:2px solid #243a80;min-width:0;text-align:center;transition:border-color .2s,box-shadow .2s}
+.sbteam.ctl{border-color:var(--gold);box-shadow:0 0 0 1px rgba(255,200,61,.35),0 0 18px rgba(255,200,61,.18)}
+.sbn{font-weight:800;font-size:14px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbs{font-family:var(--display);font-size:40px;color:#fff;line-height:1}
+.sbteam .btn{width:100%;padding-left:6px;padding-right:6px}
+.sbctl.on{background:#3a2c00;border-color:var(--gold);color:var(--gold)}
+.sbpot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 10px;border-radius:12px;background:radial-gradient(ellipse at 50% 0%,#1d47c4,#0a1a5a);border:2px solid var(--gold);min-width:118px}
+.sbpot .l{font-size:10px;letter-spacing:.2em;color:#ffe7a6;font-weight:800}
+.sbpot .v{font-family:var(--display);font-size:40px;color:var(--gold);line-height:1;text-shadow:0 0 12px rgba(255,200,61,.4)}
+.sbpot .m{font-size:11px;color:#c9d6ff;text-align:center;max-width:130px}
+.sbpot .seg button{padding:4px 9px;font-size:12px}
+.sbbuzz{margin-top:12px;padding-top:12px;border-top:1px dashed #263a7d}
+.sblabel{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.sbbuzz .bzteams{margin-top:8px}
+details.tool{border-top:1px solid #22357a;margin-top:12px;padding-top:10px}
+details.tool>summary{font-size:14px;font-weight:700;color:#c9d6ff;list-style:none;display:flex;align-items:center;gap:6px;cursor:pointer}
+details.tool>summary::-webkit-details-marker{display:none}
+details.tool>summary::before{content:'▸';color:var(--gold);transition:transform .15s}
+details.tool[open]>summary::before{transform:rotate(90deg)}
+details.tool[open]>summary{margin-bottom:10px}
+details.tool .bzroom{font-size:15px}
+.toolsc{background:linear-gradient(180deg,#0c1847,#091235)}
 </style>
 </head>
 <body>
@@ -511,116 +544,105 @@ body.is-buzzer{background:radial-gradient(ellipse at 50% 0%,#1a3fb0,#061650 60%,
         <div class="bzteams" id="hLobbyT"><div class="bzt"><i></i><span></span></div><div class="bzt"><i></i><span></span></div></div>
         <div class="row" style="margin-top:8px"><button class="btn sm ghost" id="hLobbySkip">Skip phone buzzers, I'll run it myself</button></div>
       </div>
-      <div class="card">
+      <!-- LIVE ROUND: question + board + strikes, all in one place -->
+      <div class="card roundc">
         <div class="row between">
           <div class="row"><span class="tag gold" id="hRound">No round yet</span><span class="tag" id="hSrc"></span></div>
-          <div class="row"><span class="muted" style="font-size:13px">Multiplier</span>
-            <div class="seg" id="hMult"><button data-m="1">1x</button><button data-m="2">2x</button><button data-m="3">3x</button></div>
-          </div>
+          <div class="row"><button class="btn" id="hShowQ">👁 Show question on TV</button><span class="kbd">Q</span></div>
         </div>
         <div class="hq empty" id="hQ">No survey loaded. Pick or generate one on the right →</div>
-        <div class="row">
-          <button class="btn" id="hShowQ">👁 Show question on TV</button><span class="kbd">Q</span>
+        <div class="agrid" id="hAnswers"></div>
+        <div class="row hstrikes">
+          <div class="pips" id="hPips"></div>
+          <button class="btn red" id="hStrike">✖ Strike</button><span class="kbd">X</span>
+          <button class="btn sm" id="hBuzz" title="Buzzer + one big X without counting a strike (e.g. a face-off miss)">Buzz only</button><span class="kbd">B</span>
+          <button class="btn sm" id="hSteal">Steal: OFF</button><span class="kbd">S</span>
+          <button class="btn sm ghost" id="hClearStrikes">Clear</button><span class="kbd">C</span>
           <div class="spacer"></div>
-          <span class="muted" style="font-size:13px">Pot</span><b id="hPotInline" style="color:var(--gold);font-size:18px">0</b>
           <button class="btn sm" id="hRevealAll">Reveal remaining</button>
         </div>
       </div>
 
       <div class="card">
-        <h3>Answer Board <small>click a row or press <span class="kbd">1</span>–<span class="kbd">8</span> to reveal or hide on the TV</small></h3>
-        <div class="agrid" id="hAnswers"></div>
-        <div class="row hstrikes">
-          <div class="pips" id="hPips"></div>
-          <button class="btn red" id="hStrike">✖ Add Strike</button><span class="kbd">X</span>
-          <button class="btn sm" id="hBuzz" title="Buzzer + one big X without counting a strike (e.g. a face-off miss)">Buzz only</button><span class="kbd">B</span>
-          <button class="btn sm" id="hClearStrikes">Clear strikes</button><span class="kbd">C</span>
-          <button class="btn sm" id="hSteal">Steal: OFF</button><span class="kbd">S</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Player Guess / Close Enough Check <small id="gMode"></small></h3>
+        <h3>Close Enough? <small id="gMode"></small></h3>
         <div class="row" style="flex-wrap:nowrap">
-          <input class="field" id="gIn" placeholder='What did the player say? e.g. "putting on bug spray"' autocomplete="off">
-          <button class="btn gold" id="gBtn">Check Close Enough</button>
+          <input class="field" id="gIn" placeholder='Type what the player said, e.g. "putting on bug spray"  ( / to jump here)' autocomplete="off">
+          <button class="btn gold" id="gBtn">Check</button>
         </div>
         <div id="gOut"></div>
       </div>
     </div>
 
     <div class="col">
-      <div class="card" id="bzCard">
-        <div class="row between"><h3 style="margin:0">📱 Phone Buzzers</h3><span class="tag" id="bzStatus">Off</span></div>
-        <div id="bzBanner"></div>
-        <div class="bzteams"><div class="bzt" id="bzT0"><i></i><span>Team 1</span></div><div class="bzt" id="bzT1"><i></i><span>Team 2</span></div></div>
-        <div class="row" style="margin-top:10px">
-          <button class="btn gold sm" id="bzReset">🔄 Reset Buzzers</button><span class="kbd">R</span>
-          <label class="tog" style="margin-left:auto" title="You can still change control by hand"><input type="checkbox" id="bzAuto"> First buzz takes control</label>
+      <!-- SCOREBOARD: scores, pot, multiplier, control, award, buzzers -->
+      <div class="card">
+        <div id="hWin"></div>
+        <div class="sb">
+          <div class="sbteam" id="sbT0"><div class="sbn">Team 1</div><div class="sbs">0</div><button class="btn sm sbctl" data-t="0">Give control</button><button class="btn gold sbaw" data-t="0">Award pot</button></div>
+          <div class="sbpot"><div class="l">ROUND POT</div><div class="v" id="hPot">0</div><div class="m" id="hPotM">1x</div>
+            <div class="seg" id="hMult"><button data-m="1">1x</button><button data-m="2">2x</button><button data-m="3">3x</button></div>
+            <button class="btn sm ghost" id="hUndoAward" hidden>↶ Undo award</button></div>
+          <div class="sbteam" id="sbT1"><div class="sbn">Team 2</div><div class="sbs">0</div><button class="btn sm sbctl" data-t="1">Give control</button><button class="btn gold sbaw" data-t="1">Award pot</button></div>
         </div>
-        <div class="row" style="margin-top:8px"><button class="btn sm" id="bzShowTV">📺 Show join screen on TV</button></div>
-        <details id="bzJoin" open>
-          <summary>Team QR codes · Room <span class="bzroom" id="bzCode">----</span></summary>
+        <div class="sbbuzz">
+          <div class="row between"><span class="sblabel">📱 Phone buzzers</span>
+            <div class="row" style="gap:6px"><span class="tag" id="bzStatus">Off</span><button class="btn gold sm" id="bzReset">🔄 Reset</button><span class="kbd">R</span></div></div>
+          <div id="bzBanner"></div>
+          <div class="bzteams"><div class="bzt" id="bzT0"><i></i><span>Team 1</span></div><div class="bzt" id="bzT1"><i></i><span>Team 2</span></div></div>
+        </div>
+        <details class="tool">
+          <summary>✏️ Edit team names &amp; scores</summary>
+          <div id="hTeams"></div>
+        </details>
+      </div>
+
+      <!-- NEXT SURVEY -->
+      <div class="card">
+        <div class="row between" style="margin-bottom:10px"><h3 style="margin:0">Next Survey</h3>
+          <button class="btn sm ghost" id="hVibeTag" title="Change the vibe in Game settings"></button></div>
+        <div class="row" style="flex-wrap:nowrap">
+          <input class="field" id="sTheme" placeholder="Theme (blank = surprise me)" maxlength="80">
+          <button class="btn gold" id="sGen">✨ Generate</button>
+        </div>
+        <div class="chips" id="sChips"></div>
+        <div id="sMsg"></div>
+        <div class="row" style="margin-top:8px;flex-wrap:nowrap">
+          <button class="btn sm" id="sNext">🎲 Next built-in</button>
+          <select class="field" id="sPick" style="flex:1;min-width:0;padding:6px 8px;font-size:13px"></select>
+        </div>
+      </div>
+
+      <!-- TOOLS & SETUP: tucked away until needed -->
+      <div class="card toolsc">
+        <h3 style="margin-bottom:0">Tools &amp; Setup</h3>
+        <details class="tool" id="bzJoin">
+          <summary>📱 Phone buzzer setup · Room <span class="bzroom" id="bzCode">----</span></summary>
+          <div class="row"><button class="btn sm" id="bzShowTV">📺 Show join screen on TV</button>
+            <label class="tog" title="You can still change control by hand"><input type="checkbox" id="bzAuto"> First buzz takes control</label></div>
           <div class="bzjoin2">
             <div class="bzq"><div class="bzqr" id="bzQR0">QR loading…</div><b class="bzqn" id="bzQN0">Team 1</b><button class="btn sm" data-copy="0">Copy link</button></div>
             <div class="bzq"><div class="bzqr" id="bzQR1">QR loading…</div><b class="bzqn" id="bzQN1">Team 2</b><button class="btn sm" data-copy="1">Copy link</button></div>
           </div>
-          <div class="row" style="margin-top:8px;flex-wrap:nowrap"><span class="tip" style="margin:0;flex:1">The TV shows the same codes. Each one sends that phone straight to its team's buzzer.</span><button class="btn sm ghost" id="bzNewRoom">New room code</button></div>
+          <div class="row" style="margin-top:8px;flex-wrap:nowrap"><span class="tip" style="margin:0;flex:1">The TV join screen shows the same codes. Each one sends that phone straight to its team's buzzer.</span><button class="btn sm ghost" id="bzNewRoom">New room code</button></div>
+          <div id="bzErr"></div>
         </details>
-        <div id="bzErr"></div>
-      </div>
-      <div class="card">
-        <h3>Teams &amp; Scores</h3>
-        <div id="hWin"></div>
-        <div class="potbox">
-          <div class="l">ROUND POT</div>
-          <div class="v" id="hPot">0</div>
-          <div class="m" id="hPotM">1x multiplier</div>
-          <div class="row" style="justify-content:center;margin-top:8px">
-            <span class="muted" style="font-size:12px">In control:</span>
-            <div class="seg" id="hCtl"><button data-c="0">Team 1</button><button data-c="-1">None</button><button data-c="1">Team 2</button></div>
-          </div>
-        </div>
-        <div id="hTeams"></div>
-        <div class="row" style="margin-top:10px">
-          <button class="btn sm" id="hUndoAward" hidden>↶ Undo last award</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="row between" style="margin-bottom:10px"><h3 style="margin:0">Next Survey</h3>
-          <div class="row" style="gap:6px"><span class="muted" style="font-size:13px">Vibe</span>
-            <div class="seg" id="hVibe"><button data-tone="family">👪 Family</button><button data-tone="normal">🎤 Normal</button><button data-tone="dirty">🌶️ Dirty</button></div></div>
-        </div>
-        <div class="row" style="flex-wrap:nowrap">
-          <input class="field" id="sTheme" placeholder="Any theme, e.g. Road trips (blank = surprise me)" maxlength="80">
-          <button class="btn gold" id="sGen">✨ Generate New Survey</button>
-        </div>
-        <div class="chips" id="sChips"></div>
-        <div id="sMsg"></div>
-        <div class="row" style="margin-top:10px;flex-wrap:nowrap">
-          <button class="btn" id="sNext">🎲 Next Built-In Survey</button>
-          <select class="field" id="sPick" style="flex:1;min-width:0"></select>
-        </div>
-        <details>
-          <summary>Write your own survey</summary>
-          <input class="field" id="cQ" placeholder="Name something…" style="margin-top:8px" maxlength="140">
+        <details class="tool">
+          <summary>✍️ Write your own survey</summary>
+          <input class="field" id="cQ" placeholder="Name something…" maxlength="140">
           <textarea class="field" id="cA" style="margin-top:8px" placeholder="One answer per line, with points at the end:
 Tent, 35
 Sleeping Bag, 22
 Flashlight, 14"></textarea>
           <div class="row" style="margin-top:8px"><button class="btn sm gold" id="cLoad">Load my survey</button><span class="tip">Up to 8 answers. The points don't have to add up to 100.</span></div>
         </details>
-      </div>
-
-      <div class="card">
-        <h3>Game</h3>
-        <div class="row">
-          <label class="muted" for="gTarget" style="font-size:13px">Win at</label>
-          <input class="field" id="gTarget" type="number" min="10" step="10" style="width:100px">
-          <div class="spacer"></div>
-          <button class="btn sm" id="gNew">🔄 New Game</button>
-        </div>
+        <details class="tool" id="dGame">
+          <summary>⚙️ Vibe &amp; game settings</summary>
+          <div class="row"><span class="muted" style="font-size:13px;width:60px">Vibe</span>
+            <div class="seg" id="hVibe"><button data-tone="family">👪 Family</button><button data-tone="normal">🎤 Normal</button><button data-tone="dirty">🌶️ Dirty</button></div></div>
+          <div class="row" style="margin-top:10px"><label class="muted" for="gTarget" style="font-size:13px;width:60px">Win at</label>
+            <input class="field" id="gTarget" type="number" min="10" step="10" style="width:100px">
+            <div class="spacer"></div><button class="btn sm" id="gNew">🔄 New Game</button></div>
+        </details>
       </div>
     </div>
   </main>
@@ -1294,10 +1316,15 @@ function initTV(){
     if(el.scrollWidth > el.clientWidth + 1){ el.style.whiteSpace = 'normal'; el.style.lineHeight = '1.05'; fitBlock(el, 40, 18); }
   }
   function fitBlock(el, max, min){ let s = max; el.style.fontSize = s+'px'; while(el.scrollHeight > el.clientHeight + 1 && s > min){ s -= 2; el.style.fontSize = s+'px'; } }
+  // only touch the DOM when something actually changed (no re-layout, no re-triggered animations)
+  const setText = (el, v) => { v = String(v); if(el.textContent !== v) el.textContent = v; };
+  const setHTML = (el, h) => { if(el._h !== h){ el._h = h; el.innerHTML = h; } };
+  function lightUp(el){ if(!el) return; el.classList.remove('lit'); void el.offsetWidth; el.classList.add('lit'); clearTimeout(el._lit); el._lit = setTimeout(() => el.classList.remove('lit'), 2400); }
   function tween(el, to){
+    if(el._v === to) return;                       // same value again: let any running count-up finish smoothly
     const from = el._v == null ? to : el._v; el._v = to;
     clearTimeout(el._to); cancelAnimationFrame(el._raf);
-    if(from === to || document.hidden){ el.textContent = to; return; }
+    if(from === to || document.hidden){ setText(el, to); return; }
     const t0 = performance.now(), d = 800;
     const step = now => { const p = Math.min(1, (now-t0)/d), e = 1 - Math.pow(1-p, 3); el.textContent = Math.round(from + (to-from)*e); if(p < 1) el._raf = requestAnimationFrame(step); };
     el._raf = requestAnimationFrame(step);
@@ -1323,7 +1350,7 @@ function initTV(){
   // ---- render ----
   function render(ns){
     st = ns;
-    muted = !!ns.tvMuted; $('#tvMute').textContent = muted ? '🔇' : '🔊';
+    muted = !!ns.tvMuted; setText($('#tvMute'), muted ? '🔇' : '🔊');
     // teams
     ns.teams.forEach((t, i) => {
       const el = $('#tvT'+i), nm = $('.tn span', el);
@@ -1332,13 +1359,13 @@ function initTV(){
       const stealing = ns.steal && ns.control != null && ns.control !== i;
       el.classList.toggle('ctl', ns.control === i && !ns.steal);
       el.classList.toggle('steal', stealing);
-      $('.tflag', el).textContent = stealing ? 'STEAL!' : (ns.control === i ? 'IN CONTROL' : '');
+      setText($('.tflag', el), stealing ? 'STEAL!' : (ns.control === i ? 'IN CONTROL' : ''));
     });
     // pot
     const pv = $('#tvPotV'); const oldPot = pv._v;
     tween(pv, ns.pot);
     if(oldPot != null && oldPot !== ns.pot && ns.pot > oldPot){ const p = $('#tvPot'); p.classList.remove('pulse'); void p.offsetWidth; p.classList.add('pulse'); }
-    const m = $('#tvMult'); m.hidden = ns.multiplier <= 1; m.textContent = ns.multiplier === 2 ? 'DOUBLE ×2' : ns.multiplier === 3 ? 'TRIPLE ×3' : '';
+    const m = $('#tvMult'); m.hidden = ns.multiplier <= 1; setText(m, ns.multiplier === 2 ? 'DOUBLE ×2' : ns.multiplier === 3 ? 'TRIPLE ×3' : '');
     // question
     const qb = $('#tvQ'), qt = $('#tvQt');
     let qText, hiddenQ = false;
@@ -1352,7 +1379,7 @@ function initTV(){
     qb.classList.toggle('hiddenq', hiddenQ);
     // tiles
     $('#tvIdle').hidden = !!ns.question;
-    $('#tvIdleMsg').textContent = lastHost ? 'GET READY…' : 'WAITING FOR THE HOST…';
+    setText($('#tvIdleMsg'), lastHost ? 'GET READY…' : 'WAITING FOR THE HOST…');
     const newRound = ns.roundId !== curRound;
     if(newRound){ curRound = ns.roundId; tilesEl.classList.add('instant'); tilesEl.classList.remove('load'); }
     tiles.forEach((t, i) => {
@@ -1361,10 +1388,10 @@ function initTV(){
       if(a){
         const ansEl = $('.ans', t), up = a.text.toUpperCase();
         if(ansEl.textContent !== up || newRound){ ansEl.textContent = up; fitAns(ansEl); }
-        $('.pts', t).textContent = a.points;
+        setText($('.pts', t), a.points);
         t.classList.toggle('flip', !!a.revealed);
         t.classList.toggle('uncounted', !!a.revealed && !a.counted);
-      } else { t.classList.remove('flip'); $('.ans', t).textContent = ''; $('.pts', t).textContent = ''; }
+      } else { t.classList.remove('flip'); setText($('.ans', t), ''); setText($('.pts', t), ''); }
     });
     if(newRound){
       void tilesEl.offsetWidth;
@@ -1373,16 +1400,16 @@ function initTV(){
     }
     // strikes & labels
     $$('.bpip').forEach((p, i) => p.classList.toggle('on', i < ns.strikes));
-    $('#tvRound').textContent = ns.roundNum ? 'ROUND ' + ns.roundNum : '';
+    setText($('#tvRound'), ns.roundNum ? 'ROUND ' + ns.roundNum : '');
     const stealTeam = ns.control != null ? ns.teams[1-ns.control] : null;
-    $('#tvSteal').innerHTML = ns.steal ? `<span class="stealtag">${stealTeam ? esc(stealTeam.name.toUpperCase()) + ' CAN ' : ''}STEAL!</span>` : (ns.multiplier > 1 ? (ns.multiplier === 2 ? 'DOUBLE POINTS' : 'TRIPLE POINTS') : '');
+    setHTML($('#tvSteal'), ns.steal ? `<span class="stealtag">${stealTeam ? esc(stealTeam.name.toUpperCase()) + ' CAN ' : ''}STEAL!</span>` : (ns.multiplier > 1 ? (ns.multiplier === 2 ? 'DOUBLE POINTS' : 'TRIPLE POINTS') : ''));
     // winner
     const showWin = ns.winner != null && ns.celebrate;
     const w = $('#tvWin');
     if(showWin){
       const wt = ns.teams[ns.winner];
-      $('#tvWin1').textContent = wt.name; fitLine($('#tvWin1'), 150, 60);
-      $('#tvWin3').textContent = `${ns.teams[0].name} ${ns.teams[0].score}  ·  ${ns.teams[1].name} ${ns.teams[1].score}`;
+      if($('#tvWin1').textContent !== wt.name){ $('#tvWin1').textContent = wt.name; fitLine($('#tvWin1'), 150, 60); }
+      setText($('#tvWin3'), `${ns.teams[0].name} ${ns.teams[0].score}  ·  ${ns.teams[1].name} ${ns.teams[1].score}`);
     }
     if(showWin && !w.classList.contains('show')){ w.classList.add('show'); $('#tvAward').classList.remove('show'); Confetti.start(); }
     if(!showWin && w.classList.contains('show')){ w.classList.remove('show'); Confetti.stop(); }
@@ -1401,17 +1428,17 @@ function initTV(){
         const card = $('#lbT' + t), nm = $('.lbname', card), name = ns.teams[t].name.toUpperCase();
         if(nm.textContent !== name){ nm.textContent = name; fitLine(nm, 64, 28); }
         card.classList.toggle('live', live[t]);
-        $('.lbstat', card).textContent = live[t] ? '✓ BUZZER READY' : 'SCAN TO JOIN';
+        setText($('.lbstat', card), live[t] ? '✓ BUZZER READY' : 'SCAN TO JOIN');
         const q = $('.lbqr', card), url = bz.urls && bz.urls[t];
         if(url && q._for !== url) drawQR(q, url);
         if(!url && q._for !== ''){ q._for = ''; q.innerHTML = '<div>Opening room…</div>'; }
-        if(lbPrev && live[t] && !lbPrev[t]) playSfx('reveal');
+        if(lbPrev && live[t] && !lbPrev[t]){ playSfx('reveal'); card.classList.remove('joined'); void card.offsetWidth; card.classList.add('joined'); }
       });
-      $('#lbRoom').textContent = bz.room || '----';
+      setText($('#lbRoom'), bz.room || '----');
       const both = live[0] && live[1];
       el.classList.toggle('ready', both);
-      $('#lbFoot').textContent = bz.status === 'error' ? 'PHONE BUZZERS NEED AN INTERNET CONNECTION'
-        : both ? 'BOTH TEAMS READY! THE HOST WILL START THE GAME' : 'ONE PHONE PER TEAM · PASS IT TO A TEAMMATE EACH ROUND';
+      setText($('#lbFoot'), bz.status === 'error' ? 'PHONE BUZZERS NEED AN INTERNET CONNECTION'
+        : both ? 'BOTH TEAMS READY! THE HOST WILL START THE GAME' : 'ONE PHONE PER TEAM · PASS IT TO A TEAMMATE EACH ROUND');
     }
     lbPrev = live;
   }
@@ -1439,13 +1466,13 @@ function initTV(){
         const row = fmRows[c][i], t = $('.fmtxt', row);
         const txt = cell.shown >= 1 ? (cell.guess.trim() || '—').toUpperCase() : '';
         if(t.textContent !== txt){ t.textContent = txt; fitLine(t, 48, 22); }
-        $('.fmpts b', row).textContent = cell.shown >= 2 ? cell.pts : '';
+        setText($('.fmpts b', row), cell.shown >= 2 ? cell.pts : '');
         row.classList.toggle('txt', cell.shown >= 1); row.classList.toggle('pts', cell.shown >= 2); row.classList.toggle('zero', cell.shown >= 2 && !cell.pts);
         if(cell.shown >= 2) tot += cell.pts;
       });
     });
     tween($('#fmTotV'), tot);
-    $('#fmTotT').textContent = fm.target + ' TO WIN';
+    setText($('#fmTotT'), fm.target + ' TO WIN');
     $('#fmTot').classList.toggle('hit', tot >= fm.target);
     if(fresh){ void board.offsetWidth; requestAnimationFrame(() => board.classList.remove('instant')); }
   }
@@ -1458,7 +1485,7 @@ function initTV(){
     const fm = st && st.fm;
     if(!fm || !fm.active){ fmPrevLeft = null; fmPrevSec = null; return; }
     const t = fm.timer, left = t.endsAt ? Math.max(0, (t.endsAt - Date.now())/1000) : t.left, sec = Math.ceil(left), el = $('#fmTimer');
-    $('#fmTimerV').textContent = sec;
+    if(sec !== fmPrevSec){ setText($('#fmTimerV'), sec); if(t.endsAt && left <= 5 && sec > 0){ el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); } }
     el.style.setProperty('--p', t.dur ? Math.min(1, left / t.dur) : 0);
     el.classList.toggle('low', !!t.endsAt && left <= 5); el.classList.toggle('idle', !t.endsAt);
     if(t.endsAt && fmPrevSec != null && sec !== fmPrevSec && sec <= 5 && sec > 0) playSfx('tick');
@@ -1468,6 +1495,8 @@ function initTV(){
 
   function runFx(f){
     const s = fxSound(f);
+    if(['newround','award','win'].includes(f.name) || (f.name === 'reveal' && st && st.answers[f.idx] && st.answers[f.idx].revealed)) lightUp($('.board'));
+    if(f.name === 'fmstart' || f.name === 'fmwin' || (f.name === 'fmpts' && f.pts > 0)) lightUp($('.fmgrid'));
     if(f.name === 'strike') showX(st.steal ? 1 : (f.count || st.strikes || 1));
     if(f.name === 'buzz') showX(1);
     if(f.name === 'award') showAward(f.team, f.amount);
@@ -1505,7 +1534,7 @@ function initTV(){
   setInterval(() => {
     const live = Date.now() - lastHost < 5000, el = $('#tvLink');
     el.classList.toggle('live', live); $('span', el).textContent = live ? 'Host connected' : 'Host offline';
-    if(!st || !st.question) $('#tvIdleMsg').textContent = live ? 'GET READY…' : 'WAITING FOR THE HOST…';
+    if(!st || !st.question) setText($('#tvIdleMsg'), live ? 'GET READY…' : 'WAITING FOR THE HOST…');
   }, 1000);
 
   // audio unlock (browsers need one click per tab)
@@ -2077,7 +2106,7 @@ function initHost(){
     if(JSON.stringify(pub) !== JSON.stringify(S.buzz || null)){ S.buzz = pub; commit(); }
   }
   function renderBuzz(){
-    if(!$('#bzCard')) return;
+    if(!$('#bzStatus')) return;
     const tag = $('#bzStatus');
     tag.textContent = {off:'Off', starting:'Opening room…', ready:'● Room open', reconnecting:'Reconnecting…', error:'Offline'}[Buzz.status] || '';
     tag.className = 'tag' + (Buzz.status === 'ready' ? ' okc' : Buzz.status === 'error' ? ' badc' : '');
@@ -2103,7 +2132,6 @@ function initHost(){
     } else b.innerHTML = live ? `<div class="bzarm">✅ Buzzers armed. Waiting for a buzz…</div>` : '';
     const pill = $('#hBuzzPill'); pill.hidden = Buzz.first == null; if(Buzz.first != null) pill.textContent = '🔔 ' + S.teams[Buzz.first].name;
     $('#bzReset').disabled = Buzz.armed;
-    if(live === 2 && !Buzz.collapsed){ Buzz.collapsed = true; $('#bzJoin').open = false; }
     $('#bzAuto').checked = !!prefs.buzzAuto;
     buzzPublish(liveArr);
   }
@@ -2750,13 +2778,19 @@ ${items}`;
     const sq = $('#hShowQ'); sq.textContent = S.showQuestion ? '🙈 Hide question on TV' : '👁 Show question on TV'; sq.classList.toggle('on', S.showQuestion); sq.disabled = !S.question;
     $$('#hMult button').forEach(b => b.classList.toggle('on', +b.dataset.m === S.multiplier));
     const pot = calcPot(S);
-    $('#hPot').textContent = pot; $('#hPotInline').textContent = pot;
-    $('#hPotM').textContent = S.awarded ? `Awarded ${S.lastAward ? S.lastAward.amount + ' to ' + S.teams[S.lastAward.team].name : ''}` : `${S.multiplier}x multiplier`;
+    $('#hPot').textContent = pot;
+    $('#hPotM').textContent = S.awarded ? `Awarded ${S.lastAward ? S.lastAward.amount + ' to ' + S.teams[S.lastAward.team].name : ''}` : S.multiplier > 1 ? `${S.multiplier}x points` : 'live total';
     $('#hRevealAll').disabled = revealing || !S.answers.some(a => !a.revealed);
     renderHostAnswers();
     $('#hPips').innerHTML = [0,1,2].map(i => `<div class="pip${i < S.strikes ? ' on' : ''}">X</div>`).join('');
     const stl = $('#hSteal'); stl.textContent = 'Steal: ' + (S.steal ? 'ON' : 'OFF'); stl.classList.toggle('on', S.steal);
-    $$('#hCtl button').forEach(b => { const c = +b.dataset.c; b.classList.toggle('on', c === -1 ? S.control == null : S.control === c); if(c >= 0) b.textContent = S.teams[c].name; });
+    [0,1].forEach(i => {
+      const el = $('#sbT' + i), t = S.teams[i], on = S.control === i;
+      $('.sbn', el).textContent = t.name; $('.sbs', el).textContent = t.score;
+      el.classList.toggle('ctl', on);
+      const cb = $('.sbctl', el); cb.classList.toggle('on', on); cb.textContent = on ? '★ In control' : 'Give control';
+      const aw = $('.sbaw', el); aw.disabled = S.awarded || pot <= 0; aw.textContent = aw.disabled ? 'Award pot' : `Award ${pot} pts`;
+    });
     // teams
     const tb = $('#hTeams');
     if(!tb.children.length){
@@ -2764,14 +2798,13 @@ ${items}`;
         <div class="row" style="flex-wrap:nowrap"><input class="field tname" maxlength="24" aria-label="Team ${i+1} name"></div>
         <div class="row" style="margin-top:8px;flex-wrap:nowrap"><div class="score">0</div>
           <div class="row" style="gap:4px"><button class="btn sm" data-d="-10">−10</button><button class="btn sm" data-d="-1">−1</button><button class="btn sm" data-d="1">+1</button><button class="btn sm" data-d="10">+10</button></div></div>
-        <div class="row" style="margin-top:8px;flex-wrap:nowrap"><input class="field setv" type="number" placeholder="Set…" aria-label="Set score"><button class="btn sm setb">Set</button><div class="spacer"></div><button class="btn gold award">Award Pot</button></div>
+        <div class="row" style="margin-top:8px;flex-wrap:nowrap"><input class="field setv" type="number" placeholder="Set…" aria-label="Set score"><button class="btn sm setb">Set</button></div>
       </div>`).join('');
     }
     $$('.teamc', tb).forEach((el, i) => {
       const t = S.teams[i], nm = $('.tname', el);
       if(document.activeElement !== nm) nm.value = t.name;
       $('.score', el).textContent = t.score;
-      const aw = $('.award', el); aw.textContent = `Award ${pot} → ${t.name}`; aw.disabled = S.awarded || pot <= 0;
       el.classList.toggle('ctl', S.control === i);
     });
     $('#hUndoAward').hidden = !S.lastAward;
@@ -2789,13 +2822,15 @@ ${items}`;
   $('#hShowQ').onclick = () => { S.showQuestion = !S.showQuestion; if(S.showQuestion) S.lobby = false; commit(); };
   $('#hRevealAll').onclick = revealAll;
   $('#hMult').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; S.multiplier = +b.dataset.m; commit(); });
-  $('#hCtl').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; const c = +b.dataset.c; S.control = c < 0 ? null : c; commit(); });
+  $('.sb').addEventListener('click', e => {
+    const c = e.target.closest('.sbctl'); if(c){ const t = +c.dataset.t; S.control = S.control === t ? null : t; commit(); return; }
+    const a = e.target.closest('.sbaw'); if(a) award(+a.dataset.t);
+  });
   $('#hStrike').onclick = addStrike; $('#hBuzz').onclick = buzz; $('#hClearStrikes').onclick = clearStrikes; $('#hSteal').onclick = toggleSteal;
   $('#hUndoAward').onclick = undoAward;
   $('#hTeams').addEventListener('click', e => {
     const card = e.target.closest('.teamc'); if(!card) return; const t = +card.dataset.t;
     if(e.target.dataset.d) adjust(t, +e.target.dataset.d);
-    else if(e.target.classList.contains('award')) award(t);
     else if(e.target.classList.contains('setb')){ const v = parseInt($('.setv', card).value, 10); if(!isNaN(v)){ S.teams[t].score = Math.max(0, v); $('.setv', card).value = ''; checkWinner(); commit(); } }
   });
   $('#hTeams').addEventListener('input', e => { if(e.target.classList.contains('tname')){ const t = +e.target.closest('.teamc').dataset.t; S.teams[t].name = e.target.value.slice(0, 24) || ('Team ' + (t+1)); commit(); } });
@@ -2816,6 +2851,7 @@ ${items}`;
     const t = getTone();
     $$('#lVibe button, #hVibe button').forEach(b => b.classList.toggle('on', b.dataset.tone === t));
     $('#sChips').innerHTML = CHIPS[t].map(c => `<span class="chip">${c}</span>`).join('');
+    $('#hVibeTag').textContent = TONE_LABEL[t] + ' ▾';
   }
   function setTone(t, announce){
     if(!TONE_TAGS[t] || t === getTone()) return;
@@ -2824,6 +2860,7 @@ ${items}`;
   }
   $('#lVibe').addEventListener('click', e => { const b = e.target.closest('button'); if(b) setTone(b.dataset.tone, false); });
   $('#hVibe').addEventListener('click', e => { const b = e.target.closest('button'); if(b) setTone(b.dataset.tone, true); });
+  $('#hVibeTag').onclick = () => { const d = $('#dGame'); d.open = true; d.scrollIntoView({behavior:'smooth', block:'center'}); };
   renderTone();
   $('#sChips').addEventListener('click', e => { if(e.target.classList.contains('chip')){ $('#sTheme').value = e.target.textContent === 'Surprise me' ? '' : e.target.textContent; generate($('#sTheme').value); } });
   $('#sNext').onclick = () => { if(guardDiscard()){ loadBuiltIn(nextBuiltInIndex()); $('#sMsg').innerHTML = ''; } };
