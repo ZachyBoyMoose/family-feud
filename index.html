@@ -258,7 +258,7 @@ body.is-tv{overflow:hidden;background:#000}
 .winov .w1{font-size:150px;line-height:1;text-transform:uppercase;text-align:center;max-width:1700px;background:linear-gradient(#fff8d6,#ffd75e 45%,#f29b00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 0 #3a1d00)}
 .winov .w2{font-size:96px;color:#fff;letter-spacing:.12em;text-shadow:0 0 30px rgba(120,170,255,.9)}
 .winov .w3{font-size:40px;color:#ffe9a8;letter-spacing:.06em}
-#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60;display:none}
 #tvUnlock{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:70;background:rgba(5,12,38,.95);border:2px solid var(--gold);color:#ffe9a8;padding:14px 24px;border-radius:999px;font-size:18px;font-weight:700;font-family:var(--ui);box-shadow:0 10px 40px rgba(0,0,0,.6);cursor:pointer}
 #tvCtl{position:fixed;right:14px;top:14px;z-index:72;display:flex;gap:8px;align-items:center;transition:opacity .4s;font-family:var(--ui)}
 #tvCtl.fade{opacity:0;pointer-events:none}
@@ -510,6 +510,110 @@ details.tool .bzroom{font-size:15px}
 .lbppl{font-size:28px;color:#c9d6ff;max-width:540px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:34px;margin-top:-6px}
 .team.fo .ts{box-shadow:0 0 0 4px rgba(255,255,255,.7),0 0 50px rgba(255,255,255,.45)}
 .team.fo .tflag{opacity:1;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600}
+/* ---------- Casting performance: cheap paints, compositor-only motion ----------
+   Tab casting re-encodes every repainted pixel, so big blurred shadows, CSS filters and
+   animated box-shadows/borders make the TV stutter. These overrides keep the look but paint far less. */
+.beams{display:none}
+.logo b,.lbtitle,.fmtitle,.winov .w1,.fmban .b1,.winov .trophy,.xov svg{filter:none}
+.pot{box-shadow:0 0 0 7px #04103f,0 0 20px rgba(255,200,61,.45),inset 0 0 20px rgba(0,0,0,.4)}
+.pot .pv{text-shadow:0 0 10px rgba(255,200,61,.55),0 5px 0 #3a1d00}
+.pot.pulse{animation:popscale .6s ease}
+@keyframes popscale{40%{transform:scale(1.06)}}
+.team .ts{text-shadow:0 0 10px rgba(120,170,255,.6),0 5px 0 #020a2e;box-shadow:0 8px 16px rgba(0,0,0,.4)}
+.team.ctl .ts{box-shadow:0 0 0 4px rgba(255,255,255,.65),0 0 16px rgba(255,220,120,.55)}
+.team.steal .ts{box-shadow:0 0 0 4px rgba(255,60,80,.8),0 0 16px rgba(255,40,60,.55)}
+.team.fo .ts{box-shadow:0 0 0 4px rgba(255,255,255,.7),0 0 16px rgba(255,255,255,.35)}
+.team.ctl .tflag{box-shadow:none}.team.steal .tflag{box-shadow:none}
+.pot .pm,.stealtag{box-shadow:none}
+.qbanner{box-shadow:0 0 0 4px #04103f,0 8px 16px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.2)}
+.qbanner .qt{text-shadow:0 3px 0 #020a2e}
+.board,.fmgrid,.board.lit,.fmgrid.lit{animation:none;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 16px rgba(255,190,60,.28),inset 0 0 20px rgba(0,0,0,.55)}
+.board::after,.fmgrid::after{content:'';position:absolute;inset:-12px;border-radius:34px;border:12px dotted #fff4cc;opacity:0;pointer-events:none;will-change:opacity}
+.board.lit::after,.fmgrid.lit::after{animation:chase .32s steps(1) 7}
+@keyframes chase{50%{opacity:1}}
+.front{box-shadow:inset 0 0 0 3px #071a55}
+.front .num{box-shadow:0 0 8px rgba(255,200,61,.35);text-shadow:0 0 6px rgba(169,198,255,.7)}
+.back{box-shadow:none}
+.back .ans{text-shadow:0 3px 0 #061650}
+.back .pts{text-shadow:0 0 6px rgba(255,200,61,.5)}
+.tile.flip .back{animation:none}
+.back::after{content:'';position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.tile.flip .back::after{animation:flashov .9s ease .35s}
+@keyframes flashov{0%{opacity:.5}100%{opacity:0}}
+.fmrow{box-shadow:none}
+.fmrow.pts .fmpts{animation:none}
+.fmtxt{text-shadow:0 3px 0 #061650}
+.fmtimer{box-shadow:0 0 16px rgba(255,200,61,.4)}
+.fmtimer.low{box-shadow:0 0 18px rgba(255,40,60,.6)}
+.fmtot{box-shadow:0 0 0 7px #04103f,0 0 20px rgba(255,200,61,.45)}
+.fmtot.hit{box-shadow:0 0 0 7px #04103f,0 0 24px rgba(60,255,160,.6)}
+.fmtot .v{text-shadow:0 0 10px rgba(255,200,61,.6),0 5px 0 #3a1d00}
+.fmtot.burst{animation:popscale .9s ease}
+.awardban,.buzzban,.fmban{box-shadow:0 0 0 8px #04103f,0 12px 30px rgba(0,0,0,.5)}
+.awardban .a2{text-shadow:0 0 12px rgba(255,200,61,.6),0 6px 0 #3a1d00}
+.lbteam,.lbteam.t1{box-shadow:0 0 0 8px #04103f,0 10px 22px rgba(0,0,0,.4)}
+.lbteam.live{box-shadow:0 0 0 8px #04103f,0 0 22px rgba(60,255,160,.55)}
+.lbroom b{text-shadow:0 0 10px rgba(255,200,61,.5)}
+.logo{box-shadow:0 0 0 6px #061650,0 0 20px rgba(255,200,61,.35),inset 0 0 20px rgba(0,0,0,.4)}
+.winov .w2{text-shadow:0 0 12px rgba(120,170,255,.7)}
+.xov{background:radial-gradient(ellipse at center,rgba(80,0,10,.5),transparent 65%)}
+.xov svg rect{fill:rgba(40,0,8,.75)}
+/* ---------- Host screen never gets covered: one-row header, in-page alerts, quiet notices ---------- */
+html,body{overflow-anchor:none}
+.hbar{flex-wrap:nowrap;gap:8px;padding:8px 14px;min-width:0}
+.hbar>*{flex:0 0 auto}
+.hbar .sync{flex:0 1 auto;min-width:0;max-width:340px;overflow:hidden}
+.hbar .sync span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar .spacer{flex:1 1 0;min-width:0}
+.hbrand{font-size:18px}
+@media(max-width:1180px){.hbrand small,.volrow input[type=range]{display:none}.hbar .sync{max-width:220px}}
+.bzpill{animation:none;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
+.bzpill.flash{animation:pillflash .45s ease 6}
+@keyframes pillflash{50%{transform:scale(1.12);box-shadow:0 0 0 4px rgba(255,255,255,.7)}}
+.sbteam.flash{animation:sbflash .5s ease 4}
+@keyframes sbflash{50%{box-shadow:0 0 0 4px #fff,0 0 26px rgba(255,255,255,.55)}}
+#toasts{left:14px;right:auto;bottom:14px;max-width:340px;pointer-events:none}
+.toast{font-size:13px;padding:8px 12px;opacity:.96}
+.toast:nth-last-child(n+3){display:none}
+#bzBanner{min-height:46px;margin-top:8px}
+#bzBanner>div{margin-top:0}
+.bzban,.bzarm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bzban small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bzempty{padding:8px 12px;border-radius:10px;border:1px dashed #2c4392;color:var(--muted);font-size:13px}
+/* ---------- Answer clock ---------- */
+.clkRow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-4px 0 12px;padding:8px 10px;border-radius:10px;background:#0a1438;border:1px solid #243a80}
+.clkRow .seg button{padding:5px 10px}
+#hClkCustom{width:64px;padding:5px 8px}
+.clkv{font-family:var(--display);font-size:20px;min-width:52px;text-align:center;color:var(--muted)}
+.clkv.run{color:#fff}.clkv.low{color:#ff5866}
+.clk{position:absolute;top:214px;right:56px;width:190px;height:190px;border-radius:50%;display:grid;place-items:center;z-index:30;opacity:0;transform:scale(.7);transition:opacity .35s ease,transform .35s ease;will-change:transform,opacity;
+  background:conic-gradient(var(--gold) calc(var(--p,1)*360deg),rgba(255,255,255,.14) 0);box-shadow:0 0 0 6px #04103f,0 8px 18px rgba(0,0,0,.45)}
+.clk.show{opacity:1;transform:scale(1)}
+.clk span{width:156px;height:156px;border-radius:50%;background:radial-gradient(#1b4fd6,#06185a);display:grid;place-items:center;font-size:88px;color:#fff;text-shadow:0 4px 0 #020a2e}
+.clk.low{background:conic-gradient(#ff3046 calc(var(--p,1)*360deg),rgba(255,255,255,.14) 0)}
+.clk.done span{color:#ff6b7a}
+.clk.tick span{animation:tickp .35s ease}
+.stage.clk-on .qbanner{padding-right:230px}
+/* ---------- More casting performance: pre-promote animated layers so motion is GPU-only ---------- */
+.shaker{will-change:transform}
+.xov,.awardban,.buzzban,.fmban,.winov,.standby,.lobby{will-change:opacity,transform}
+.back::after{will-change:opacity}
+.tiles,.fmgrid,.topbar,.qbanner{contain:layout paint}
+/* ---------- Lite TV effects: flat, fade-only motion ---------- */
+.stage.lite .tile .in{transform:none!important;transition:none}
+.stage.lite .face{backface-visibility:visible;-webkit-backface-visibility:visible}
+.stage.lite .back{transform:none;opacity:0;transition:opacity .35s ease}
+.stage.lite .front{transition:opacity .35s ease}
+.stage.lite .tile.flip .back{opacity:1}
+.stage.lite .tile.flip .front{opacity:0}
+.stage.lite .back::after,.stage.lite .board::after,.stage.lite .fmgrid::after{display:none}
+.stage.lite .shaker.shake,.stage.lite .team.bump,.stage.lite .pot.pulse,.stage.lite .qbanner.reveal,.stage.lite .tiles.load .tile.used .front{animation:none}
+.stage.lite .awardban.show,.stage.lite .buzzban.show,.stage.lite .fmban.show{animation:liteban 3s ease forwards}
+@keyframes liteban{0%{opacity:0;transform:translate(-50%,-50%) scale(1)}10%,85%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+.stage.lite .xov.show{animation:litex 1.4s ease forwards}
+@keyframes litex{0%{opacity:0}10%,75%{opacity:1}100%{opacity:0}}
+.stage.lite *{box-shadow:none!important}
+.xov[data-n="1"] svg:nth-child(n+2),.xov[data-n="2"] svg:nth-child(3){display:none}
 </style>
 </head>
 <body>
@@ -527,7 +631,8 @@ details.tool .bzroom{font-size:15px}
         <h2>📺 Quick Living-Room Cast Setup</h2>
         <ol class="steps">
           <li><b>Launch the TV Board.</b> It opens in a new tab. Click that tab once so it can play sound effects.<br>
-            <a class="btn gold" id="lLaunch" target="feudnight_tv" href="./?view=tv">📺 Launch TV Board</a></li>
+            <a class="btn gold" id="lLaunch" target="feudnight_tv" href="./?view=tv">📺 Launch TV Board</a> <button class="btn" id="lLaunchWin" title="Smoothest casting: the board gets its own window, so Chrome never slows it down as a background tab">🪟 Open in its own window</button>
+            <div class="tip">For the smoothest TV, use its own window and keep it uncovered on your laptop. In a separate window, right-click the board and choose <b>Cast…</b>.</div></li>
           <li><b>Cast that tab to your TV.</b> In Chrome or Edge, open the browser menu <span class="path">⋮</span> → <span class="path">Cast, save, and share</span> → <span class="path">Cast…</span>, then under <span class="path">Sources</span> choose <b>Cast tab</b> (not Cast screen) and pick your TV while the <b>TV Board</b> tab is active.
             <div class="tip">Older Edge versions: <span class="path">⋯</span> → <span class="path">More tools</span> → <span class="path">Cast media to device</span>. The board auto-scales to any 16:9 screen, from 720p up to 4K.</div></li>
           <li><b>Keep this Host Controller tab on your laptop.</b> Players only see the TV board. The answers and controls stay here with you.<div class="tip">Optional: each team scans the QR code on the host screen's <b>📱 Phone Buzzers</b> card to turn a phone into their buzzer.</div></li>
@@ -590,19 +695,19 @@ details.tool .bzroom{font-size:15px}
 <!-- =================== HOST =================== -->
 <section id="host" hidden>
   <header class="hbar">
-    <div class="hbrand">FEUD NIGHT<small>Host Controller</small></div>
+    <div class="hbrand">FEUD NIGHT<small>Host</small></div>
     <div class="sync" id="hSync"><i></i><span>TV Board not connected</span></div>
     <div class="bzpill" id="hBuzzPill" hidden></div>
     <a class="btn sm gold" id="hLaunch" target="feudnight_tv" href="./?view=tv">📺 Launch TV Board</a>
     <div class="spacer"></div>
     <button class="btn sm" id="hStandby" title="Show an intermission card on the TV (I)">⏸ Standby</button>
     <span class="volrow" title="TV sound (M to mute)"><button class="btn sm" id="hMute">🔊</button><input type="range" id="hVol" min="0" max="100" step="5" aria-label="TV volume"></span>
-    <label class="tog" title="Also play sound effects quietly on this laptop"><input type="checkbox" id="hPreview"> Laptop preview sounds</label>
+    <label class="tog" title="Also play the sound effects quietly on this laptop"><input type="checkbox" id="hPreview"> 💻 Preview</label>
     <button class="btn sm gold" id="hFM">⚡ Fast Money</button>
     <button class="btn sm" id="hSetup">⚙ Setup</button>
   </header>
 
-  <div class="halert" id="hAlert"></div>
+  <div class="halert" id="hAlert" hidden></div>
   <main class="hgrid">
     <div class="col">
       <div class="card lobbyc" id="hLobby" hidden>
@@ -624,6 +729,13 @@ details.tool .bzroom{font-size:15px}
         <div class="foRow"><span class="sblabel">Face-off · who buzzed first?</span>
           <div class="seg" id="hFace"><button data-f="0">Team 1</button><button data-f="1">Team 2</button><button data-f="-1">Clear</button></div>
           <label class="tog" title="You can still change control on the scoreboard"><input type="checkbox" id="bzAuto"> Winner takes control</label></div>
+        <div class="clkRow"><span class="sblabel">⏱ Clock</span>
+          <div class="seg" id="hClkDur"><button data-s="5">5s</button><button data-s="10">10s</button><button data-s="15">15s</button><button data-s="20">20s</button><button data-s="30">30s</button></div>
+          <input class="field" id="hClkCustom" type="number" min="1" max="120" placeholder="sec" title="Custom number of seconds" aria-label="Custom seconds">
+          <button class="btn gold sm" id="hClkGo">▶ Start</button><span class="kbd">T</span><b class="clkv" id="hClkV">10s</b>
+          <label class="tog" title="When the clock runs out, add a strike automatically"><input type="checkbox" id="hClkStrike"> Strike at 0</label>
+          <label class="tog" title="Start the clock automatically when someone buzzes in"><input type="checkbox" id="hClkAuto"> Auto-start</label>
+        </div>
         <div id="hStealBar"></div>
         <div class="agrid" id="hAnswers"></div>
         <div class="row hstrikes">
@@ -745,6 +857,9 @@ Flashlight, 14"></textarea>
           <div class="row" style="margin-top:10px"><label class="muted" for="gSafe" style="font-size:13px;width:60px">TV fit</label>
             <select class="field" id="gSafe" style="width:auto"><option value="0">Full screen</option><option value="3">3% safe margin</option><option value="5">5% safe margin (overscan)</option><option value="8">8% safe margin</option></select>
             <span class="tip" style="margin:0">Use a margin if your TV crops the edges.</span></div>
+          <div class="row" style="margin-top:10px"><label class="muted" for="gFx" style="font-size:13px;width:60px">TV FX</label>
+            <select class="field" id="gFx" style="width:auto"><option value="0">Full effects</option><option value="1">Lite (smoothest casting)</option></select>
+            <span class="tip" style="margin:0">Lite skips the 3D flips, shake and confetti, for older laptops or a choppy cast.</span></div>
         </details>
       </div>
     </div>
@@ -797,7 +912,7 @@ Flashlight, 14"></textarea>
     <span><span class="kbd">1</span>–<span class="kbd">8</span> reveal/hide</span>
     <span><span class="kbd">X</span> strike</span><span><span class="kbd">B</span> buzz</span>
     <span><span class="kbd">C</span> clear strikes</span><span><span class="kbd">S</span> steal</span>
-    <span><span class="kbd">Q</span> show/hide question</span><span><span class="kbd">/</span> type a guess</span><span><span class="kbd">R</span> reset buzzers</span><span><span class="kbd">Ctrl</span>+<span class="kbd">Z</span> undo</span><span><span class="kbd">M</span> mute TV</span><span><span class="kbd">I</span> standby</span>
+    <span><span class="kbd">Q</span> show/hide question</span><span><span class="kbd">/</span> type a guess</span><span><span class="kbd">R</span> reset buzzers</span><span><span class="kbd">Ctrl</span>+<span class="kbd">Z</span> undo</span><span><span class="kbd">M</span> mute TV</span><span><span class="kbd">I</span> standby</span><span><span class="kbd">T</span> answer clock</span>
     <span class="spacer"></span><span>Shortcuts are off while you're typing in a box.</span>
   </div>
 </section>
@@ -834,6 +949,7 @@ Flashlight, 14"></textarea>
         <div class="team" id="tvT1"><div class="tflag"></div><div class="tn"><span>TEAM 2</span></div><div class="ts">0</div></div>
       </div>
       <div class="qbanner" id="tvQ"><div class="qt" id="tvQt"></div></div>
+      <div class="clk" id="tvClk"><span id="tvClkV">10</span></div>
       <div class="board">
         <div class="tiles" id="tvTiles"></div>
         <div class="idle" id="tvIdle"><div class="logo"><b>FEUD NIGHT</b><span>SURVEY SAYS!</span></div><p id="tvIdleMsg">WAITING FOR THE HOST…</p></div>
@@ -1435,6 +1551,7 @@ const Sound = (() => {
       tone('sine', 2093, t+0.47, 1.3, 0.22); tone('sine', 3136, t+0.47, 0.9, 0.07); tone('sine', 4186, t+0.47, 0.5, 0.04); noise(t, 0.4, 0.05, 7000, 1.5);
     },
     lose(){ const t = ctx.currentTime + 0.02; [[392,0,0.38],[370,0.42,0.38],[349,0.84,0.38],[330,1.26,1.1]].forEach(([f,o,d]) => { tone('triangle', f, t+o, d, 0.17, {hold:true, vib:o > 1 ? 6 : 0}); tone('sawtooth', f/2, t+o, d, 0.04, {hold:true}); }); },
+    timeup(){ const t = ctx.currentTime + 0.01; [0, 0.2, 0.4].forEach((o, i) => { tone('square', i === 2 ? 660 : 880, t+o, i === 2 ? 0.5 : 0.14, 0.1, {hold:true}); }); },
     whoosh(){ // new round
       const t = ctx.currentTime + 0.01;
       noise(t, 0.6, 0.18, 800, 0.7); tone('sine', 300, t, 0.5, 0.12, {to:1200}); tone('triangle', 784, t+0.42, 0.5, 0.12); tone('triangle', 1175, t+0.52, 0.6, 0.1);
@@ -1449,7 +1566,7 @@ const Sound = (() => {
 })();
 function fxSound(f){
   if(f.name === 'fmpts') return f.pts > 0 ? 'reveal' : 'zero';
-  return {reveal:'reveal', strike:'strike', buzz:'strike', award:'fanfare', win:'bigFanfare', newround:'whoosh', fmtext:'blip', dup:'dup', fmwin:'bigFanfare', fmlose:'lose', fmstart:'whoosh', buzzin:'bell'}[f.name];
+  return {reveal:'reveal', strike:'strike', buzz:'strike', award:'fanfare', win:'bigFanfare', newround:'whoosh', fmtext:'blip', dup:'dup', fmwin:'bigFanfare', fmlose:'lose', fmstart:'whoosh', buzzin:'bell', timeup:'timeup'}[f.name];
 }
 
 /* ============================================================
@@ -1462,7 +1579,8 @@ function defaultState(){
     question:'', showQuestion:false, answers:[], roundId:0, roundNum:0, source:'',
     awarded:false, lastAward:null, winner:null, celebrate:false,
     tvMuted:false, pot:0, fx:[], fxSeq:0, updated:0, fm:null,
-    faceoff:null, faceoffWho:'', roundsPlanned:0, tvVol:90, safe:0, standby:false, standbyMsg:'', packIdx:null
+    faceoff:null, faceoffWho:'', roundsPlanned:0, tvVol:90, safe:0, standby:false, standbyMsg:'', packIdx:null,
+    clock:{dur:10, endsAt:null, left:10, show:false}, tvLite:false
   };
 }
 function calcPot(s){ return s.awarded ? 0 : s.answers.reduce((a,x) => a + (x.counted ? x.points : 0), 0) * s.multiplier; }
@@ -1479,7 +1597,7 @@ function initTV(){
   let st = null, lastFx = null, curRound = null, muted = false, lastHost = 0;
 
   // ---- scale fixed 1920x1080 stage to any viewport ----
-  let safe = 0, vol = null;
+  let safe = 0, vol = null, lite = false;
   function fit(){ const s = Math.min(innerWidth/1920, innerHeight/1080) * (1 - 2*safe/100); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
   addEventListener('resize', fit); fit();
 
@@ -1494,13 +1612,21 @@ function initTV(){
   for(let i=0;i<3;i++){ const p = document.createElement('div'); p.className = 'bpip'; p.textContent = 'X'; $('#tvPips').appendChild(p); }
 
   // ---- helpers ----
-  function fitLine(el, max, min){ let s = max; el.style.fontSize = s+'px'; while(el.scrollWidth > el.clientWidth + 1 && s > min){ s -= 2; el.style.fontSize = s+'px'; } }
+  function fitLine(el, max, min){
+    el.style.fontSize = max + 'px'; const sw = el.scrollWidth, cw = el.clientWidth; if(sw <= cw + 1 || !cw) return;
+    let s = Math.max(min, Math.floor(max * cw / sw)); el.style.fontSize = s + 'px';
+    while(el.scrollWidth > el.clientWidth + 1 && s > min){ s -= 2; el.style.fontSize = s + 'px'; }
+  }
   function fitAns(el){
     el.style.whiteSpace = 'nowrap'; el.style.lineHeight = '';
     fitLine(el, 52, 34);
     if(el.scrollWidth > el.clientWidth + 1){ el.style.whiteSpace = 'normal'; el.style.lineHeight = '1.05'; fitBlock(el, 40, 18); }
   }
-  function fitBlock(el, max, min){ let s = max; el.style.fontSize = s+'px'; while(el.scrollHeight > el.clientHeight + 1 && s > min){ s -= 2; el.style.fontSize = s+'px'; } }
+  function fitBlock(el, max, min){
+    el.style.fontSize = max + 'px'; const sh = el.scrollHeight, ch = el.clientHeight; if(sh <= ch + 1 || !ch) return;
+    let s = Math.max(min, Math.floor(max * Math.sqrt(ch / sh))); el.style.fontSize = s + 'px';
+    while(el.scrollHeight > el.clientHeight + 1 && s > min){ s -= 2; el.style.fontSize = s + 'px'; }
+  }
   // only touch the DOM when something actually changed (no re-layout, no re-triggered animations)
   const setText = (el, v) => { v = String(v); if(el.textContent !== v) el.textContent = v; };
   const setHTML = (el, h) => { if(el._h !== h){ el._h = h; el.innerHTML = h; } };
@@ -1509,9 +1635,10 @@ function initTV(){
     if(el._v === to) return;                       // same value again: let any running count-up finish smoothly
     const from = el._v == null ? to : el._v; el._v = to;
     clearTimeout(el._to); cancelAnimationFrame(el._raf);
-    if(from === to || document.hidden){ setText(el, to); return; }
+    if(from === to || document.hidden || lite){ setText(el, to); return; }
     const t0 = performance.now(), d = 800;
-    const step = now => { const p = Math.min(1, (now-t0)/d), e = 1 - Math.pow(1-p, 3); el.textContent = Math.round(from + (to-from)*e); if(p < 1) el._raf = requestAnimationFrame(step); };
+    let lastPaint = 0;   // count-up repaints ~15x/sec instead of 60: same look, a quarter of the paint work
+    const step = now => { const p = Math.min(1, (now-t0)/d), e = 1 - Math.pow(1-p, 3); if(now - lastPaint >= 66 || p >= 1){ lastPaint = now; setText(el, Math.round(from + (to-from)*e)); } if(p < 1) el._raf = requestAnimationFrame(step); };
     el._raf = requestAnimationFrame(step);
     el._to = setTimeout(() => { el.textContent = to; }, d + 150);
   }
@@ -1520,7 +1647,9 @@ function initTV(){
   // ---- big X overlay ----
   const XSVG = `<svg viewBox="0 0 100 122"><rect x="4" y="4" width="92" height="114" rx="12" fill="rgba(20,0,5,.55)" stroke="#ff2a3d" stroke-width="5"/><path d="M24 30 L76 92 M76 30 L24 92" stroke="#5a000c" stroke-width="24" stroke-linecap="round"/><path d="M24 30 L76 92 M76 30 L24 92" stroke="#ff1f35" stroke-width="15" stroke-linecap="round"/><path d="M27 31 L74 87" stroke="rgba(255,190,190,.55)" stroke-width="3" stroke-linecap="round"/></svg>`;
   function showX(n){
-    const ov = $('#tvX'); ov.innerHTML = XSVG.repeat(Math.max(1, Math.min(3, n)));
+    // the three X's are drawn once and kept; we only change how many are visible, so repeat strikes reuse the GPU layer
+    const ov = $('#tvX'); if(!ov._built){ ov.innerHTML = XSVG.repeat(3); ov._built = true; }
+    ov.dataset.n = String(Math.max(1, Math.min(3, n)));
     ov.classList.remove('show'); void ov.offsetWidth; ov.classList.add('show');
     const sh = $('#shaker'); sh.classList.remove('shake'); void sh.offsetWidth; sh.classList.add('shake');
   }
@@ -1538,6 +1667,7 @@ function initTV(){
     muted = !!ns.tvMuted; setText($('#tvMute'), muted ? '🔇' : '🔊');
     const v = ns.tvVol == null ? 90 : ns.tvVol; if(v !== vol){ vol = v; Sound.setVolume(Math.max(0, Math.min(1, v / 100))); }
     if((ns.safe || 0) !== safe){ safe = ns.safe || 0; fit(); }
+    if(!!ns.tvLite !== lite){ lite = !!ns.tvLite; stage.classList.toggle('lite', lite); }
     $('#tvStandby').classList.toggle('show', !!ns.standby);
     setText($('#tvStandbyMsg'), (ns.standbyMsg || '').trim() || "WE'LL BE RIGHT BACK!");
     // teams
@@ -1564,7 +1694,7 @@ function initTV(){
     else if(ns.showQuestion){ qText = ns.question; }
     else { qText = '100 PEOPLE SURVEYED · LISTEN TO YOUR HOST…'; hiddenQ = true; }
     if(qt.textContent !== qText){
-      qt.textContent = qText; fitBlock(qt, hiddenQ ? 46 : 58, 28);
+      qt.textContent = qText; qt._max = hiddenQ ? 46 : 58; fitBlock(qt, qt._max, 28);
       if(!hiddenQ){ qb.classList.remove('reveal'); void qb.offsetWidth; qb.classList.add('reveal'); }
     }
     qb.classList.toggle('hiddenq', hiddenQ);
@@ -1602,7 +1732,7 @@ function initTV(){
       if($('#tvWin1').textContent !== wt.name){ $('#tvWin1').textContent = wt.name; fitLine($('#tvWin1'), 150, 60); }
       setText($('#tvWin3'), `${ns.teams[0].name} ${ns.teams[0].score}  ·  ${ns.teams[1].name} ${ns.teams[1].score}`);
     }
-    if(showWin && !w.classList.contains('show')){ w.classList.add('show'); $('#tvAward').classList.remove('show'); Confetti.start(); }
+    if(showWin && !w.classList.contains('show')){ w.classList.add('show'); $('#tvAward').classList.remove('show'); Confetti.start(lite); }
     if(!showWin && w.classList.contains('show')){ w.classList.remove('show'); Confetti.stop(); }
     renderFM(ns);
     renderLobby(ns);
@@ -1675,6 +1805,25 @@ function initTV(){
     $('#fmBan1').textContent = a; $('#fmBan2').textContent = b;
     const el = $('#fmBan'); el.classList.toggle('lose', !win); el.classList.remove('show'); void el.offsetWidth; el.classList.add('show');
   }
+  // ---- answer clock (shot clock for one player's answer) ----
+  let ckPrevSec = null, ckOn = false;
+  setInterval(() => {
+    const c = st && st.clock, el = $('#tvClk');
+    const on = !!(c && c.show) && !(st.fm && st.fm.active) && !st.standby && !st.lobby;
+    if(on !== ckOn){
+      ckOn = on; el.classList.toggle('show', on); stage.classList.toggle('clk-on', on);
+      const qt = $('#tvQt'); if(qt._max) fitBlock(qt, qt._max, 28);
+    }
+    if(!on){ ckPrevSec = null; return; }
+    const left = c.endsAt ? Math.max(0, (c.endsAt - Date.now())/1000) : c.left, sec = Math.ceil(left);
+    if(sec !== ckPrevSec){
+      setText($('#tvClkV'), sec);
+      if(c.endsAt && ckPrevSec != null && sec <= 3 && sec > 0){ playSfx('tick'); el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }
+    }
+    el.style.setProperty('--p', c.dur ? Math.min(1, left / c.dur) : 0);
+    el.classList.toggle('low', left <= 3); el.classList.toggle('done', left <= 0 && !c.endsAt);
+    ckPrevSec = sec;
+  }, 100);
   let fmPrevLeft = null, fmPrevSec = null;
   setInterval(() => {
     const fm = st && st.fm;
@@ -1696,7 +1845,7 @@ function initTV(){
     if(f.name === 'buzz') showX(1);
     if(f.name === 'award') showAward(f.team, f.amount);
     if(f.name === 'dup'){ const row = fmRows[1][f.row]; if(row){ row.classList.remove('dup'); void row.offsetWidth; row.classList.add('dup'); } }
-    if(f.name === 'fmwin'){ fmBanner('🏆 FAST MONEY WINNERS!', f.total + ' POINTS', true); Confetti.start(); }
+    if(f.name === 'fmwin'){ fmBanner('🏆 FAST MONEY WINNERS!', f.total + ' POINTS', true); Confetti.start(lite); }
     if(f.name === 'fmlose'){ fmBanner('SO CLOSE!', f.total + ' POINTS', false); }
     if(f.name === 'buzzin'){
       const team = st.teams[f.team] || {name:'Team'}, el = $('#tvBuzz');
@@ -1724,11 +1873,12 @@ function initTV(){
   const cached = LS.get('game', null); if(cached) apply(cached, true); else render(defaultState());
 
   // heartbeat to host
-  function ping(){ Bus.post({type:'tv-ping', audio: Sound.unlocked(), muted, stamp: st ? st.updated : 0}); }
+  function ping(){ Bus.post({type:'tv-ping', audio: Sound.unlocked(), muted, hidden: document.visibilityState === 'hidden', stamp: st ? st.updated : 0}); }
+  document.addEventListener('visibilitychange', ping);
   Bus.post({type:'tv-hello'}); ping(); setInterval(ping, 1500);
   setInterval(() => {
     const live = Date.now() - lastHost < 5000, el = $('#tvLink');
-    el.classList.toggle('live', live); $('span', el).textContent = live ? 'Host connected' : 'Host offline';
+    el.classList.toggle('live', live); setText($('span', el), live ? 'Host connected' : 'Host offline');
     if(!st || !st.question) setText($('#tvIdleMsg'), live ? 'GET READY…' : 'WAITING FOR THE HOST…');
   }, 1000);
 
@@ -1752,8 +1902,10 @@ function initTV(){
 const Confetti = (() => {
   let cv, cx, parts = [], running = false, until = 0, raf;
   const colors = ['#ffc83d','#ffe07a','#ff3b4e','#ffffff','#4f7bff','#2fd38a','#ff8a00'];
-  function size(){ const d = devicePixelRatio || 1; cv.width = innerWidth*d; cv.height = innerHeight*d; cx.setTransform(d,0,0,d,0,0); }
+  let scale = 1;
+  function size(){ const d = Math.min(1, devicePixelRatio || 1); cv.width = innerWidth*d; cv.height = innerHeight*d; cx.setTransform(d,0,0,d,0,0); }   // 1x canvas: half the pixels to push through the cast
   function burst(x, y, n, dir){
+    n = Math.round(n * scale);
     for(let i=0;i<n;i++){
       const ang = dir + (Math.random()-0.5)*1.1, sp = 9 + Math.random()*13;
       parts.push({x, y, vx: Math.cos(ang)*sp, vy: Math.sin(ang)*sp, w: 7+Math.random()*9, h: 4+Math.random()*6, r: Math.random()*6, vr: (Math.random()-0.5)*0.35, c: colors[(Math.random()*colors.length)|0], life: 0});
@@ -1761,27 +1913,30 @@ const Confetti = (() => {
   }
   function rain(n){ for(let i=0;i<n;i++) parts.push({x: Math.random()*innerWidth, y: -20, vx: (Math.random()-0.5)*2, vy: 2+Math.random()*3, w: 7+Math.random()*8, h: 4+Math.random()*5, r: Math.random()*6, vr: (Math.random()-0.5)*0.3, c: colors[(Math.random()*colors.length)|0], life: 0}); }
   function frame(){
-    const W = innerWidth, H = innerHeight; cx.clearRect(0,0,W,H);
+    const W = innerWidth, H = innerHeight; cx.setTransform(1,0,0,1,0,0); cx.clearRect(0,0,W,H);
     const now = performance.now();
-    if(running && now < until && Math.random() < 0.5) rain(3);
-    parts = parts.filter(p => p.y < H + 40 && p.life < 900);
+    if(running && now < until && Math.random() < 0.5 * scale) rain(2);
+    parts = parts.filter(p => p.y < H + 40 && p.life < 480);
     for(const p of parts){
       p.vy += 0.22; p.vx *= 0.99; p.vy = Math.min(p.vy, 7); p.x += p.vx + Math.sin((p.life+p.r*10)/12)*0.6; p.y += p.vy; p.r += p.vr; p.life++;
-      cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.scale(1, Math.cos(p.life/6)); cx.fillStyle = p.c; cx.fillRect(-p.w/2, -p.h/2, p.w, p.h); cx.restore();
+      const c = Math.cos(p.r), sn = Math.sin(p.r), k = Math.cos(p.life/6);
+      cx.setTransform(c, sn, -sn*k, c*k, p.x, p.y); cx.fillStyle = p.c; cx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
     }
-    if(running || parts.length) raf = requestAnimationFrame(frame); else cx.clearRect(0,0,W,H);
+    if(running && now >= until) running = false;
+    if(running || parts.length) raf = requestAnimationFrame(frame); else { cx.clearRect(0,0,W,H); cv.style.display = 'none'; }
   }
   return {
-    start(){
-      cv = cv || $('#confetti'); if(!cv) return; cx = cx || cv.getContext('2d'); size(); addEventListener('resize', size);
-      running = true; until = performance.now() + 9000; cancelAnimationFrame(raf);
+    start(liteMode){
+      scale = liteMode ? 0.3 : 0.55;
+      cv = cv || $('#confetti'); if(!cv) return; cx = cx || cv.getContext('2d'); cv.style.display = 'block'; size(); addEventListener('resize', size);
+      running = true; until = performance.now() + (liteMode ? 3500 : 6000); cancelAnimationFrame(raf);
       const W = innerWidth, H = innerHeight;
       burst(0, H*0.85, 160, -Math.PI/3); burst(W, H*0.85, 160, -2*Math.PI/3);
       setTimeout(() => { if(running){ burst(W*0.5, H*0.9, 180, -Math.PI/2); } }, 700);
       setTimeout(() => { if(running){ burst(0, H*0.6, 100, -Math.PI/4); burst(W, H*0.6, 100, -3*Math.PI/4); } }, 1500);
       frame();
     },
-    stop(){ running = false; parts = []; }
+    stop(){ running = false; parts = []; cancelAnimationFrame(raf); if(cx){ cx.clearRect(0, 0, innerWidth, innerHeight); cv.style.display = 'none'; } }
   };
 })();
 
@@ -2272,7 +2427,6 @@ function initHost(){
       info.team = t; info.pid = pid; info.name = cleanName(d.name);
       if(pid) Buzz.seen.add(pid);
       buzzSend(conn); renderBuzz();
-      if(isNew) toast(`📱 ${info.name || 'A player'} joined ${S.teams[t].name}.`, 'ok');
       return;
     }
     if(d.type === 'rename'){ info.name = cleanName(d.name); buzzSend(conn); renderBuzz(); return; }
@@ -2345,9 +2499,9 @@ function initHost(){
     if(Buzz.first != null){
       const n = S.teams[Buzz.first].name, o = S.teams[1 - Buzz.first].name;
       bh = `<div class="bzban t${Buzz.first}">🔔 ${Buzz.who ? esc(Buzz.who) + ' · ' : ''}${esc(n.toUpperCase())} BUZZED FIRST!${Buzz.second != null ? `<small>${esc(Buzz.secondWho || o)} (${esc(o)}) pressed ${Buzz.gap} ms later</small>` : ''}</div>`;
-    } else bh = live ? `<div class="bzarm">✅ Buzzers armed. Waiting for a buzz…</div>` : '';
+    } else bh = live ? `<div class="bzarm">✅ Buzzers armed. Waiting for a buzz…</div>` : `<div class="bzempty">No phones connected. Players scan their team's code on the TV.</div>`;
     if(b._h !== bh){ b._h = bh; b.innerHTML = bh; }
-    const pill = $('#hBuzzPill'); pill.hidden = Buzz.first == null; if(Buzz.first != null) pill.textContent = '🔔 ' + S.teams[Buzz.first].name;
+    const pill = $('#hBuzzPill'), pf = S.faceoff != null ? S.faceoff : Buzz.first; pill.hidden = pf == null; if(pf != null){ const tx = '🔔 ' + (S.faceoffWho ? S.faceoffWho + ' · ' : '') + S.teams[pf].name; if(pill.textContent !== tx) pill.textContent = tx; }
     $('#bzReset').disabled = Buzz.armed && S.faceoff == null;
     // roster
     const ros = [...Buzz.conns.values()].filter(i => i.team != null).sort((a, b) => a.team - b.team || a.name.localeCompare(b.name));
@@ -2415,6 +2569,7 @@ function initHost(){
   $('#lPlayAI').onclick = () => { saveKeyField(); newGame(false); S.lobby = true; applyLauncherTeams(); commit(); showHost(); generate(''); };
   $('#lResume').onclick = () => { saveKeyField(); applyLauncherTeams(); commit(); showHost(); };
   $('#hSetup').onclick = showLauncher;
+  $('#lLaunchWin').onclick = () => { const w = window.open(tvUrl(), 'feudnight_tv', 'popup=yes,width=1280,height=760'); if(!w) toast('Your browser blocked the pop-up. Use "Launch TV Board" instead.', 'err'); };
   $('#lCount').textContent = `${Engine.size} surveys in rotation (👪 ${Engine.count('family')} · 🎤 ${Engine.count('normal')} · 🌶️ ${Engine.count('dirty')}), with fresh answer mixes every time. No sign-up, no API key, no limits.`;
 
   // ---------- state plumbing ----------
@@ -2438,7 +2593,7 @@ function initHost(){
     if(!m) return;
     if(m.type === 'tv-hello'){ tv.last = Date.now(); Bus.post({type:'state', state:S}); }
     else if(m.type === 'tv-ping'){
-      tv.last = Date.now(); tv.audio = !!m.audio;
+      tv.last = Date.now(); tv.audio = !!m.audio; tv.hidden = !!m.hidden;
       if(m.stamp !== S.updated) Bus.post({type:'state', state:S}); else Bus.post({type:'pong'});
       updSync();
     }
@@ -2446,8 +2601,9 @@ function initHost(){
   });
   function updSync(){
     const el = $('#hSync'), live = Date.now() - tv.last < 4500;
-    el.className = 'sync ' + (live ? (tv.audio || S.tvMuted ? 'live' : 'warn') : '');
-    $('span', el).textContent = !live ? 'TV Board not connected' : (S.tvMuted ? 'TV Board live · TV sound muted' : tv.audio ? 'TV Board live · sound ready' : 'TV Board live · click the TV tab once to turn on sound');
+    el.className = 'sync ' + (live ? (tv.hidden ? 'warn' : tv.audio || S.tvMuted ? 'live' : 'warn') : '');
+    el.title = live && tv.hidden ? 'The TV Board tab is behind another tab, so Chrome may slow it down. Drag that tab out into its own window (or use "Open in its own window" on the Setup screen) and keep it uncovered.' : '';
+    $('span', el).textContent = !live ? 'TV Board not connected' : tv.hidden ? '⚠ TV tab is in the background: it may stutter' : (S.tvMuted ? 'TV Board live · TV sound muted' : tv.audio ? 'TV Board live · sound ready' : 'TV Board live · click the TV tab once to turn on sound');
     $('#hLaunch').hidden = live;
   }
   setInterval(updSync, 1000);
@@ -2484,7 +2640,7 @@ function initHost(){
       .sort((a, b) => b.points - a.points);
     S.roundId = (S.roundId || 0) + 1; S.roundNum = (S.roundNum || 0) + 1;
     S.strikes = 0; S.steal = false; S.control = null; S.awarded = false; S.lastAward = null; S.showQuestion = false; S.source = source;
-    S.faceoff = null; S.faceoffWho = ''; S.packIdx = null; undoStack.length = 0;
+    S.faceoff = null; S.faceoffWho = ''; S.packIdx = null; undoStack.length = 0; S.clock = {dur:clockDur(), endsAt:null, left:clockDur(), show:false};
     markUsed(q); buzzReset(true); judge = null; $('#gOut').innerHTML = ''; $('#gIn').value = '';
     fx('newround'); commit(); buildPicker();
   }
@@ -2716,10 +2872,36 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
     renderHostAnswers();
   }
 
+  // ---------- answer clock: a countdown for one player's answer ----------
+  const clockDur = () => (S.clock && S.clock.dur) || prefs.clockDur || 10;
+  const clockLeft = c => c.endsAt ? Math.max(0, (c.endsAt - Date.now())/1000) : c.left;
+  let clockHideT = null;
+  function clockSetDur(sec){
+    sec = Math.max(1, Math.min(120, Math.round(+sec || 10)));
+    prefs.clockDur = sec; LS.set('prefs', prefs);
+    const c = S.clock || {}; S.clock = Object.assign({}, c, {dur:sec}); if(!c.endsAt) S.clock.left = sec;
+    commit();
+  }
+  function clockStart(){ const d = clockDur(); clearTimeout(clockHideT); S.clock = {dur:d, endsAt: Date.now() + d*1000, left:d, show:true}; commit(); }
+  function clockHalt(){ const c = S.clock; if(c && (c.endsAt || c.show)){ clearTimeout(clockHideT); S.clock = {dur:c.dur, endsAt:null, left:c.dur, show:false}; } }   // no commit: callers commit
+  function clockToggle(){ const c = S.clock; if(c && c.endsAt){ clockHalt(); commit(); } else clockStart(); }
+  setInterval(() => {
+    const c = S.clock; if(!c) return;
+    const left = clockLeft(c), v = $('#hClkV');
+    if(v){ setText2(v, (c.endsAt ? Math.ceil(left) : c.show ? 0 : c.dur) + 's'); v.classList.toggle('run', !!c.endsAt); v.classList.toggle('low', !!c.endsAt && left <= 3); }
+    if(c.endsAt && left <= 0){
+      S.clock = {dur:c.dur, endsAt:null, left:0, show:true};
+      if(prefs.clockStrike && S.question && !S.awarded && !(S.fm && S.fm.active)){ snap('strike (time ran out)'); S.strikes = Math.min(3, S.strikes + 1); fx('strike', {count:S.strikes}); }
+      else fx('timeup');
+      commit();
+      clockHideT = setTimeout(() => { if(S.clock && !S.clock.endsAt && S.clock.show){ S.clock = {dur:S.clock.dur, endsAt:null, left:S.clock.dur, show:false}; commit(); } }, 2500);
+    }
+  }, 200);
+
   // ---------- game actions ----------
   // Undo (Ctrl+Z): snapshots of the round before each reveal / strike / award / control change
   const undoStack = [];
-  const UNDO_KEEP = ['fx','fxSeq','updated','buzz','tvMuted','tvVol','fm','lobby','standby','standbyMsg','safe','pot'];
+  const UNDO_KEEP = ['fx','fxSeq','updated','buzz','tvMuted','tvVol','fm','lobby','standby','standbyMsg','safe','pot','clock','tvLite'];
   function snap(label){
     const c = JSON.parse(JSON.stringify(S)); UNDO_KEEP.forEach(k => delete c[k]);
     undoStack.push({label, s:c, round:S.roundId}); if(undoStack.length > 40) undoStack.shift();
@@ -2735,12 +2917,12 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
   function setReveal(i, on, noSnap){
     const a = S.answers[i]; if(!a || on === !!a.revealed) return;
     if(!noSnap) snap((on ? 'reveal #' : 'hide #') + (i+1) + ' ' + a.text);
-    if(on){ S.lobby = false; a.revealed = true; a.counted = !S.awarded; fx('reveal', {idx:i}); }
+    if(on){ S.lobby = false; clockHalt(); a.revealed = true; a.counted = !S.awarded; fx('reveal', {idx:i}); }
     else { a.revealed = false; a.counted = false; }
     commit();
   }
   const toggleAnswer = i => { const a = S.answers[i]; if(a) setReveal(i, !a.revealed); };
-  function addStrike(){ snap('strike'); S.strikes = Math.min(3, S.strikes + 1); fx('strike', {count:S.strikes}); commit(); }
+  function addStrike(){ snap('strike'); clockHalt(); S.strikes = Math.min(3, S.strikes + 1); fx('strike', {count:S.strikes}); commit(); }
   function buzz(){ fx('buzz'); commit(); }
   function clearStrikes(){ if(!S.strikes) return; snap('clear strikes'); S.strikes = 0; commit(); }
   function toggleSteal(){
@@ -2753,7 +2935,7 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
     if(S.awarded){ toast('This round\'s pot was already awarded.', 'err'); return; }
     if(p <= 0){ toast('The pot is empty. Reveal some answers first.', 'err'); return; }
     if(!noSnap) snap(`award ${p} to ${S.teams[t].name}`);
-    S.teams[t].score += p; S.awarded = true; S.lastAward = {team:t, amount:p};
+    clockHalt(); S.teams[t].score += p; S.awarded = true; S.lastAward = {team:t, amount:p};
     S.steal = false; fx('award', {team:t, amount:p}); checkWinner(); commit();
   }
   // Steal: a hit gives the pot to the stealing team; a miss gives it back to the team that had control
@@ -2771,13 +2953,16 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
     S.faceoff = t; S.faceoffWho = who || ''; S.lobby = false;
     if(prefs.buzzAuto && !(S.fm && S.fm.active)) S.control = t;
     if(!fromPhone && Buzz.armed){ Buzz.armed = false; Buzz.first = t; Buzz.firstAt = performance.now(); Buzz.second = null; Buzz.gap = null; Buzz.who = ''; Buzz.whoPid = null; buzzSendAll(); }
+    if(prefs.clockAuto && !(S.fm && S.fm.active)){ const d = clockDur(); S.clock = {dur:d, endsAt: Date.now() + d*1000, left:d, show:true}; }
     fx('buzzin', {team:t, who: who || ''}); commit();
     hostAlert(t, who);
   }
   function hostAlert(t, who){
-    const el = $('#hAlert'); el.className = 'halert t' + t;
-    el.textContent = `🔔 ${who ? who + ' · ' : ''}${S.teams[t].name.toUpperCase()} BUZZED IN!`;
-    void el.offsetWidth; el.classList.add('show');
+    // In-page only: nothing floats over the host controls.
+    requestAnimationFrame(() => {
+      const pill = $('#hBuzzPill'), sb = $('#sbT' + t);
+      [pill, sb].forEach(el => { if(!el) return; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); });
+    });
     const base = 'Host Controller — Feud Night'; let n = 0; clearInterval(hostAlert._t);
     hostAlert._t = setInterval(() => { document.title = (n++ % 2) ? base : `🔔 ${S.teams[t].name} buzzed!`; if(n > 7){ clearInterval(hostAlert._t); document.title = base; } }, 500);
   }
@@ -3176,7 +3361,11 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
     renderHeaderAudio(); $('#hPreview').checked = prefs.preview;
     if(document.activeElement !== $('#gRounds')) $('#gRounds').value = S.roundsPlanned || 0;
     if(document.activeElement !== $('#gStandbyMsg')) $('#gStandbyMsg').value = S.standbyMsg || '';
-    $('#gSafe').value = String(S.safe || 0);
+    $('#gSafe').value = String(S.safe || 0); $('#gFx').value = S.tvLite ? '1' : '0';
+    { const c = S.clock || {dur:clockDur()}; $$('#hClkDur button').forEach(b => b.classList.toggle('on', +b.dataset.s === c.dur));
+      const go = $('#hClkGo'); go.textContent = c.endsAt ? '■ Stop' : '▶ Start'; go.classList.toggle('red', !!c.endsAt); go.classList.toggle('gold', !c.endsAt);
+      if(document.activeElement !== $('#hClkCustom')) $('#hClkCustom').value = [5,10,15,20,30].includes(c.dur) ? '' : c.dur;
+      $('#hClkStrike').checked = !!prefs.clockStrike; $('#hClkAuto').checked = !!prefs.clockAuto; }
     renderDeckInfo();
     $('#gMode').textContent = Gemini.hasKey() ? '· Gemini AI judge' : '· smart judge, synonyms included';
     updSync();
@@ -3212,6 +3401,13 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
   $('#gRounds').addEventListener('change', e => { S.roundsPlanned = Math.max(0, Math.min(30, parseInt(e.target.value, 10) || 0)); commit(); });
   $('#gStandbyMsg').addEventListener('input', e => { S.standbyMsg = e.target.value.slice(0, 60); commit(); });
   $('#gSafe').addEventListener('change', e => { S.safe = +e.target.value || 0; commit(); });
+  $('#gFx').addEventListener('change', e => { S.tvLite = e.target.value === '1'; commit(); });
+  $('#hClkDur').addEventListener('click', e => { const b = e.target.closest('button'); if(b) clockSetDur(+b.dataset.s); });
+  $('#hClkCustom').addEventListener('change', e => { if(e.target.value) clockSetDur(+e.target.value); });
+  $('#hClkCustom').addEventListener('keydown', e => { if(e.key === 'Enter'){ if(e.target.value) clockSetDur(+e.target.value); e.target.blur(); } });
+  $('#hClkGo').onclick = clockToggle;
+  $('#hClkStrike').onchange = e => { prefs.clockStrike = e.target.checked; LS.set('prefs', prefs); };
+  $('#hClkAuto').onchange = e => { prefs.clockAuto = e.target.checked; LS.set('prefs', prefs); };
   $('#hUndo').onclick = undo;
   $('#hFace').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; const f = +b.dataset.f; if(f < 0) buzzReset(); else setFaceoff(f, '', false); });
   $('#bzAuto').onchange = e => { prefs.buzzAuto = e.target.checked; LS.set('prefs', prefs); };
@@ -3406,6 +3602,7 @@ Pick the best matching board answer. Prefer answers not yet revealed when two fi
     if(e.ctrlKey || e.metaKey || e.altKey) return;
     if(k === 'm'){ e.preventDefault(); toggleMute(); return; }
     if(k === 'i'){ e.preventDefault(); toggleStandby(); return; }
+    if(k === 't' && !(S.fm && S.fm.active)){ e.preventDefault(); clockToggle(); return; }
     if(S.fm && S.fm.active){
       if(k === 't'){ e.preventDefault(); fmPause(); }
       else if(k === 'n'){ e.preventDefault(); fmRevealNext(); }
@@ -3480,7 +3677,7 @@ function initBuzzer(){
       setTimeout(() => { if(B.conn === conn && !B.connected) scheduleRetry(); }, 12000);
       conn.on('open', () => {
         if(B.conn !== conn) return;
-        B.connected = true; B.ever = true; B.busy = false; B.retry = 0; B.notFound = false; B.lastPong = Date.now(); msg('');
+        B.connected = true; B.ever = true; B.readyAt = Date.now() + 900; B.busy = false; B.retry = 0; B.notFound = false; B.lastPong = Date.now(); msg('');
         send(B.team != null ? joinMsg() : {type:'hello'});
         ui();
       });
@@ -3554,6 +3751,8 @@ function initBuzzer(){
   // ---- controls ----
   $('#bzBtn').addEventListener('pointerdown', e => {
     e.preventDefault(); requestWake(); Sound.ensure();
+    // a tap that wakes or unlocks the phone (or lands while it's reconnecting) must not count as a buzz
+    if(Date.now() < (B.readyAt || 0) || Date.now() - (B.wokeAt || 0) < 1200) return;
     if(!B.connected || B.team == null || !B.armed || B.pending || B.winner != null) return;
     B.pending = true;
     try{ navigator.vibrate && navigator.vibrate(120); }catch(_){}
@@ -3595,6 +3794,7 @@ function initBuzzer(){
   }, 2000);
   document.addEventListener('visibilitychange', () => {
     if(document.visibilityState !== 'visible') return;
+    B.wokeAt = Date.now();
     requestWake();
     if(!B.connected || Date.now() - B.lastPong > 4000){ B.retry = 0; connect(); }
   });
