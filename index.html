@@ -252,13 +252,138 @@ body.is-tv{overflow:hidden;background:#000}
 .winov .w2{font-size:96px;color:#fff;letter-spacing:.12em;text-shadow:0 0 30px rgba(120,170,255,.9)}
 .winov .w3{font-size:40px;color:#ffe9a8;letter-spacing:.06em}
 #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
-#tvUnlock{position:fixed;left:50%;bottom:13vh;transform:translateX(-50%);z-index:70;background:rgba(5,12,38,.95);border:2px solid var(--gold);color:#ffe9a8;padding:14px 24px;border-radius:999px;font-size:18px;font-weight:700;font-family:var(--ui);box-shadow:0 10px 40px rgba(0,0,0,.6);cursor:pointer;animation:pulse 2s infinite}
+#tvUnlock{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:70;background:rgba(5,12,38,.95);border:2px solid var(--gold);color:#ffe9a8;padding:14px 24px;border-radius:999px;font-size:18px;font-weight:700;font-family:var(--ui);box-shadow:0 10px 40px rgba(0,0,0,.6);cursor:pointer;animation:pulse 2s infinite}
 #tvCtl{position:fixed;right:14px;top:14px;z-index:72;display:flex;gap:8px;align-items:center;transition:opacity .4s;font-family:var(--ui)}
 #tvCtl.fade{opacity:0;pointer-events:none}
 #tvCtl button{width:44px;height:44px;border-radius:12px;border:1px solid #3d5cc0;background:rgba(5,12,38,.85);color:#fff;font-size:20px}
 #tvCtl .st{font-size:12px;color:var(--muted);background:rgba(5,12,38,.85);border:1px solid #2c4392;border-radius:999px;padding:6px 10px;display:flex;gap:6px;align-items:center}
 #tvCtl .st i{width:9px;height:9px;border-radius:50%;background:#5a6690}
 #tvCtl .st.live i{background:var(--green);box-shadow:0 0 8px var(--green)}
+/* ---------- Fast Money (host) ---------- */
+.fmp{padding:14px 18px;display:flex;flex-direction:column;gap:14px}
+.fmtop{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px}
+@media(max-width:1080px){.fmtop{grid-template-columns:1fr}}
+.fmclock{font-family:var(--display);font-size:64px;color:var(--gold);text-align:center;line-height:1;margin:2px 0 10px}
+.fmclock.run{color:#fff;text-shadow:0 0 18px rgba(120,170,255,.8)}
+.fmclock.low{color:#ff5866;text-shadow:0 0 18px rgba(255,60,80,.7)}
+.fmtotal{font-family:var(--display);font-size:58px;color:var(--gold);line-height:1;text-align:center;text-shadow:0 0 14px rgba(255,200,61,.5)}
+.fmtotal.hit{color:var(--green);text-shadow:0 0 14px rgba(47,211,138,.6)}
+.fmtable{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr);gap:8px 12px;align-items:stretch}
+@media(max-width:900px){.fmtable{grid-template-columns:1fr}}
+.fmth{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:2px 0}
+.fmq{padding:10px 12px;border-radius:10px;background:#0a1438;border:1px solid #243a80}
+.fmq>b{font-size:15px;display:block;margin-bottom:6px;line-height:1.3}
+.fmq .alist{font-size:12px;color:var(--muted);line-height:1.6}
+.fmq .alist span{display:inline-block;margin-right:10px;white-space:nowrap}
+.fmq .alist span b{color:#ffe7a6}
+.fmc{padding:8px;border-radius:10px;background:#0a1438;border:1px solid #243a80;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fmc.shown{border-color:rgba(47,211,138,.6);background:linear-gradient(90deg,rgba(47,211,138,.12),rgba(47,211,138,.03))}
+.fmc.dup{border-color:#ff5866;box-shadow:0 0 0 1px #ff5866}
+.fmc .fmpp{font-family:var(--display);color:var(--gold);font-size:22px;min-width:40px;text-align:right}
+.fmc select{padding:6px 8px;font-size:13px;min-width:0}
+.fmc .fmg{padding:7px 10px}
+.fmc .info{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.fmc .dupw{font-size:12px;color:#ffc2c9;font-weight:700}
+.mt.manual{background:#3b2a6e;color:#e2d6ff}
+
+/* ---------- Fast Money (TV) ---------- */
+.stage.fm-on .topbar,.stage.fm-on .qbanner,.stage.fm-on .board,.stage.fm-on .bottombar{visibility:hidden}
+.fmboard{position:absolute;inset:0;z-index:20}
+.fmboard.instant *{transition:none!important;animation:none!important}
+.fmhead{position:absolute;top:24px;left:84px;right:84px;height:170px;display:flex;align-items:center;justify-content:center}
+.fmtitle{font-size:124px;line-height:1;letter-spacing:.04em;background:linear-gradient(#fff8d6,#ffd75e 45%,#f29b00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #3a1d00) drop-shadow(0 0 30px rgba(255,200,61,.45))}
+.fmwho{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:34px;color:#ffe9a8;letter-spacing:.08em;max-width:470px;white-space:nowrap;overflow:hidden;text-shadow:0 3px 0 #020a2e}
+.fmtimer{position:absolute;right:0;top:50%;transform:translateY(-50%);width:164px;height:164px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) calc(var(--p,1)*360deg),rgba(255,255,255,.12) 0);box-shadow:0 0 34px rgba(255,200,61,.5);transition:opacity .3s}
+.fmtimer span{width:134px;height:134px;border-radius:50%;background:radial-gradient(#1b4fd6,#06185a);display:grid;place-items:center;font-size:76px;color:#fff;text-shadow:0 0 18px rgba(150,190,255,.9)}
+.fmtimer.low{background:conic-gradient(#ff3046 calc(var(--p,1)*360deg),rgba(255,255,255,.12) 0);box-shadow:0 0 44px rgba(255,40,60,.8);animation:pulse .5s infinite}
+.fmtimer.idle{opacity:.6}
+.fmgrid{position:absolute;top:212px;left:84px;right:84px;height:640px;border-radius:34px;background:linear-gradient(#071c64,#04103f);border:12px dotted #ffd56b;box-shadow:0 0 0 6px #04103f,0 0 0 12px var(--gold2),0 0 60px rgba(255,190,60,.5),inset 0 0 50px rgba(0,0,0,.7);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:30px;animation:bulbs 1.2s steps(2) infinite}
+.fmcol{display:grid;grid-template-rows:repeat(5,1fr);gap:12px;border-radius:16px;padding:4px;transition:box-shadow .3s}
+.fmcol.active{box-shadow:0 0 0 3px rgba(255,200,61,.6),0 0 34px rgba(255,200,61,.35)}
+.fmrow{position:relative;display:flex;align-items:stretch;border-radius:12px;background:linear-gradient(#1d4fd6,#0c2a86 55%,#0a226e);border:3px solid #5b85ff;overflow:hidden;box-shadow:inset 0 12px 20px rgba(255,255,255,.12)}
+.fmtxt{flex:1;min-width:0;display:flex;align-items:center;padding:0 24px;font-size:48px;white-space:nowrap;overflow:hidden;text-transform:uppercase;text-shadow:0 4px 0 #061650;clip-path:inset(0 100% 0 0);transition:clip-path .7s steps(16)}
+.fmrow.txt .fmtxt{clip-path:inset(0 0 0 0)}
+.fmpts{flex:0 0 150px;display:flex;align-items:center;justify-content:center;background:linear-gradient(#0a2a8e,#05185e);border-left:4px solid var(--gold);font-size:62px;color:var(--gold);perspective:600px;text-shadow:0 0 16px rgba(255,200,61,.7)}
+.fmpts b{display:block;transform:rotateX(90deg);transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.fmrow.pts .fmpts b{transform:rotateX(0)}
+.fmrow.pts .fmpts{animation:flash .9s ease}
+.fmrow.zero .fmpts b{color:#ff6b7a;text-shadow:0 0 14px rgba(255,60,80,.6)}
+.fmcol.covered .fmrow{background:linear-gradient(#0b1f66,#071650);border-color:#1b3591;box-shadow:inset 0 0 30px rgba(0,0,0,.4)}
+.fmcol.covered .fmtxt,.fmcol.covered .fmpts b{visibility:hidden}
+.fmrow.dup{animation:dupf .6s ease}
+.fmrow.dup::after{content:'DUPLICATE · TRY AGAIN';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(200,10,30,.94);color:#fff;font-size:40px;letter-spacing:.06em;animation:dupt 1.8s forwards}
+@keyframes dupt{0%,80%{opacity:1}100%{opacity:0}}
+@keyframes dupf{15%,45%{transform:translateX(-12px)}30%,60%{transform:translateX(12px)}}
+.fmfoot{position:absolute;top:874px;left:84px;right:84px;height:186px;display:flex;align-items:center;justify-content:space-between}
+.fmname{width:600px;font-size:42px;color:#ffe9a8;letter-spacing:.06em;text-shadow:0 3px 0 #020a2e;white-space:nowrap;overflow:hidden}
+.fmname.r{text-align:right}
+.fmtot{width:440px;height:172px;border-radius:26px;background:radial-gradient(ellipse at 50% 30%,#3a72ff,#0d2fa0 55%,#06185a);border:7px solid var(--gold);box-shadow:0 0 0 7px #04103f,0 0 60px rgba(255,200,61,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:box-shadow .4s}
+.fmtot .l{font-size:26px;letter-spacing:.3em;color:#ffe9a8}
+.fmtot .v{font-size:104px;line-height:1;color:var(--gold);text-shadow:0 0 26px rgba(255,200,61,.85),0 6px 0 #3a1d00}
+.fmtot .t{font-size:20px;color:#c9d6ff;letter-spacing:.14em}
+.fmtot.hit{border-color:#5dffb0;box-shadow:0 0 0 7px #04103f,0 0 90px rgba(60,255,160,.8)}
+.fmload{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:radial-gradient(ellipse at center,rgba(10,30,110,.94),rgba(2,6,25,.98));font-size:64px;color:#ffe9a8;letter-spacing:.06em;z-index:6}
+.fmload .z{font-size:150px;animation:float 1.6s ease-in-out infinite}
+.fmban{position:absolute;left:50%;top:530px;transform:translate(-50%,-50%) scale(.6);opacity:0;z-index:7;text-align:center;padding:40px 90px;border-radius:40px;background:radial-gradient(ellipse at 50% 30%,#2b62ff,#0b2a8a 60%,#061650);border:8px solid var(--gold);box-shadow:0 0 0 8px #04103f,0 0 140px rgba(255,200,61,.85);pointer-events:none;white-space:nowrap}
+.fmban.show{animation:ain 7s ease forwards}
+.fmban.lose{border-color:#9fb3ff;box-shadow:0 0 0 8px #04103f,0 0 100px rgba(120,150,255,.6)}
+.fmban .b1{font-size:92px;line-height:1.05;background:linear-gradient(#fff8d6,#ffd75e 45%,#f29b00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #3a1d00)}
+.fmban .b2{font-size:60px;color:#fff;margin-top:10px;letter-spacing:.08em}
+/* ---------- Phone buzzers: host card ---------- */
+.tag.okc{color:#aef3d0;border-color:rgba(47,211,138,.5)}
+.tag.badc{color:#ffc2c9;border-color:rgba(255,80,100,.5)}
+.bzteams{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.bzt{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:#0a1438;border:1px solid #243a80;font-size:13px;font-weight:650;color:var(--muted);min-width:0}
+.bzt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bzt i{flex:0 0 10px;height:10px;border-radius:50%;background:#5a6690}
+.bzt.on{color:#aef3d0;border-color:rgba(47,211,138,.5)}
+.bzt.on i{background:var(--green);box-shadow:0 0 8px var(--green)}
+.bzt.idle{color:#ffe3a0}.bzt.idle i{background:var(--gold)}
+.bzt.first{box-shadow:0 0 0 2px var(--gold)}
+.bzban{margin-top:10px;padding:12px 14px;border-radius:12px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;font-family:var(--display);font-size:20px;text-align:center;animation:bzpop .5s ease;box-shadow:0 0 24px rgba(255,200,61,.5)}
+.bzban.t1{background:linear-gradient(#8fb3ff,#3b6bff);color:#fff}
+.bzban small{display:block;font-family:var(--ui);font-size:13px;font-weight:700;margin-top:4px;opacity:.85}
+@keyframes bzpop{0%{transform:scale(.85);opacity:0}60%{transform:scale(1.04)}}
+.bzarm{margin-top:10px;padding:8px 12px;border-radius:10px;background:rgba(47,211,138,.1);border:1px solid rgba(47,211,138,.4);color:#aef3d0;font-size:13px;font-weight:650}
+.bzjoin{display:flex;gap:12px;align-items:center;margin-top:8px}
+.bzqr{flex:0 0 168px;width:168px;height:168px;border-radius:10px;overflow:hidden;background:#fff;display:grid;place-items:center;color:#333;font-size:12px}
+.bzqr svg,.bzqr img{width:100%;height:100%;display:block}
+.bzurl{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;word-break:break-all;background:#081133;border:1px solid #2c4392;border-radius:8px;padding:6px 8px;margin:6px 0}
+.bzroom{font-family:var(--display);font-size:22px;color:var(--gold);letter-spacing:.12em}
+.bzpill{font-family:var(--display);font-size:14px;padding:6px 12px;border-radius:999px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;animation:pulse 1s infinite}
+/* ---------- Phone buzzers: TV callout ---------- */
+.buzzban{position:absolute;left:50%;top:300px;transform:translate(-50%,-50%) scale(.6);opacity:0;z-index:48;display:flex;align-items:center;gap:26px;padding:26px 64px;border-radius:999px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;font-size:72px;white-space:nowrap;border:6px solid #fff;box-shadow:0 0 0 8px #04103f,0 0 120px rgba(255,210,90,.95);pointer-events:none;text-transform:uppercase}
+.buzzban.t1{background:linear-gradient(#8fb3ff,#3b6bff);color:#fff;box-shadow:0 0 0 8px #04103f,0 0 120px rgba(120,160,255,.95)}
+.buzzban.show{animation:ain 3s ease forwards}
+.buzzban .bell{display:inline-block;animation:ring .45s ease-in-out 5}
+@keyframes ring{0%,100%{transform:rotate(0)}25%{transform:rotate(-24deg)}75%{transform:rotate(24deg)}}
+/* ---------- Phone buzzers: phone view ---------- */
+body.is-buzzer{background:radial-gradient(ellipse at 50% 0%,#1a3fb0,#061650 60%,#020825);overflow:hidden;overscroll-behavior:none;height:100%}
+#buzzer{position:fixed;inset:0;display:flex;flex-direction:column;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.bzjoinscr{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;max-width:440px;margin:0 auto;width:100%;overflow:auto}
+.bzjoinscr .logo{padding:14px 34px}
+.bzjoinscr .logo b{font-size:38px}
+.bzjoinscr .logo span{font-size:11px}
+#bzRoom{font-family:var(--display);font-size:44px;letter-spacing:.3em;text-align:center;width:230px;padding:10px 10px 10px 22px;border-radius:14px;-webkit-user-select:text;user-select:text}
+#bzPick{display:flex;flex-direction:column;gap:12px;width:100%}
+#bzPick .btn{width:100%;padding:18px;font-size:20px;white-space:normal}
+.bzplay{flex:1;display:flex;flex-direction:column;gap:12px;padding:max(12px,env(safe-area-inset-top)) 14px max(14px,env(safe-area-inset-bottom));min-height:0}
+.bztop{display:flex;align-items:center;gap:10px;color:#ffe9a8}
+.bztop #bzMe{font-family:var(--display);font-size:22px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
+.bzdot{flex:0 0 12px;height:12px;border-radius:50%;background:#ff5866}
+.bzdot.on{background:var(--green);box-shadow:0 0 10px var(--green)}
+.bzbig{flex:1;min-height:0;width:100%;border-radius:36px;border:8px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;font-family:var(--display);padding:20px;transition:background .2s,transform .08s,box-shadow .2s,opacity .2s;cursor:pointer}
+.bzbig .l1{font-size:clamp(44px,15vw,110px);line-height:1;text-align:center;text-shadow:0 6px 0 rgba(0,0,0,.35)}
+.bzbig .l2{font-family:var(--ui);font-weight:700;font-size:18px;opacity:.92;text-align:center}
+.bzbig.armed{background:radial-gradient(circle at 50% 40%,#3b74ff,#0b2a8a 60%,#061650);box-shadow:0 0 0 6px #04103f,0 0 60px rgba(255,200,61,.75);animation:bzglow 1.4s ease-in-out infinite}
+.bzbig.armed .l1{color:var(--gold);text-shadow:0 0 24px rgba(255,200,61,.8),0 6px 0 #3a1d00}
+.bzbig.armed:active{transform:scale(.97)}
+@keyframes bzglow{50%{box-shadow:0 0 0 6px #04103f,0 0 120px rgba(255,210,90,1)}}
+.bzbig.pending{background:radial-gradient(circle,#fff3c4,#ffb31a);color:#2a1600;border-color:#fff}
+.bzbig.pending .l1{text-shadow:none}
+.bzbig.won{background:radial-gradient(circle at 50% 40%,#5dffb0,#14a865 60%,#0b5a36);border-color:#c9ffe4;box-shadow:0 0 90px rgba(60,255,160,.85)}
+.bzbig.locked{background:radial-gradient(circle at 50% 40%,#7a1424,#3a0710 70%);border-color:#ff5866;color:#ffc2c9;opacity:.8}
+.bzbig.wait{background:#0b1640;border-color:#2c4392;color:#93a3d6}
 </style>
 </head>
 <body>
@@ -279,7 +404,7 @@ body.is-tv{overflow:hidden;background:#000}
             <a class="btn gold" id="lLaunch" target="feudnight_tv" href="./?view=tv">📺 Launch TV Board</a></li>
           <li><b>Cast that tab to your TV.</b> In Chrome or Edge, open the browser menu <span class="path">⋮</span> → <span class="path">Cast, save, and share</span> → <span class="path">Cast…</span>, then under <span class="path">Sources</span> choose <b>Cast tab</b> (not Cast screen) and pick your TV while the <b>TV Board</b> tab is active.
             <div class="tip">Older Edge versions: <span class="path">⋯</span> → <span class="path">More tools</span> → <span class="path">Cast media to device</span>. The board auto-scales to any 16:9 screen, from 720p up to 4K.</div></li>
-          <li><b>Keep this Host Controller tab on your laptop.</b> Players only see the TV board. The answers and controls stay here with you.</li>
+          <li><b>Keep this Host Controller tab on your laptop.</b> Players only see the TV board. The answers and controls stay here with you.<div class="tip">Optional: each team scans the QR code on the host screen's <b>📱 Phone Buzzers</b> card to turn a phone into their buzzer.</div></li>
         </ol>
         <div class="lteams">
           <div><label for="lT1">Team 1 name</label><input class="field" id="lT1" maxlength="24" placeholder="Team 1"></div>
@@ -327,6 +452,8 @@ body.is-tv{overflow:hidden;background:#000}
     <div class="cta">
       <button class="btn gold lg" id="lPlay">▶ Play Immediately with Built-In Surveys</button>
       <button class="btn lg" id="lPlayAI">✨ Start with a Freshly Generated Survey</button>
+      <button class="btn lg" id="lFM">⚡ Play Fast Money Only</button>
+      <a class="btn lg" id="lBuzzer" href="?view=buzzer">📱 Join as a Phone Buzzer</a>
       <button class="btn lg" id="lResume" hidden>↩ Resume Game in Progress</button>
     </div>
     <p class="tip" style="text-align:center;margin-top:14px" id="lCount">No sign-up or API key needed. The Host Controller opens in this tab.</p>
@@ -338,10 +465,12 @@ body.is-tv{overflow:hidden;background:#000}
   <header class="hbar">
     <div class="hbrand">FEUD NIGHT<small>Host Controller</small></div>
     <div class="sync" id="hSync"><i></i><span>TV Board not connected</span></div>
+    <div class="bzpill" id="hBuzzPill" hidden></div>
     <a class="btn sm gold" id="hLaunch" target="feudnight_tv" href="./?view=tv">📺 Launch TV Board</a>
     <div class="spacer"></div>
     <label class="tog" title="Sound effects play from the TV Board tab, through the TV"><input type="checkbox" id="hTvSound" checked> TV sound</label>
     <label class="tog" title="Also play sound effects quietly on this laptop"><input type="checkbox" id="hPreview"> Laptop preview sounds</label>
+    <button class="btn sm gold" id="hFM">⚡ Fast Money</button>
     <button class="btn sm" id="hSetup">⚙ Setup</button>
   </header>
 
@@ -386,6 +515,27 @@ body.is-tv{overflow:hidden;background:#000}
     </div>
 
     <div class="col">
+      <div class="card" id="bzCard">
+        <div class="row between"><h3 style="margin:0">📱 Phone Buzzers</h3><span class="tag" id="bzStatus">Off</span></div>
+        <div id="bzBanner"></div>
+        <div class="bzteams"><div class="bzt" id="bzT0"><i></i><span>Team 1</span></div><div class="bzt" id="bzT1"><i></i><span>Team 2</span></div></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn gold sm" id="bzReset">🔄 Reset Buzzers</button><span class="kbd">R</span>
+          <label class="tog" style="margin-left:auto" title="You can still change control by hand"><input type="checkbox" id="bzAuto"> First buzz takes control</label>
+        </div>
+        <details id="bzJoin" open>
+          <summary>Join from a phone · Room <span class="bzroom" id="bzCode">----</span></summary>
+          <div class="bzjoin">
+            <div class="bzqr" id="bzQR">QR loading…</div>
+            <div style="min-width:0">
+              <div class="tip" style="margin:0">One phone per team. Scan this, or open the link and type the room code.</div>
+              <div class="bzurl" id="bzUrl"></div>
+              <button class="btn sm" id="bzCopy">Copy link</button> <button class="btn sm ghost" id="bzNewRoom">New room code</button>
+            </div>
+          </div>
+        </details>
+        <div id="bzErr"></div>
+      </div>
       <div class="card">
         <h3>Teams &amp; Scores</h3>
         <div id="hWin"></div>
@@ -441,16 +591,79 @@ Flashlight, 14"></textarea>
       </div>
     </div>
   </main>
+
+  <section class="fmp" id="fmPanel" hidden>
+    <div class="card">
+      <div class="row between">
+        <div class="row"><h3 style="margin:0">⚡ Fast Money</h3><span class="tag" id="fmSrc"></span></div>
+        <div class="row">
+          <input class="field" id="fmTheme" placeholder="Theme (optional)" maxlength="60" style="width:210px">
+          <button class="btn gold" id="fmNewQ">✨ New Fast Money Questions</button>
+          <button class="btn" id="fmExit">↩ Back to Main Game</button>
+        </div>
+      </div>
+      <div id="fmMsg"></div>
+    </div>
+    <div class="fmtop">
+      <div class="card" style="min-width:270px">
+        <h3>Timer <small><span class="kbd">T</span> start / pause</small></h3>
+        <div class="fmclock" id="hfmClock">20</div>
+        <div class="row" style="justify-content:center"><button class="btn gold" id="fmStart0">▶ Player 1 · 20s</button><button class="btn gold" id="fmStart1">▶ Player 2 · 25s</button></div>
+        <div class="row" style="justify-content:center;margin-top:8px"><button class="btn sm" id="fmPause">⏸ Pause</button><button class="btn sm" id="fmPlus">+5s</button><button class="btn sm" id="fmReset">↺ Reset</button></div>
+      </div>
+      <div class="card">
+        <h3>Players</h3>
+        <div class="row" style="flex-wrap:nowrap"><input class="field" id="fmN0" maxlength="24" placeholder="Player 1 name"><input class="field" id="fmN1" maxlength="24" placeholder="Player 2 name"></div>
+        <div class="row" style="margin-top:10px">
+          <span class="muted" style="font-size:13px">Playing for</span>
+          <div class="seg" id="fmTeam"><button data-t="0">Team 1</button><button data-t="1">Team 2</button><button data-t="-1">No team</button></div>
+          <span class="muted" style="font-size:13px;margin-left:6px">Win at</span><input class="field" id="fmTarget" type="number" min="10" step="10" style="width:90px">
+        </div>
+        <div class="row" style="margin-top:10px"><button class="btn sm" id="fmHideP1">🙈 Hide Player 1 answers on TV</button>
+          <span class="tip" style="margin:0">Hidden automatically when Player 2's clock starts, and shown again at Player 2's first reveal.</span></div>
+      </div>
+      <div class="card" style="min-width:230px;text-align:center">
+        <h3>Total</h3>
+        <div class="fmtotal" id="hfmTotal">0</div>
+        <div class="muted" id="hfmTo" style="font-size:13px;margin:4px 0 10px">of 200 to win</div>
+        <button class="btn gold" id="fmNext">▶ Reveal Next</button> <span class="kbd">N</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fmtable" id="fmTable"></div>
+      <p class="tip" style="margin:10px 0 0">Type each answer as the player says it. The built-in judge suggests a match as you type, and "⚖️ Judge" asks Gemini (when a key is set). You can always change the match in the dropdown. Press <span class="kbd">Enter</span> to jump to the next question.</p>
+    </div>
+  </section>
   <div class="hfoot">
     <span><span class="kbd">1</span>–<span class="kbd">8</span> reveal/hide</span>
     <span><span class="kbd">X</span> strike</span><span><span class="kbd">B</span> buzz</span>
     <span><span class="kbd">C</span> clear strikes</span><span><span class="kbd">S</span> steal</span>
-    <span><span class="kbd">Q</span> show/hide question</span><span><span class="kbd">/</span> type a guess</span>
+    <span><span class="kbd">Q</span> show/hide question</span><span><span class="kbd">/</span> type a guess</span><span><span class="kbd">R</span> reset phone buzzers</span>
     <span class="spacer"></span><span>Shortcuts are off while you're typing in a box.</span>
   </div>
 </section>
 
 <!-- =================== TV =================== -->
+<section id="buzzer" hidden>
+  <div class="bzjoinscr" id="bzJoinScr">
+    <div class="logo"><b>FEUD NIGHT</b><span>PHONE BUZZER</span></div>
+    <p style="margin:0;color:#c9d6ff">Enter the 4-digit room code from the host's laptop.</p>
+    <input class="field" id="bzRoom" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="0000" aria-label="Room code">
+    <button class="btn gold lg" id="bzFind">Connect</button>
+    <div id="bzPick" hidden>
+      <p style="margin:4px 0 0;color:#c9d6ff">Which team is this phone for?</p>
+      <button class="btn gold lg" data-team="0">Join as Team 1</button>
+      <button class="btn lg" data-team="1">Join as Team 2</button>
+    </div>
+    <div id="bzMsg" style="width:100%"></div>
+    <p class="tip">One shared phone per team. Pass it to the next teammate between face-offs.</p>
+  </div>
+  <div class="bzplay" id="bzPlay" hidden>
+    <div class="bztop"><span class="bzdot" id="bzConn"></span><span id="bzMe">TEAM</span><span class="tag" id="bzRoomTag"></span><button class="btn sm" id="bzSwitch">Switch team</button></div>
+    <button class="bzbig wait" id="bzBtn" type="button"><span class="l1">CONNECTING…</span><span class="l2"></span></button>
+  </div>
+</section>
+
 <section id="tv" hidden>
   <div class="stage" id="stage">
     <div class="shaker" id="shaker">
@@ -471,8 +684,16 @@ Flashlight, 14"></textarea>
         <div class="side r" id="tvSteal"></div>
       </div>
       <div class="xov" id="tvX"></div>
+      <div class="buzzban" id="tvBuzz"><span class="bell">🔔</span><span id="tvBuzzT"></span></div>
       <div class="awardban" id="tvAward"><div class="a1" id="tvAward1"></div><div class="a2" id="tvAward2"></div></div>
       <div class="winov" id="tvWin"><div class="trophy">🏆</div><div class="w1" id="tvWin1"></div><div class="w2">WINS!</div><div class="w3" id="tvWin3"></div></div>
+      <div class="fmboard" id="fmBoard" hidden>
+        <div class="fmhead"><div class="fmwho" id="fmWho"></div><div class="fmtitle">FAST MONEY</div><div class="fmtimer idle" id="fmTimer"><span id="fmTimerV">20</span></div></div>
+        <div class="fmgrid"><div class="fmcol" id="fmCol0"></div><div class="fmcol" id="fmCol1"></div></div>
+        <div class="fmfoot"><div class="fmname" id="fmName0"></div><div class="fmtot" id="fmTot"><span class="l">TOTAL</span><span class="v" id="fmTotV">0</span><span class="t" id="fmTotT">200 TO WIN</span></div><div class="fmname r" id="fmName1"></div></div>
+        <div class="fmload" id="fmLoad" hidden><div class="z">⚡</div><div>GETTING FAST MONEY READY…</div></div>
+        <div class="fmban" id="fmBan"><div class="b1" id="fmBan1"></div><div class="b2" id="fmBan2"></div></div>
+      </div>
     </div>
   </div>
   <canvas id="confetti"></canvas>
@@ -499,6 +720,22 @@ const LS = {
   set(k, v){ try{ localStorage.setItem(NS+'.'+k, JSON.stringify(v)); }catch(e){} },
   del(k){ try{ localStorage.removeItem(NS+'.'+k); }catch(e){} }
 };
+const VIEW = new URLSearchParams(location.search).get('view') || '';
+const IS_BUZZER = VIEW === 'buzzer';
+const PEER_URL = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
+const QR_URL = 'https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js';
+const PEER_PREFIX = 'feudnight-v1-room-';
+// Optional: a self-hosted PeerServer via localStorage "feudnight.peerServer" = {"host":"…","port":443,"path":"/","secure":true}
+function peerOpts(){ const o = LS.get('peerServer', null); return Object.assign({debug:0}, o && typeof o === 'object' ? o : {}); }
+function loadScript(src, globalName){
+  return new Promise((res, rej) => {
+    if(window[globalName]) return res(window[globalName]);
+    const s = document.createElement('script'); s.src = src; s.async = true;
+    s.onload = () => window[globalName] ? res(window[globalName]) : rej(new Error('missing ' + globalName));
+    s.onerror = () => { s.remove(); rej(new Error('load failed: ' + src)); };
+    document.head.appendChild(s);
+  });
+}
 const SS = {
   get(k, d){ try{ const v = sessionStorage.getItem(NS+'.'+k); return v==null ? d : JSON.parse(v); }catch(e){ return d; } },
   set(k, v){ try{ sessionStorage.setItem(NS+'.'+k, JSON.stringify(v)); }catch(e){} }
@@ -923,6 +1160,16 @@ const Sound = (() => {
       for(let i=0;i<8;i++) noise(t+0.96+i*0.11, 0.09, 0.15, 3000+Math.random()*2000, 0.7);
       noise(t+0.96, 1.4, 0.2, 5000, 0.4); noise(t+0.96, 0.35, 0.4, 110, 0.8, 'lowpass');
     },
+    tick(){ const t = ctx.currentTime + 0.005; tone('square', 1800, t, 0.04, 0.06); tone('sine', 900, t, 0.06, 0.12); },
+    blip(){ const t = ctx.currentTime + 0.01; tone('triangle', 880, t, 0.09, 0.16); tone('triangle', 1320, t+0.06, 0.12, 0.13); noise(t, 0.04, 0.06, 5000, 1); },
+    zero(){ const t = ctx.currentTime + 0.01; tone('square', 240, t, 0.32, 0.1, {to:140}); tone('sawtooth', 120, t, 0.35, 0.06, {hold:true}); },
+    dup(){ const t = ctx.currentTime + 0.01; [0, 0.24].forEach(o => { tone('sawtooth', 150, t+o, 0.17, 0.15, {hold:true}); tone('sawtooth', 156, t+o, 0.17, 0.12, {hold:true}); tone('square', 75, t+o, 0.17, 0.08, {hold:true}); }); },
+    bell(){ // game-show 'ring-in' bell: quick trill, then a bright sustained ding
+      const t = ctx.currentTime + 0.01;
+      for(let k=0;k<6;k++){ const o = t + k*0.075; tone('sine', 2093, o, 0.4, 0.16); tone('sine', 2637, o, 0.28, 0.07); tone('triangle', 1046.5, o, 0.2, 0.05); }
+      tone('sine', 2093, t+0.47, 1.3, 0.22); tone('sine', 3136, t+0.47, 0.9, 0.07); tone('sine', 4186, t+0.47, 0.5, 0.04); noise(t, 0.4, 0.05, 7000, 1.5);
+    },
+    lose(){ const t = ctx.currentTime + 0.02; [[392,0,0.38],[370,0.42,0.38],[349,0.84,0.38],[330,1.26,1.1]].forEach(([f,o,d]) => { tone('triangle', f, t+o, d, 0.17, {hold:true, vib:o > 1 ? 6 : 0}); tone('sawtooth', f/2, t+o, d, 0.04, {hold:true}); }); },
     whoosh(){ // new round
       const t = ctx.currentTime + 0.01;
       noise(t, 0.6, 0.18, 800, 0.7); tone('sine', 300, t, 0.5, 0.12, {to:1200}); tone('triangle', 784, t+0.42, 0.5, 0.12); tone('triangle', 1175, t+0.52, 0.6, 0.1);
@@ -936,7 +1183,8 @@ const Sound = (() => {
   };
 })();
 function fxSound(f){
-  return {reveal:'reveal', strike:'strike', buzz:'strike', award:'fanfare', win:'bigFanfare', newround:'whoosh'}[f.name];
+  if(f.name === 'fmpts') return f.pts > 0 ? 'reveal' : 'zero';
+  return {reveal:'reveal', strike:'strike', buzz:'strike', award:'fanfare', win:'bigFanfare', newround:'whoosh', fmtext:'blip', dup:'dup', fmwin:'bigFanfare', fmlose:'lose', fmstart:'whoosh', buzzin:'bell'}[f.name];
 }
 
 /* ============================================================
@@ -948,7 +1196,7 @@ function defaultState(){
     target:300, multiplier:1, strikes:0, steal:false, control:null,
     question:'', showQuestion:false, answers:[], roundId:0, roundNum:0, source:'',
     awarded:false, lastAward:null, winner:null, celebrate:false,
-    tvMuted:false, pot:0, fx:[], fxSeq:0, updated:0
+    tvMuted:false, pot:0, fx:[], fxSeq:0, updated:0, fm:null
   };
 }
 function calcPot(s){ return s.awarded ? 0 : s.answers.reduce((a,x) => a + (x.counted ? x.points : 0), 0) * s.multiplier; }
@@ -1078,13 +1326,73 @@ function initTV(){
     }
     if(showWin && !w.classList.contains('show')){ w.classList.add('show'); $('#tvAward').classList.remove('show'); Confetti.start(); }
     if(!showWin && w.classList.contains('show')){ w.classList.remove('show'); Confetti.stop(); }
+    renderFM(ns);
   }
+
+  // ---- Fast Money board ----
+  const fmRows = [[], []];
+  [0,1].forEach(c => { const col = $('#fmCol'+c); for(let i=0;i<5;i++){ const row = document.createElement('div'); row.className = 'fmrow'; row.innerHTML = '<div class="fmtxt"></div><div class="fmpts"><b></b></div>'; col.appendChild(row); fmRows[c].push(row); } });
+  let fmWasOn = false, fmCurId = null;
+  function renderFM(ns){
+    const fm = ns.fm, on = !!(fm && fm.active), board = $('#fmBoard');
+    stage.classList.toggle('fm-on', on); board.hidden = !on;
+    if(!on){ if(fmWasOn){ $('#fmBan').classList.remove('show'); Confetti.stop(); } fmWasOn = false; return; }
+    const fresh = !fmWasOn || fm.id !== fmCurId; fmWasOn = true; fmCurId = fm.id;
+    if(fresh) board.classList.add('instant');
+    $('#fmLoad').hidden = !fm.loading;
+    const team = fm.team != null && ns.teams[fm.team] ? ns.teams[fm.team].name.toUpperCase() : '';
+    if($('#fmWho').textContent !== team){ $('#fmWho').textContent = team; fitLine($('#fmWho'), 34, 18); }
+    let tot = 0;
+    [0,1].forEach(c => {
+      const nm = $('#fmName'+c), name = (fm.names[c] || ('Player ' + (c+1))).toUpperCase();
+      if(nm.textContent !== name){ nm.textContent = name; fitLine(nm, 42, 22); }
+      $('#fmCol'+c).classList.toggle('active', !!fm.timer.endsAt && fm.timer.player === c);
+      $('#fmCol'+c).classList.toggle('covered', c === 0 && !!fm.hideP1);
+      fm.cells[c].forEach((cell, i) => {
+        const row = fmRows[c][i], t = $('.fmtxt', row);
+        const txt = cell.shown >= 1 ? (cell.guess.trim() || '—').toUpperCase() : '';
+        if(t.textContent !== txt){ t.textContent = txt; fitLine(t, 48, 22); }
+        $('.fmpts b', row).textContent = cell.shown >= 2 ? cell.pts : '';
+        row.classList.toggle('txt', cell.shown >= 1); row.classList.toggle('pts', cell.shown >= 2); row.classList.toggle('zero', cell.shown >= 2 && !cell.pts);
+        if(cell.shown >= 2) tot += cell.pts;
+      });
+    });
+    tween($('#fmTotV'), tot);
+    $('#fmTotT').textContent = fm.target + ' TO WIN';
+    $('#fmTot').classList.toggle('hit', tot >= fm.target);
+    if(fresh){ void board.offsetWidth; requestAnimationFrame(() => board.classList.remove('instant')); }
+  }
+  function fmBanner(a, b, win){
+    $('#fmBan1').textContent = a; $('#fmBan2').textContent = b;
+    const el = $('#fmBan'); el.classList.toggle('lose', !win); el.classList.remove('show'); void el.offsetWidth; el.classList.add('show');
+  }
+  let fmPrevLeft = null, fmPrevSec = null;
+  setInterval(() => {
+    const fm = st && st.fm;
+    if(!fm || !fm.active){ fmPrevLeft = null; fmPrevSec = null; return; }
+    const t = fm.timer, left = t.endsAt ? Math.max(0, (t.endsAt - Date.now())/1000) : t.left, sec = Math.ceil(left), el = $('#fmTimer');
+    $('#fmTimerV').textContent = sec;
+    el.style.setProperty('--p', t.dur ? Math.min(1, left / t.dur) : 0);
+    el.classList.toggle('low', !!t.endsAt && left <= 5); el.classList.toggle('idle', !t.endsAt);
+    if(t.endsAt && fmPrevSec != null && sec !== fmPrevSec && sec <= 5 && sec > 0) playSfx('tick');
+    if(fmPrevLeft != null && fmPrevLeft > 0 && left <= 0) playSfx('strike');   // time's up
+    fmPrevLeft = left; fmPrevSec = sec;
+  }, 100);
 
   function runFx(f){
     const s = fxSound(f);
     if(f.name === 'strike') showX(st.steal ? 1 : (f.count || st.strikes || 1));
     if(f.name === 'buzz') showX(1);
     if(f.name === 'award') showAward(f.team, f.amount);
+    if(f.name === 'dup'){ const row = fmRows[1][f.row]; if(row){ row.classList.remove('dup'); void row.offsetWidth; row.classList.add('dup'); } }
+    if(f.name === 'fmwin'){ fmBanner('🏆 FAST MONEY WINNERS!', f.total + ' POINTS', true); Confetti.start(); }
+    if(f.name === 'fmlose'){ fmBanner('SO CLOSE!', f.total + ' POINTS', false); }
+    if(f.name === 'buzzin'){
+      const team = st.teams[f.team] || {name:'Team'}, el = $('#tvBuzz');
+      $('#tvBuzzT').textContent = team.name.toUpperCase() + ' BUZZED IN!';
+      el.className = 'buzzban t' + (f.team ? 1 : 0); void el.offsetWidth; el.classList.add('show');
+      const tEl = $('#tvT' + f.team); if(tEl){ tEl.classList.remove('bump'); void tEl.offsetWidth; tEl.classList.add('bump'); }
+    }
     if(s) playSfx(s);
   }
 
@@ -1575,6 +1883,153 @@ function initHost(){
   let judge = null; // last close-enough result
   let revealing = false;
 
+  // =====================================================================
+  //  PHONE BUZZERS: host side (PeerJS / WebRTC, peer-to-peer)
+  // =====================================================================
+  function newRoomCode(){ return String(1000 + Math.floor(Math.random() * 9000)); }
+  const Buzz = {peer:null, code: String(LS.get('buzzRoom', '') || ''), conns:new Map(), team:[null, null], armed:true, first:null, firstAt:0, second:null, gap:null,
+    status:'off', err:'', names:'', retryT:null, qrFor:null, collapsed:false};
+  if(!/^\d{4}$/.test(Buzz.code)){ Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); }
+  const joinUrl = () => location.origin + location.pathname + '?view=buzzer&room=' + Buzz.code;
+  const isLocalPage = () => location.protocol === 'file:' || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
+
+  function buzzInit(){
+    if(Buzz.status !== 'off') return;
+    Buzz.status = 'starting'; renderBuzz(); renderQR();
+    loadScript(PEER_URL, 'Peer').then(() => openHostPeer(0)).catch(() => {
+      Buzz.status = 'error'; Buzz.err = "Couldn't load the phone-buzzer library. Phone buzzers need an internet connection. Retrying…"; renderBuzz();
+      Buzz.retryT = setTimeout(() => { Buzz.status = 'off'; buzzInit(); }, 15000);
+    });
+  }
+  function openHostPeer(attempt){
+    clearTimeout(Buzz.retryT);
+    if(Buzz.peer){ const old = Buzz.peer; Buzz.peer = null; try{ old.destroy(); }catch(e){} }
+    Buzz.conns.clear(); Buzz.team = [null, null];
+    let peer;
+    try{ peer = new window.Peer(PEER_PREFIX + Buzz.code, peerOpts()); }
+    catch(e){ Buzz.status = 'error'; Buzz.err = "This browser can't host phone buzzers (no WebRTC)."; renderBuzz(); return; }
+    Buzz.peer = peer; Buzz.status = 'starting'; renderBuzz();
+    peer.on('open', () => { if(Buzz.peer !== peer) return; Buzz.status = 'ready'; Buzz.err = ''; renderBuzz(); });
+    peer.on('connection', conn => { if(Buzz.peer === peer) buzzSetupConn(conn); });
+    peer.on('disconnected', () => {
+      // lost the matchmaking server only; phones already connected keep working peer-to-peer
+      if(Buzz.peer !== peer || peer.destroyed) return;
+      Buzz.status = 'reconnecting'; renderBuzz();
+      setTimeout(() => { if(Buzz.peer === peer && !peer.destroyed && peer.disconnected){ try{ peer.reconnect(); }catch(e){} } }, 1500);
+    });
+    peer.on('error', err => {
+      if(Buzz.peer !== peer) return;
+      if(err.type === 'unavailable-id'){
+        // usually our own old session from a page reload; it frees up within seconds
+        if(attempt < 4){ Buzz.retryT = setTimeout(() => openHostPeer(attempt + 1), 3000); }
+        else { Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); renderQR(); openHostPeer(0); toast('Picked a new buzzer room code. Phones need to rejoin.', 'ok'); }
+        return;
+      }
+      if(err.type === 'peer-unavailable') return;
+      Buzz.status = 'error'; Buzz.err = "Lost touch with the buzzer matchmaking service. Retrying…"; renderBuzz();
+      clearTimeout(Buzz.retryT);
+      Buzz.retryT = setTimeout(() => {
+        if(Buzz.peer !== peer) return;
+        if(peer.destroyed) openHostPeer(0);
+        else if(peer.disconnected){ try{ peer.reconnect(); }catch(e){ openHostPeer(0); } }
+      }, 5000);
+    });
+  }
+  function buzzSetupConn(conn){
+    conn.on('open', () => { Buzz.conns.set(conn, {team:null, last:Date.now()}); buzzSend(conn); renderBuzz(); });
+    conn.on('data', d => buzzOnData(conn, d));
+    const drop = () => {
+      const info = Buzz.conns.get(conn); Buzz.conns.delete(conn);
+      if(info && info.team != null && Buzz.team[info.team] === conn) Buzz.team[info.team] = null;
+      renderBuzz();
+    };
+    conn.on('close', drop); conn.on('error', drop);
+  }
+  function buzzOnData(conn, d){
+    if(!d || typeof d !== 'object') return;
+    const info = Buzz.conns.get(conn); if(!info) return;
+    info.last = Date.now();
+    if(d.type === 'ping'){ try{ conn.send({type:'pong'}); }catch(e){} return; }
+    if(d.type === 'hello'){ buzzSend(conn); return; }
+    if(d.type === 'join'){
+      const t = d.team === 1 ? 1 : 0, old = Buzz.team[t], wasEmpty = !old || !old.open;
+      if(info.team != null && info.team !== t && Buzz.team[info.team] === conn) Buzz.team[info.team] = null;
+      if(old && old !== conn){ const oi = Buzz.conns.get(old); if(oi) oi.team = null; try{ old.send({type:'replaced', team:t}); }catch(e){} }
+      info.team = t; Buzz.team[t] = conn; buzzSend(conn); renderBuzz();
+      if(wasEmpty && old !== conn) toast(`📱 ${S.teams[t].name}'s buzzer is connected.`, 'ok');
+      return;
+    }
+    if(d.type === 'leave'){ if(info.team != null && Buzz.team[info.team] === conn) Buzz.team[info.team] = null; info.team = null; buzzSend(conn); renderBuzz(); return; }
+    if(d.type === 'buzz' && info.team != null && Buzz.team[info.team] === conn) buzzHandle(info.team);
+  }
+  function buzzHandle(t){
+    const now = performance.now();
+    if(!Buzz.armed){
+      // the other team's press that crossed paths with the lockout: record how far behind it was
+      if(Buzz.first != null && Buzz.second == null && t !== Buzz.first && now - Buzz.firstAt < 5000){ Buzz.second = t; Buzz.gap = Math.max(0, Math.round(now - Buzz.firstAt)); renderBuzz(); }
+      return;
+    }
+    Buzz.armed = false; Buzz.first = t; Buzz.firstAt = now; Buzz.second = null; Buzz.gap = null;
+    buzzSendAll();
+    if(prefs.buzzAuto && !(S.fm && S.fm.active)) S.control = t;
+    fx('buzzin', {team:t}); commit();
+    renderBuzz();
+  }
+  function buzzReset(){ Buzz.armed = true; Buzz.first = null; Buzz.second = null; Buzz.gap = null; buzzSendAll(); renderBuzz(); }
+  function buzzSend(conn){
+    const info = Buzz.conns.get(conn); if(!info || !conn.open) return;
+    try{ conn.send({type:'state', room:Buzz.code, teams:S.teams.map(x => x.name), armed:Buzz.armed, winner:Buzz.first, you:info.team}); }catch(e){}
+  }
+  function buzzSendAll(){ Buzz.conns.forEach((_, c) => buzzSend(c)); }
+  function buzzNamesSync(){ const n = S.teams.map(t => t.name).join('\u0001'); if(n !== Buzz.names){ Buzz.names = n; buzzSendAll(); } }
+
+  function renderQR(){
+    const box = $('#bzQR'), url = joinUrl(); if(!box || Buzz.qrFor === url) return; Buzz.qrFor = url;
+    const fallback = () => { box.innerHTML = `<img alt="QR code for the buzzer join link" width="168" height="168" src="https://api.qrserver.com/v1/create-qr-code/?size=336x336&margin=8&data=${encodeURIComponent(url)}">`; };
+    loadScript(QR_URL, 'qrcode').then(qrcode => {
+      const q = qrcode(0, 'M'); q.addData(url); q.make();
+      const n = q.getModuleCount(), m = 2; let d = '';
+      for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(q.isDark(r, c)) d += `M${c+m},${r+m}h1v1h-1z`;
+      box.innerHTML = `<svg viewBox="0 0 ${n+m*2} ${n+m*2}" shape-rendering="crispEdges" role="img" aria-label="QR code for the buzzer join link"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+    }).catch(fallback);
+  }
+  function renderBuzz(){
+    if(!$('#bzCard')) return;
+    const tag = $('#bzStatus');
+    tag.textContent = {off:'Off', starting:'Opening room…', ready:'● Room open', reconnecting:'Reconnecting…', error:'Offline'}[Buzz.status] || '';
+    tag.className = 'tag' + (Buzz.status === 'ready' ? ' okc' : Buzz.status === 'error' ? ' badc' : '');
+    $('#bzCode').textContent = Buzz.code; $('#bzUrl').textContent = joinUrl();
+    $('#bzErr').innerHTML = Buzz.err ? `<div class="msg err">${esc(Buzz.err)}</div>`
+      : isLocalPage() ? `<div class="msg info">This page is running from ${location.protocol === 'file:' ? 'a local file' : 'localhost'}, so phones can't open the join link. Use your GitHub Pages address on game night.</div>` : '';
+    let live = 0;
+    [0,1].forEach(t => {
+      const c = Buzz.team[t], info = c && Buzz.conns.get(c), el = $('#bzT' + t);
+      const open = !!(c && c.open), fresh = open && info && Date.now() - info.last < 8000;
+      if(fresh) live++;
+      el.className = 'bzt' + (fresh ? ' on' : open ? ' idle' : '') + (Buzz.first === t ? ' first' : '');
+      $('span', el).textContent = `${S.teams[t].name}: ${fresh ? 'Connected' : open ? 'Phone asleep, reconnecting…' : 'Waiting for phone'}`;
+    });
+    const b = $('#bzBanner');
+    if(Buzz.first != null){
+      const n = S.teams[Buzz.first].name, o = S.teams[1 - Buzz.first].name;
+      b.innerHTML = `<div class="bzban t${Buzz.first}">🔔 ${esc(n.toUpperCase())} BUZZED FIRST!${Buzz.second != null ? `<small>${esc(o)} pressed ${Buzz.gap} ms later</small>` : ''}</div>`;
+    } else b.innerHTML = live ? `<div class="bzarm">✅ Buzzers armed. Waiting for a buzz…</div>` : '';
+    const pill = $('#hBuzzPill'); pill.hidden = Buzz.first == null; if(Buzz.first != null) pill.textContent = '🔔 ' + S.teams[Buzz.first].name;
+    $('#bzReset').disabled = Buzz.armed;
+    if(live === 2 && !Buzz.collapsed){ Buzz.collapsed = true; $('#bzJoin').open = false; }
+    $('#bzAuto').checked = !!prefs.buzzAuto;
+  }
+  setInterval(() => { if(Buzz.status !== 'off') renderBuzz(); }, 2000);
+  addEventListener('pagehide', () => { try{ Buzz.peer && Buzz.peer.destroy(); }catch(e){} });
+  $('#bzReset').onclick = buzzReset;
+  $('#bzAuto').onchange = e => { prefs.buzzAuto = e.target.checked; LS.set('prefs', prefs); };
+  $('#bzCopy').onclick = () => { const u = joinUrl(); (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(() => toast('Join link copied.', 'ok'), () => toast(u)); };
+  $('#bzNewRoom').onclick = () => {
+    if(!confirm('Make a new room code? Both phones will need to scan the new QR code.')) return;
+    Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); Buzz.collapsed = false; $('#bzJoin').open = true;
+    renderQR(); if(window.Peer) openHostPeer(0); renderBuzz();
+  };
+
   // ---------- launcher ----------
   $$('a[target="feudnight_tv"]').forEach(a => a.href = tvUrl());
   function showLauncher(){
@@ -1584,10 +2039,10 @@ function initHost(){
     $('#lTarget').value = S.target;
     $('#lKey').value = LS.get('geminiKey', '');
     $('#lModel').value = LS.get('geminiModel', '');
-    $('#lResume').hidden = !S.question;
+    $('#lResume').hidden = !S.question && !(S.fm && S.fm.active);
     keyBadge();
   }
-  function showHost(){ $('#launcher').hidden = true; $('#host').hidden = false; document.title = 'Host Controller — Feud Night'; renderHost(); }
+  function showHost(){ $('#launcher').hidden = true; $('#host').hidden = false; document.title = 'Host Controller — Feud Night'; renderHost(); buzzInit(); }
   function keyBadge(){ const b = $('#lKeyBadge'); const has = Gemini.hasKey(); b.className = 'badge' + (has ? ' ok' : ''); b.textContent = has ? '● Gemini on' : 'Not needed'; }
   function applyLauncherTeams(){
     S.teams[0].name = $('#lT1').value.trim() || 'Team 1';
@@ -1616,12 +2071,13 @@ function initHost(){
   function fx(name, data){
     S.fxSeq = Math.max((S.fxSeq||0) + 1, Date.now());
     S.fx = (S.fx || []).concat([Object.assign({id:S.fxSeq, name, t:Date.now()}, data||{})]).slice(-8);
-    if(prefs.preview){ const s = fxSound({name}); if(s) Sound.play(s); }
+    if(prefs.preview){ const s = fxSound(Object.assign({name}, data || {})); if(s) Sound.play(s); }
   }
   function commit(){
     S.pot = calcPot(S); S.updated = Date.now();
     LS.set('game', S); Bus.post({type:'state', state:S});
-    if(!$('#host').hidden) renderHost();
+    buzzNamesSync();
+    if(!$('#host').hidden){ renderHost(); renderBuzz(); }
   }
   function checkWinner(){
     if(S.winner != null) return;
@@ -1678,7 +2134,7 @@ function initHost(){
       .sort((a, b) => b.points - a.points);
     S.roundId = (S.roundId || 0) + 1; S.roundNum = (S.roundNum || 0) + 1;
     S.strikes = 0; S.steal = false; S.control = null; S.awarded = false; S.lastAward = null; S.showQuestion = false; S.source = source;
-    markUsed(q); judge = null; $('#gOut').innerHTML = ''; $('#gIn').value = '';
+    markUsed(q); buzzReset(); judge = null; $('#gOut').innerHTML = ''; $('#gIn').value = '';
     fx('newround'); commit(); buildPicker();
   }
   function loadBuiltIn(i){ const s = SURVEYS[i]; loadSurvey(s.q, s.a, 'Built-in #' + (i+1)); }
@@ -1874,6 +2330,304 @@ reason: one short, friendly sentence the host can read.`;
     revealing = false; $('#hRevealAll').disabled = false;
   }
 
+  // =====================================================================
+  //  FAST MONEY
+  // =====================================================================
+  const FM_DUR = [20, 25];
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+  const fmBlankCell = () => ({guess:'', match:null, pts:0, shown:0, type:'', by:'', reason:'', manual:false, dup:false});
+  const fmBlankCells = () => [0,1].map(() => Array.from({length:5}, fmBlankCell));
+  const fmTotal = fm => fm.cells.flat().reduce((s, c) => s + (c.shown >= 2 ? c.pts : 0), 0);
+  function fmNew(team){
+    const old = S.fm || {};
+    return {active:true, id:Date.now(), team: team == null ? null : team, names: (old.names || ['Player 1','Player 2']).slice(), target: old.target || 200,
+      qs:[], cells: fmBlankCells(), hideP1:false, timer:{player:0, dur:FM_DUR[0], endsAt:null, left:FM_DUR[0]}, won:false, lost:false, source:'', loading:false};
+  }
+  function enterFM(team, fresh){
+    if(fresh || !S.fm || !S.fm.qs.length) S.fm = fmNew(team);
+    else { S.fm.active = true; if(team != null) S.fm.team = team; }
+    S.celebrate = false;
+    commit(); showHost();
+    if(!S.fm.qs.length) fmGenerate($('#fmTheme').value);
+  }
+  function exitFM(){ if(S.fm){ S.fm.active = false; S.fm.timer.endsAt = null; } commit(); }
+
+  // ---- questions: Gemini (5 at once) with built-in fallback ----
+  const SCHEMA_FM = {type:'OBJECT', properties:{surveys:{type:'ARRAY', minItems:5, maxItems:5, items: SCHEMA_SURVEY}}, required:['surveys']};
+  let fmBusy = false;
+  async function fmGenerate(themeIn){
+    const fm = S.fm; if(!fm || fmBusy) return;
+    if(fm.cells.flat().some(c => c.shown) && !fm.won && !fm.lost && !confirm('Replace these Fast Money questions? Answers so far will be cleared.')) return;
+    fmBusy = true;
+    const btn = $('#fmNewQ'), msg = $('#fmMsg'), theme = (themeIn || '').trim(), tone = getTone();
+    btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Writing questions…';
+    fm.loading = true; fm.timer.endsAt = null; commit();
+    let qs = [], note = '', src = '';
+    if(Gemini.hasKey()){
+      msg.innerHTML = '<div class="msg info">Gemini is writing 5 Fast Money questions…</div>';
+      const recent = Array.from(used).slice(-60);
+      const prompt = `You write the FAST MONEY bonus round for a "Family Feud" style TV game show.
+Tone: ${TONE_PROMPT[tone]}
+Theme: ${theme ? theme + ' (at least 3 of the 5 questions should connect to it)' : 'none. Mix five unrelated everyday subjects.'}
+
+Write exactly 5 different quick-fire survey questions. Players get only 20 seconds for all five, so each must be instantly answerable in 1-3 words (like "Name a fruit that's yellow", "Name something you do before bed", "Name an animal with a long neck"). Cover five different subjects.
+For each question give 6 to 8 distinct answers as if 100 people were surveyed, most popular first.
+Rules:
+- "points" is how many of the 100 people gave that answer. Each question's points MUST add up to exactly 100. The top answer usually gets 25-50 points, and every answer gets at least 2.
+- Answers are short (1-3 words), Title Case, and clearly different from each other (no near-synonyms).
+- Match the tone above exactly in every question and answer. No political content.
+- Do not reuse or closely paraphrase any of these earlier questions: ${recent.length ? recent.map(q => '"' + q + '"').join('; ') : '(none)'}`;
+      try{
+        const r = await Gemini.call(prompt, SCHEMA_FM, {temperature:1.0, thinking:0, timeout:45000});
+        const seen = new Set();
+        qs = (r && Array.isArray(r.surveys) ? r.surveys : []).map(x => { try{ return normalizeSurvey(x); }catch(e){ return null; } })
+          .filter(x => { if(!x) return false; const k = keyQ(x.q); if(seen.has(k) || used.has(k)) return false; seen.add(k); return true; }).slice(0, 5);
+        if(qs.length) src = 'Gemini AI';
+        if(qs.length < 5) note = `Gemini gave ${qs.length} usable question${qs.length === 1 ? '' : 's'}. The built-in generator filled the rest.`;
+      }catch(e){ console.warn(e); note = esc(e.message) + ' Used the built-in generator instead.'; qs = []; }
+    }
+    const nLocal = 5 - qs.length;
+    while(qs.length < 5){
+      const r = Engine.pick(theme, q => used.has(keyQ(q)) || qs.some(x => keyQ(x.q) === keyQ(q)), tone);
+      if(r.reset){ used.clear(); SS.set('used', []); }
+      qs.push({q:r.q, a:r.a});
+    }
+    if(!src) src = 'Built-in'; else if(nLocal > 0) src += ' + built-in';
+    qs.forEach(x => markUsed(x.q));
+    if(S.fm === fm){
+      Object.assign(fm, {qs: qs.map(x => ({q:x.q, a:x.a})), cells: fmBlankCells(), hideP1:false, won:false, lost:false, loading:false, id: Date.now(),
+        source: TONE_LABEL[tone].split(' ')[0] + ' ' + src + (theme ? ' · ' + theme : ''), timer:{player:0, dur:FM_DUR[0], endsAt:null, left:FM_DUR[0]}});
+      fx('fmstart'); commit();
+      msg.innerHTML = note ? `<div class="msg info">${note}</div>` : `<div class="msg ok">✓ 5 Fast Money questions ready. Read them aloud. They don't appear on the TV.</div>`;
+    }
+    fmBusy = false; btn.disabled = false; btn.innerHTML = '✨ New Fast Money Questions';
+  }
+
+  // ---- timer ----
+  const fmLeft = t => t.endsAt ? Math.max(0, (t.endsAt - Date.now())/1000) : t.left;
+  function fmStart(p){
+    const fm = S.fm; if(!fm || !fm.qs.length) return;
+    fm.timer = {player:p, dur:FM_DUR[p], endsAt: Date.now() + FM_DUR[p]*1000, left:FM_DUR[p]};
+    if(p === 1 && fm.cells[1].every(c => !c.shown)) fm.hideP1 = true;
+    commit();
+    const inp = $(`.fmg[data-c="${p}"][data-i="0"]`); if(inp) inp.focus();
+  }
+  function fmPause(){
+    const t = S.fm.timer;
+    if(t.endsAt){ t.left = fmLeft(t); t.endsAt = null; }
+    else if(t.left > 0 && t.left < t.dur) t.endsAt = Date.now() + t.left*1000;
+    else return fmStart(t.player);
+    commit();
+  }
+  function fmPlus(){ const t = S.fm.timer; if(t.endsAt) t.endsAt += 5000; else t.left += 5; t.dur = Math.max(t.dur, Math.ceil(fmLeft(t))); commit(); }
+  function fmReset(){ const t = S.fm.timer; t.endsAt = null; t.left = t.dur = FM_DUR[t.player]; commit(); }
+  setInterval(() => {
+    const fm = S.fm; if(!fm || !fm.active) return;
+    const t = fm.timer, left = fmLeft(t), el = $('#hfmClock');
+    if(el){ el.textContent = Math.ceil(left); el.className = 'fmclock' + (t.endsAt ? ' run' : '') + (t.endsAt && left <= 5 ? ' low' : ''); }
+    if(t.endsAt && left <= 0){ t.endsAt = null; t.left = 0; commit(); toast(`⏰ Time's up for ${fm.names[t.player]}!`, 'ok'); }
+  }, 200);
+
+  // ---- judging ----
+  const fmAns = i => S.fm.qs[i].a.map(([t]) => ({text:t, revealed:false}));
+  function fmDup(i){ const a = S.fm.cells[0][i], b = S.fm.cells[1][i]; b.dup = b.match != null && b.match >= 0 && a.match === b.match && b.shown < 2; }
+  function fmApply(c, i, res, by){
+    const cell = S.fm.cells[c][i];
+    cell.match = res.matchIndex; cell.type = res.matchType; cell.reason = res.reason || ''; cell.by = by;
+    cell.pts = res.matchIndex >= 0 ? S.fm.qs[i].a[res.matchIndex][1] : 0;
+    fmDup(i);
+  }
+  function fmLocal(c, i){
+    const cell = S.fm.cells[c][i];
+    if(!cell.guess.trim()){ Object.assign(cell, {match:null, pts:0, type:'', by:'', reason:'', dup:false}); return; }
+    fmApply(c, i, Matcher.best(cell.guess, fmAns(i)), 'Smart judge');
+  }
+  const SCHEMA_FMJ = {type:'OBJECT', properties:{results:{type:'ARRAY', items:{type:'OBJECT', properties:{
+    item:{type:'INTEGER'}, matchIndex:{type:'INTEGER'}, matchType:{type:'STRING', enum:['exact','close','stretch','none']}, reason:{type:'STRING'}
+  }, required:['item','matchIndex','matchType','reason']}}}, required:['results']};
+  async function fmJudge(c){
+    const fm = S.fm;
+    const rows = [0,1,2,3,4].filter(i => fm.cells[c][i].guess.trim() && !fm.cells[c][i].manual && fm.cells[c][i].shown < 2);
+    if(!rows.length){ toast(`No answers typed for ${fm.names[c]} yet.`); return; }
+    rows.forEach(i => fmLocal(c, i));
+    if(!Gemini.hasKey()){ commit(); toast(`Judged ${rows.length} answer${rows.length > 1 ? 's' : ''} with the smart judge.`, 'ok'); return; }
+    const btn = $('#fmJudge' + c); if(btn){ btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Judging…'; }
+    commit();
+    const snap = rows.map(i => fm.cells[c][i].guess), tone = getTone();
+    const items = rows.map((i, k) => {
+      const q = fm.qs[i], p1 = fm.cells[0][i];
+      return `Item ${k+1}. Question: "${q.q}"\n  Answers: ${q.a.map(([t, p], j) => `${j+1}. ${t} (${p})`).join('; ')}\n  Player's guess: "${fm.cells[c][i].guess}"` +
+        (c === 1 && p1.match != null && p1.match >= 0 ? `\n  Note: Player 1 already said "${p1.guess}", which counted as answer #${p1.match+1}.` : '');
+    }).join('\n');
+    const prompt = `You are the judge for the FAST MONEY round of a "Family Feud" style game show. For each item, decide which survey answer the player's quick guess matches, the way a fair but friendly game-show judge would. Allow synonyms, plurals, slang, different wording, and specific examples of the same idea.
+Game tone: ${TONE_PROMPT[tone].split(':')[0]}.${tone === 'dirty' ? ' Players may use slang, innuendo or crude synonyms. Judge them on meaning like any other guess.' : tone === 'family' ? ' Players may be kids, so be generous with simple wording.' : ''}
+- matchType "exact": the same answer, or trivially different wording.
+- matchType "close": clearly the same idea.
+- matchType "stretch": arguably related, so it's the host's call.
+- matchType "none": no answer fits. Use matchIndex 0.
+matchIndex is the answer's number in that item's list. If a guess means the same thing as Player 1's answer, still return that answer's number (the host handles duplicates).
+reason: one short, friendly sentence.
+Return exactly one result per item, using the item numbers below.
+
+${items}`;
+    try{
+      const r = await Gemini.call(prompt, SCHEMA_FMJ, {temperature:0.2, thinking:0, timeout:25000});
+      if(S.fm === fm) (r && r.results || []).forEach(x => {
+        const k = (parseInt(x.item, 10) || 0) - 1, i = rows[k]; if(i == null) return;
+        const cell = fm.cells[c][i]; if(cell.manual || cell.guess !== snap[k] || cell.shown >= 2) return;
+        let idx = (parseInt(x.matchIndex, 10) || 0) - 1, type = ['exact','close','stretch','none'].includes(x.matchType) ? x.matchType : 'none';
+        if(idx < 0 || idx >= fm.qs[i].a.length || type === 'none'){ idx = -1; type = 'none'; }
+        fmApply(c, i, {matchIndex:idx, matchType:type, reason:String(x.reason || '').slice(0, 200)}, 'Gemini AI');
+      });
+    }catch(e){ toast(e.message + " Kept the smart judge's calls.", 'err', 5500); }
+    const b2 = $('#fmJudge' + c); if(b2) b2.disabled = false;
+    commit();
+  }
+
+  // ---- reveals ----
+  let fmRevealing = false;
+  function fmCheckEnd(){
+    const fm = S.fm, tot = fmTotal(fm);
+    if(!fm.won && tot >= fm.target){ fm.won = true; fx('fmwin', {total:tot}); }
+    else if(!fm.won && !fm.lost && fm.cells[1].every(x => x.shown >= 2)){ fm.lost = true; fx('fmlose', {total:tot}); }
+  }
+  async function fmReveal(c, i){
+    const fm = S.fm, cell = fm.cells[c][i]; if(cell.shown) return;
+    if(cell.match == null && cell.guess.trim()) fmLocal(c, i);
+    if(c === 1 && fm.hideP1){ fm.hideP1 = false; commit(); await sleep(700); }
+    cell.shown = 1; cell.dup = false; fx('fmtext'); commit();
+    await sleep(1200);
+    if(S.fm !== fm) return;
+    cell.shown = 2; fx('fmpts', {pts: cell.pts}); fmCheckEnd(); commit();
+  }
+  function fmHide(c, i){
+    const fm = S.fm; fm.cells[c][i].shown = 0;
+    if(fmTotal(fm) < fm.target) fm.won = false;
+    if(!fm.cells[1].every(x => x.shown >= 2)) fm.lost = false;
+    commit();
+  }
+  async function fmRevealSeq(c, all){
+    if(fmRevealing) return; const fm = S.fm; fmRevealing = true;
+    try{
+      for(let i=0;i<5;i++){
+        if(S.fm !== fm) break;
+        if(fm.cells[c][i].shown) continue;
+        await fmReveal(c, i); await sleep(500);
+        if(!all) break;
+      }
+    } finally { fmRevealing = false; }
+  }
+  function fmRevealNext(){
+    const fm = S.fm; if(!fm || !fm.qs.length) return;
+    const order = [fm.timer.player, 1 - fm.timer.player];
+    const c = order.find(c => fm.cells[c].some(x => !x.shown));
+    if(c == null){ toast('Everything is already revealed.'); return; }
+    fmRevealSeq(c, false);
+  }
+  function fmDupBuzz(i){
+    const cell = S.fm.cells[1][i];
+    fx('dup', {row:i}); Object.assign(cell, fmBlankCell()); commit();
+    const inp = $(`.fmg[data-c="1"][data-i="${i}"]`); if(inp){ inp.value = ''; inp.focus(); }
+  }
+
+  // ---- host rendering ----
+  let fmBuilt = null;
+  const fmKey = fm => fm.id + ':' + fm.qs.length + ':' + !!fm.loading;
+  function buildFMTable(){
+    const fm = S.fm, tb = $('#fmTable');
+    let h = `<div class="fmth">Question <span class="muted" style="text-transform:none;letter-spacing:0;font-weight:500">(read aloud · not shown on TV)</span></div>`;
+    [0,1].forEach(c => { h += `<div class="fmth"><span class="pn" data-c="${c}"></span><span class="spacer" style="flex:1"></span><button class="btn sm" id="fmJudge${c}" data-act="judge" data-c="${c}">⚖️ Judge</button><button class="btn sm gold" data-act="revall" data-c="${c}">▶ Reveal all</button></div>`; });
+    fm.qs.forEach((q, i) => {
+      h += `<div class="fmq"><b>${i+1}. ${esc(q.q)}</b><div class="alist">${q.a.map(([t, p], j) => `<span>${j+1}. ${esc(t)} <b>${p}</b></span>`).join('')}</div></div>`;
+      [0,1].forEach(c => {
+        h += `<div class="fmc" data-c="${c}" data-i="${i}">
+          <input class="field fmg" data-c="${c}" data-i="${i}" placeholder="Answer ${i+1}…" autocomplete="off" spellcheck="false">
+          <div class="row" style="flex-wrap:nowrap"><select class="field fms" data-c="${c}" data-i="${i}" style="flex:1"><option value="">Not judged</option>${q.a.map(([t, p], j) => `<option value="${j}">#${j+1} ${esc(t)} (${p})</option>`).join('')}<option value="-1">No match (0)</option></select><span class="fmpp">–</span></div>
+          <div class="info"><span class="jt"></span><span style="flex:1"></span>${c ? `<button class="btn sm red" data-act="dup" data-i="${i}" title="Buzz: same answer as Player 1, so ask again">Dup buzz</button>` : ''}<button class="btn sm gold" data-act="rev" data-c="${c}" data-i="${i}">Reveal</button></div>
+          <div class="dupw" hidden></div>
+        </div>`;
+      });
+    });
+    if(!fm.qs.length) h += `<div class="fmq" style="grid-column:1/-1;text-align:center">${fm.loading ? '<span class="spin"></span> Writing 5 Fast Money questions…' : 'No questions yet. Click "✨ New Fast Money Questions".'}</div>`;
+    tb.innerHTML = h; fmBuilt = fmKey(fm);
+  }
+  function renderFM(){
+    const fm = S.fm;
+    if(fmBuilt !== fmKey(fm)) buildFMTable();
+    $('#fmSrc').textContent = fm.loading ? 'Writing questions…' : (fm.source || ''); $('#fmSrc').hidden = !fm.loading && !fm.source;
+    [0,1].forEach(c => {
+      const n = $('#fmN' + c); if(document.activeElement !== n) n.value = fm.names[c];
+      $('#fmStart' + c).textContent = `▶ ${fm.names[c]} · ${FM_DUR[c]}s`; $('#fmStart' + c).disabled = !fm.qs.length;
+    });
+    $$('#fmTeam button').forEach(b => { const t = +b.dataset.t; b.classList.toggle('on', t < 0 ? fm.team == null : fm.team === t); if(t >= 0) b.textContent = S.teams[t].name; });
+    if(document.activeElement !== $('#fmTarget')) $('#fmTarget').value = fm.target;
+    const hp = $('#fmHideP1'); hp.textContent = fm.hideP1 ? `👁 Show ${fm.names[0]}'s answers on TV` : `🙈 Hide ${fm.names[0]}'s answers on TV`; hp.classList.toggle('on', fm.hideP1);
+    const t = fm.timer, running = !!t.endsAt;
+    $('#fmPause').textContent = running ? '⏸ Pause' : (t.left > 0 && t.left < t.dur ? '▶ Resume' : '▶ Start');
+    const left = fmLeft(t), ck = $('#hfmClock'); ck.textContent = Math.ceil(left); ck.className = 'fmclock' + (running ? ' run' : '') + (running && left <= 5 ? ' low' : '');
+    const tot = fmTotal(fm);
+    $('#hfmTotal').textContent = tot; $('#hfmTotal').classList.toggle('hit', tot >= fm.target);
+    $('#hfmTo').textContent = fm.won ? `🏆 Won! (needed ${fm.target})` : fm.lost ? `So close. Needed ${fm.target}` : `of ${fm.target} to win`;
+    $$('#fmTable .pn').forEach(el => el.textContent = fm.names[+el.dataset.c]);
+    $$('#fmTable .fmc').forEach(el => {
+      const c = +el.dataset.c, i = +el.dataset.i, cell = fm.cells[c][i];
+      const inp = $('.fmg', el); if(document.activeElement !== inp && inp.value !== cell.guess) inp.value = cell.guess;
+      $('.fms', el).value = cell.match == null ? '' : String(cell.match);
+      $('.fmpp', el).textContent = cell.match == null ? '–' : cell.pts;
+      $('.jt', el).innerHTML = cell.type ? `<span class="mt ${cell.manual ? 'manual' : cell.type}">${cell.manual ? 'host pick' : cell.type}</span> <span title="${esc(cell.reason)}">${esc(cell.manual ? '' : cell.by)}</span>` : '';
+      el.classList.toggle('shown', cell.shown >= 2); el.classList.toggle('dup', !!cell.dup);
+      const rb = $('[data-act="rev"]', el); rb.textContent = cell.shown >= 2 ? 'Hide' : cell.shown === 1 ? '…' : 'Reveal'; rb.classList.toggle('gold', !cell.shown); rb.title = cell.reason || '';
+      const dw = $('.dupw', el); dw.hidden = !cell.dup; if(cell.dup) dw.textContent = `⚠ Same answer as ${fm.names[0]}. Hit "Dup buzz" and ask again.`;
+    });
+    $$('#fmTable [data-act="judge"]').forEach(b => { if(!b.disabled || !b.querySelector('.spin')){ b.disabled = false; b.innerHTML = Gemini.hasKey() ? '⚖️ Judge with Gemini' : '⚖️ Judge'; } });
+  }
+
+  // ---- wiring ----
+  let fmSaveT;
+  const fmCommitSoon = () => { clearTimeout(fmSaveT); fmSaveT = setTimeout(commit, 250); };
+  $('#fmTable').addEventListener('input', e => {
+    const el = e.target; if(!el.classList.contains('fmg')) return;
+    const c = +el.dataset.c, i = +el.dataset.i, cell = S.fm.cells[c][i];
+    cell.guess = el.value.slice(0, 60); cell.manual = false; fmLocal(c, i);
+    renderFM(); fmCommitSoon();
+  });
+  $('#fmTable').addEventListener('keydown', e => {
+    const el = e.target; if(!el.classList.contains('fmg') || e.key !== 'Enter') return;
+    e.preventDefault(); const nx = $(`.fmg[data-c="${el.dataset.c}"][data-i="${+el.dataset.i + 1}"]`);
+    if(nx) nx.focus(); else el.blur();
+  });
+  $('#fmTable').addEventListener('change', e => {
+    const el = e.target; if(!el.classList.contains('fms')) return;
+    const c = +el.dataset.c, i = +el.dataset.i, cell = S.fm.cells[c][i];
+    if(el.value === ''){ cell.manual = false; fmLocal(c, i); }
+    else { const idx = +el.value; Object.assign(cell, {match: idx, pts: idx >= 0 ? S.fm.qs[i].a[idx][1] : 0, type: idx >= 0 ? 'close' : 'none', by:'Host', reason:'Picked by the host.', manual:true}); fmDup(i); }
+    commit();
+  });
+  $('#fmTable').addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if(!b) return;
+    const act = b.dataset.act, c = +b.dataset.c, i = +b.dataset.i;
+    if(act === 'judge') fmJudge(c);
+    else if(act === 'revall') fmRevealSeq(c, true);
+    else if(act === 'dup') fmDupBuzz(i);
+    else if(act === 'rev'){ const cell = S.fm.cells[c][i]; if(cell.shown >= 2) fmHide(c, i); else if(!cell.shown) fmReveal(c, i); }
+  });
+  $('#fmNewQ').onclick = () => fmGenerate($('#fmTheme').value);
+  $('#fmTheme').addEventListener('keydown', e => { if(e.key === 'Enter') fmGenerate(e.target.value); });
+  $('#fmExit').onclick = exitFM;
+  $('#fmStart0').onclick = () => fmStart(0); $('#fmStart1').onclick = () => fmStart(1);
+  $('#fmPause').onclick = fmPause; $('#fmPlus').onclick = fmPlus; $('#fmReset').onclick = fmReset;
+  $('#fmNext').onclick = fmRevealNext;
+  $('#fmHideP1').onclick = () => { S.fm.hideP1 = !S.fm.hideP1; commit(); };
+  $('#fmTeam').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; const t = +b.dataset.t; S.fm.team = t < 0 ? null : t; commit(); });
+  $('#fmTarget').addEventListener('change', e => { const v = parseInt(e.target.value, 10); if(v > 0){ S.fm.target = v; if(fmTotal(S.fm) < v) S.fm.won = false; else fmCheckEnd(); commit(); } });
+  [0,1].forEach(c => $('#fmN' + c).addEventListener('input', e => { S.fm.names[c] = e.target.value.slice(0, 24) || ('Player ' + (c+1)); commit(); }));
+  $('#hFM').onclick = () => {
+    if(S.fm && S.fm.active){ exitFM(); return; }
+    const done = !S.fm || S.fm.won || S.fm.lost;
+    enterFM(S.winner != null ? S.winner : (S.fm ? S.fm.team : null), done);
+  };
+  $('#lFM').onclick = () => { saveKeyField(); applyLauncherTeams(); showHost(); enterFM(null, true); };
+
   // ---------- host rendering ----------
   function renderHostAnswers(){
     const box = $('#hAnswers'); let h = '';
@@ -1890,6 +2644,10 @@ reason: one short, friendly sentence the host can read.`;
     box.innerHTML = h;
   }
   function renderHost(){
+    const fmOn = !!(S.fm && S.fm.active);
+    $('main.hgrid').hidden = fmOn; $('#host .hfoot').hidden = fmOn; $('#fmPanel').hidden = !fmOn;
+    const hb = $('#hFM'); hb.textContent = fmOn ? '↩ Main Game' : '⚡ Fast Money'; hb.classList.toggle('gold', !fmOn);
+    if(fmOn){ $('#hTvSound').checked = !S.tvMuted; $('#hPreview').checked = prefs.preview; renderFM(); updSync(); return; }
     $('#hRound').textContent = S.roundNum ? 'Round ' + S.roundNum : 'No round yet';
     $('#hSrc').textContent = S.source || ''; $('#hSrc').hidden = !S.source;
     const hq = $('#hQ'); hq.textContent = S.question || 'No survey loaded. Pick or generate one on the right →'; hq.classList.toggle('empty', !S.question);
@@ -1922,8 +2680,8 @@ reason: one short, friendly sentence the host can read.`;
     });
     $('#hUndoAward').hidden = !S.lastAward;
     $('#hWin').innerHTML = S.winner != null ? `<div class="winbar">🏆 ${esc(S.teams[S.winner].name)} wins! <span class="spacer" style="flex:1"></span>
-      <button class="btn sm" id="wHide">${S.celebrate ? 'Hide celebration' : 'Show celebration'}</button><button class="btn sm gold" id="wNew">New Game</button></div>` : '';
-    if(S.winner != null){ $('#wHide').onclick = () => { S.celebrate = !S.celebrate; commit(); }; $('#wNew').onclick = () => $('#gNew').click(); }
+      <button class="btn sm" id="wHide">${S.celebrate ? 'Hide celebration' : 'Show celebration'}</button><button class="btn sm gold" id="wFM">⚡ Fast Money for ${esc(S.teams[S.winner].name)}</button><button class="btn sm" id="wNew">New Game</button></div>` : '';
+    if(S.winner != null){ $('#wHide').onclick = () => { S.celebrate = !S.celebrate; commit(); }; $('#wNew').onclick = () => $('#gNew').click(); $('#wFM').onclick = () => enterFM(S.winner, true); }
     if(document.activeElement !== $('#gTarget')) $('#gTarget').value = S.target;
     $('#hTvSound').checked = !S.tvMuted; $('#hPreview').checked = prefs.preview;
     $('#gMode').textContent = Gemini.hasKey() ? '· Gemini AI judge' : '· smart judge, synonyms included';
@@ -1988,8 +2746,14 @@ reason: one short, friendly sentence the host can read.`;
   // keyboard shortcuts
   document.addEventListener('keydown', e => {
     if($('#host').hidden || e.ctrlKey || e.metaKey || e.altKey) return;
-    const tg = e.target; if(tg && (tg.tagName === 'INPUT' || tg.tagName === 'TEXTAREA' || tg.tagName === 'SELECT' || tg.isContentEditable)) return;
+    const tg = e.target; if(tg && ((tg.tagName === 'INPUT' && !/^(checkbox|radio|button|range)$/.test(tg.type)) || tg.tagName === 'TEXTAREA' || tg.tagName === 'SELECT' || tg.isContentEditable)) return;
     const k = e.key.toLowerCase();
+    if(S.fm && S.fm.active){
+      if(k === 't'){ e.preventDefault(); fmPause(); }
+      else if(k === 'n'){ e.preventDefault(); fmRevealNext(); }
+      else if(k === 'r'){ e.preventDefault(); buzzReset(); }
+      return;
+    }
     if(/^[1-8]$/.test(k)){ e.preventDefault(); toggleAnswer(+k - 1); }
     else if(k === 'x'){ e.preventDefault(); addStrike(); }
     else if(k === 'b'){ e.preventDefault(); buzz(); }
@@ -1997,6 +2761,7 @@ reason: one short, friendly sentence the host can read.`;
     else if(k === 's'){ e.preventDefault(); toggleSteal(); }
     else if(k === 'q'){ e.preventDefault(); if(S.question){ S.showQuestion = !S.showQuestion; commit(); } }
     else if(k === '/'){ e.preventDefault(); $('#gIn').focus(); }
+    else if(k === 'r'){ e.preventDefault(); buzzReset(); }
   });
 
   buildPicker();
@@ -2004,7 +2769,157 @@ reason: one short, friendly sentence the host can read.`;
   Bus.post({type:'state', state:S});
 }
 
-if(IS_TV) initTV(); else initHost();
+/* ============================================================
+   PHONE BUZZER (?view=buzzer)
+   ============================================================ */
+function initBuzzer(){
+  document.body.classList.add('is-buzzer');
+  document.title = 'Buzzer — Feud Night';
+  $('#buzzer').hidden = false;
+  const qs = new URLSearchParams(location.search);
+  const saved = LS.get('buzzer', {}) || {};
+  const B = {room: String(qs.get('room') || saved.room || '').replace(/\D/g, '').slice(0, 4), team:null, peer:null, conn:null, connected:false,
+    names:['Team 1','Team 2'], armed:false, winner:null, pending:false, lastPong:0, retry:0, retryT:null, pendT:null, wake:null, notFound:false, busy:false};
+  if(saved.room && saved.room === B.room && (saved.team === 0 || saved.team === 1)) B.team = saved.team;
+  $('#bzRoom').value = B.room;
+  const save = () => LS.set('buzzer', {room:B.room, team:B.team});
+  const msg = (html, kind) => { $('#bzMsg').innerHTML = html ? `<div class="msg ${kind || 'info'}">${html}</div>` : ''; };
+  const send = d => { try{ if(B.conn && B.conn.open) B.conn.send(d); }catch(e){} };
+
+  function teardown(){
+    clearTimeout(B.retryT);
+    const c = B.conn, p = B.peer; B.conn = null; B.peer = null; B.connected = false;
+    try{ c && c.close(); }catch(e){} try{ p && p.destroy(); }catch(e){}
+  }
+  function scheduleRetry(){
+    clearTimeout(B.retryT);
+    B.connected = false;
+    const wait = Math.min(6000, Math.round(800 * Math.pow(1.6, B.retry++)));
+    B.retryT = setTimeout(connect, wait); ui();
+  }
+  async function connect(){
+    teardown();
+    if(!/^\d{4}$/.test(B.room)){ ui(); return; }
+    B.busy = true; ui();
+    try{ await loadScript(PEER_URL, 'Peer'); }
+    catch(e){ B.busy = false; msg("Couldn't load the buzzer library. Check this phone's internet connection.", 'err'); scheduleRetry(); return; }
+    let peer;
+    try{ peer = new window.Peer(undefined, peerOpts()); }
+    catch(e){ B.busy = false; msg("This browser doesn't support phone buzzers (WebRTC).", 'err'); ui(); return; }
+    B.peer = peer;
+    peer.on('open', () => {
+      if(B.peer !== peer) return;
+      const conn = peer.connect(PEER_PREFIX + B.room, {reliable:true});
+      B.conn = conn;
+      setTimeout(() => { if(B.conn === conn && !B.connected) scheduleRetry(); }, 12000);
+      conn.on('open', () => {
+        if(B.conn !== conn) return;
+        B.connected = true; B.busy = false; B.retry = 0; B.notFound = false; B.lastPong = Date.now(); msg('');
+        send(B.team != null ? {type:'join', team:B.team} : {type:'hello'});
+        ui();
+      });
+      conn.on('data', onData);
+      conn.on('close', () => { if(B.conn === conn) scheduleRetry(); });
+      conn.on('error', () => { if(B.conn === conn) scheduleRetry(); });
+    });
+    peer.on('error', err => {
+      if(B.peer !== peer) return;
+      B.busy = false;
+      if(err && err.type === 'peer-unavailable'){
+        B.notFound = true;
+        if(B.team == null){ teardown(); msg(`Couldn't find room <b>${esc(B.room)}</b>. Check the code on the host laptop's Phone Buzzers card.`, 'err'); ui(); return; }
+      }
+      scheduleRetry();   // joined phones keep trying: the host may just be reloading
+    });
+    peer.on('disconnected', () => { if(B.peer === peer && !B.connected) scheduleRetry(); });
+  }
+  function onData(d){
+    if(!d || typeof d !== 'object') return;
+    B.lastPong = Date.now();
+    if(d.type === 'state'){
+      if(Array.isArray(d.teams)) B.names = [String(d.teams[0] || 'Team 1').slice(0, 24), String(d.teams[1] || 'Team 2').slice(0, 24)];
+      B.armed = !!d.armed;
+      B.winner = d.winner === 0 || d.winner === 1 ? d.winner : null;
+      if(B.winner != null) B.pending = false;
+      if(B.team != null && d.you !== B.team) send({type:'join', team:B.team});   // host restarted: rejoin our team
+      ui();
+    } else if(d.type === 'replaced'){
+      B.team = null; save(); releaseWake();
+      msg('Another phone joined as that team, so this one stepped back. Pick a team to take over again.', 'info'); ui();
+    }
+  }
+  async function requestWake(){
+    if(!('wakeLock' in navigator) || B.team == null || document.visibilityState !== 'visible') return;
+    try{ if(B.wake && !B.wake.released) return; B.wake = await navigator.wakeLock.request('screen'); }catch(e){}
+  }
+  function releaseWake(){ try{ B.wake && B.wake.release(); }catch(e){} B.wake = null; }
+
+  function ui(){
+    const joined = B.team != null;
+    $('#bzJoinScr').hidden = joined; $('#bzPlay').hidden = !joined;
+    $('#bzPick').hidden = !(B.connected && !joined);
+    $$('#bzPick [data-team]').forEach(b => b.textContent = 'Join as ' + B.names[+b.dataset.team]);
+    const find = $('#bzFind'); find.hidden = B.connected && !joined;
+    find.disabled = B.busy; find.innerHTML = B.busy ? '<span class="spin"></span> Connecting…' : 'Connect';
+    if(!joined) return;
+    $('#bzMe').textContent = B.names[B.team]; $('#bzRoomTag').textContent = 'Room ' + B.room;
+    $('#bzConn').className = 'bzdot' + (B.connected ? ' on' : '');
+    let cls, l1, l2;
+    if(!B.connected){ cls = 'wait'; l1 = 'RECONNECTING…'; l2 = B.notFound ? `Looking for room ${B.room}. Is the host screen open?` : 'Hang tight. Getting back into the room.'; }
+    else if(B.winner === B.team){ cls = 'won'; l1 = 'YOU BUZZED FIRST!'; l2 = 'Give your answer!'; }
+    else if(B.winner != null){ cls = 'locked'; l1 = 'LOCKED'; l2 = `${B.names[B.winner]} buzzed first!`; }
+    else if(B.armed){ cls = B.pending ? 'pending' : 'armed'; l1 = B.pending ? 'BUZZED!' : 'BUZZ IN!'; l2 = B.pending ? 'Checking who was first…' : 'Tap the moment you know it'; }
+    else { cls = 'wait'; l1 = 'GET READY'; l2 = 'The host will re-arm the buzzers.'; }
+    const btn = $('#bzBtn'); btn.className = 'bzbig ' + cls; $('.l1', btn).textContent = l1; $('.l2', btn).textContent = l2;
+  }
+
+  // ---- controls ----
+  $('#bzBtn').addEventListener('pointerdown', e => {
+    e.preventDefault(); requestWake();
+    if(!B.connected || B.team == null || !B.armed || B.pending || B.winner != null) return;
+    B.pending = true;
+    try{ navigator.vibrate && navigator.vibrate(120); }catch(_){}
+    send({type:'buzz', team:B.team}); ui();
+    clearTimeout(B.pendT); B.pendT = setTimeout(() => { if(B.pending){ B.pending = false; ui(); } }, 4000);
+  });
+  $('#bzBtn').addEventListener('contextmenu', e => e.preventDefault());
+  $('#bzFind').onclick = () => {
+    const r = $('#bzRoom').value.replace(/\D/g, '').slice(0, 4);
+    if(r.length !== 4){ msg('Room codes are 4 digits.', 'err'); return; }
+    if(r !== B.room) B.team = null;
+    B.room = r; B.retry = 0; save(); msg(''); connect();
+  };
+  $('#bzRoom').addEventListener('keydown', e => { if(e.key === 'Enter') $('#bzFind').click(); });
+  $('#bzRoom').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); });
+  $('#bzPick').addEventListener('click', e => {
+    const b = e.target.closest('[data-team]'); if(!b) return;
+    B.team = +b.dataset.team; save(); msg('');
+    send({type:'join', team:B.team}); requestWake(); ui();
+  });
+  $('#bzSwitch').onclick = () => { send({type:'leave'}); B.team = null; save(); releaseWake(); ui(); };
+
+  // ---- keep-alive & reconnects (phones sleep, get passed around, change Wi-Fi) ----
+  setInterval(() => {
+    if(!B.conn) return;
+    if(B.connected){
+      send({type:'ping'});
+      if(Date.now() - B.lastPong > 7000){ B.retry = 0; scheduleRetry(); }
+    }
+  }, 2000);
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState !== 'visible') return;
+    requestWake();
+    if(!B.connected || Date.now() - B.lastPong > 4000){ B.retry = 0; connect(); }
+  });
+  addEventListener('online', () => { B.retry = 0; connect(); });
+  addEventListener('pageshow', e => { if(e.persisted){ B.retry = 0; connect(); } });
+
+  ui();
+  if(B.room) connect(); else $('#bzRoom').focus();
+  if(B.team != null) requestWake();
+}
+
+if(IS_TV) initTV(); else if(IS_BUZZER) initBuzzer(); else initHost();
 })();
 </script>
 </body>
