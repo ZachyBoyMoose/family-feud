@@ -443,6 +443,73 @@ details.tool[open]>summary::before{transform:rotate(90deg)}
 details.tool[open]>summary{margin-bottom:10px}
 details.tool .bzroom{font-size:15px}
 .toolsc{background:linear-gradient(180deg,#0c1847,#091235)}
+/* ---------- Live flow additions ---------- */
+.foRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-4px 0 12px;padding:8px 10px;border-radius:10px;background:#0a1438;border:1px solid #243a80}
+.foRow .seg button{padding:5px 12px}
+#hFace button[data-f="0"].on{background:linear-gradient(#ffd75e,#ffb31a);color:#2a1600}
+#hFace button[data-f="1"].on{background:linear-gradient(#8fb3ff,#3b6bff);color:#fff}
+.stealbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:10px 12px;border-radius:12px;background:rgba(227,18,43,.1);border:1px solid rgba(255,80,100,.45);font-size:14px;color:#ffd9de}
+.stealbar b{color:#fff;font-size:16px}
+.stealbar.on{background:linear-gradient(90deg,rgba(227,18,43,.28),rgba(227,18,43,.08));border-color:#ff5866}
+.stealbar .row{width:100%}
+.sbteam.buzzed{box-shadow:0 0 0 2px #fff,0 0 22px rgba(255,255,255,.3)}
+.bzflag{font-size:11px;font-weight:800;letter-spacing:.05em;color:#2a1600;background:linear-gradient(#ffe07a,#ffb31a);border-radius:999px;padding:2px 8px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.halert{position:fixed;left:50%;top:66px;transform:translate(-50%,-30px);opacity:0;z-index:90;padding:16px 30px;border-radius:16px;font-family:var(--display);font-size:26px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;box-shadow:0 14px 50px rgba(0,0,0,.55),0 0 0 4px rgba(255,255,255,.65);pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+.halert.t1{background:linear-gradient(#8fb3ff,#3b6bff);color:#fff}
+.halert.show{animation:halert 3.6s ease forwards}
+@keyframes halert{0%{opacity:0;transform:translate(-50%,-30px) scale(.9)}8%{opacity:1;transform:translate(-50%,0) scale(1.05)}14%{transform:translate(-50%,0) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(-50%,-10px)}}
+.volrow{display:inline-flex;align-items:center;gap:6px}
+.volrow input[type=range]{width:86px;accent-color:var(--gold)}
+#hMute.muted{border-color:#ff5866;color:#ffc2c9}
+#hStandby.on{background:linear-gradient(#8fb3ff,#3b6bff);border-color:#cfe0ff;color:#fff}
+.ros{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;background:#0a1438;border:1px solid #243a80;margin-top:6px;font-size:13px}
+.ros b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ros .seg button{padding:3px 8px;font-size:12px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rdot{flex:0 0 9px;height:9px;border-radius:50%;background:#5a6690}.rdot.on{background:var(--green)}.rdot.idle{background:var(--gold)}
+/* ---------- Survey packs ---------- */
+.pkbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pklist{margin-top:8px;max-height:340px;overflow:auto;display:flex;flex-direction:column;gap:6px}
+.pk{padding:6px 8px;border-radius:10px;background:#0a1438;border:1px solid #243a80;font-size:13px}
+.pk.next{border-color:var(--gold)}
+.pk.done{opacity:.55}
+.pk.editing{border-color:#8fb3ff;box-shadow:0 0 0 1px #8fb3ff}
+.pkh{display:flex;align-items:center;gap:4px}
+.pkn{color:var(--muted);font-weight:800;min-width:20px}
+.pkq{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:650}
+.pkb{font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;background:#0f5a37;color:#aef3d0;white-space:nowrap}
+.pkb.warn{background:#6a4a00;color:#ffe3a0}
+.pkb.bad{background:#5a0c18;color:#ffc2c9}
+.pk .ib{border:0;background:transparent;color:#c9d6ff;cursor:pointer;padding:2px 5px;border-radius:6px;font-size:13px;line-height:1.2}
+.pk .ib:hover{background:#1a2f78}
+.pkans{margin-top:6px;font-size:12px;color:var(--muted);line-height:1.6}
+.pkans span{display:inline-block;margin-right:10px}
+.pkans b{color:#ffe7a6}
+/* ---------- Fast Money milestone ---------- */
+.fmmeter{height:8px;border-radius:999px;background:#081133;border:1px solid #2c4392;overflow:hidden;margin:6px 0 2px}
+.fmmeter i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb31a,#ffd75e);transition:width .8s ease}
+.fmmeter.hit i{background:linear-gradient(90deg,#14a865,#5dffb0)}
+.fmtot{gap:2px}
+.fmtot .fmm{width:76%;height:12px;border-radius:999px;background:rgba(0,0,0,.35);overflow:hidden;margin-top:6px}
+.fmtot .fmm i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb31a,#ffd75e);transition:width 1s ease}
+.fmtot.hit .fmm i{background:linear-gradient(90deg,#14a865,#5dffb0)}
+.fmtot.hit .t{color:#7ff0b8}
+.fmtot.hit .v{color:#7ff0b8;text-shadow:0 0 26px rgba(60,255,160,.8),0 6px 0 #063a22}
+.fmtot.burst{animation:potp .9s ease}
+.fmtot .v{font-size:92px}
+/* ---------- TV: standby card, names, letterbox ---------- */
+#tv{background:#020825}
+.standby{position:absolute;inset:0;z-index:59;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:60px;background:radial-gradient(ellipse 70% 60% at 50% 45%,#1b52e0 0%,#0c2c92 38%,#061652 68%,#020825 100%);opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s}
+.standby.show{opacity:1;visibility:visible;transition:opacity .9s ease}
+.standby .logo{padding:54px 140px;border-width:12px}
+.standby .logo b{font-size:150px}
+.standby .logo span{font-size:36px}
+.standby .sbm{font-size:64px;color:#ffe9a8;letter-spacing:.08em;text-align:center;max-width:1600px;text-shadow:0 4px 0 #020a2e;text-transform:uppercase}
+.buzzban .who{font-size:38px;opacity:.85;letter-spacing:.04em}
+.buzzban .who:empty{display:none}
+.lbqr{width:440px;height:440px}
+.lbppl{font-size:28px;color:#c9d6ff;max-width:540px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:34px;margin-top:-6px}
+.team.fo .ts{box-shadow:0 0 0 4px rgba(255,255,255,.7),0 0 50px rgba(255,255,255,.45)}
+.team.fo .tflag{opacity:1;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600}
 </style>
 </head>
 <body>
@@ -527,12 +594,14 @@ details.tool .bzroom{font-size:15px}
     <div class="bzpill" id="hBuzzPill" hidden></div>
     <a class="btn sm gold" id="hLaunch" target="feudnight_tv" href="./?view=tv">📺 Launch TV Board</a>
     <div class="spacer"></div>
-    <label class="tog" title="Sound effects play from the TV Board tab, through the TV"><input type="checkbox" id="hTvSound" checked> TV sound</label>
+    <button class="btn sm" id="hStandby" title="Show an intermission card on the TV (I)">⏸ Standby</button>
+    <span class="volrow" title="TV sound (M to mute)"><button class="btn sm" id="hMute">🔊</button><input type="range" id="hVol" min="0" max="100" step="5" aria-label="TV volume"></span>
     <label class="tog" title="Also play sound effects quietly on this laptop"><input type="checkbox" id="hPreview"> Laptop preview sounds</label>
     <button class="btn sm gold" id="hFM">⚡ Fast Money</button>
     <button class="btn sm" id="hSetup">⚙ Setup</button>
   </header>
 
+  <div class="halert" id="hAlert"></div>
   <main class="hgrid">
     <div class="col">
       <div class="card lobbyc" id="hLobby" hidden>
@@ -548,9 +617,13 @@ details.tool .bzroom{font-size:15px}
       <div class="card roundc">
         <div class="row between">
           <div class="row"><span class="tag gold" id="hRound">No round yet</span><span class="tag" id="hSrc"></span></div>
-          <div class="row"><button class="btn" id="hShowQ">👁 Show question on TV</button><span class="kbd">Q</span></div>
+          <div class="row"><button class="btn sm ghost" id="hSkip" title="Put this question back in the deck and load the next one">⏭ Skip</button><button class="btn" id="hShowQ">👁 Show question on TV</button><span class="kbd">Q</span></div>
         </div>
         <div class="hq empty" id="hQ">No survey loaded. Pick or generate one on the right →</div>
+        <div class="foRow"><span class="sblabel">Face-off · who buzzed first?</span>
+          <div class="seg" id="hFace"><button data-f="0">Team 1</button><button data-f="1">Team 2</button><button data-f="-1">Clear</button></div>
+          <label class="tog" title="You can still change control on the scoreboard"><input type="checkbox" id="bzAuto"> Winner takes control</label></div>
+        <div id="hStealBar"></div>
         <div class="agrid" id="hAnswers"></div>
         <div class="row hstrikes">
           <div class="pips" id="hPips"></div>
@@ -559,6 +632,7 @@ details.tool .bzroom{font-size:15px}
           <button class="btn sm" id="hSteal">Steal: OFF</button><span class="kbd">S</span>
           <button class="btn sm ghost" id="hClearStrikes">Clear</button><span class="kbd">C</span>
           <div class="spacer"></div>
+          <button class="btn sm" id="hUndo" title="Undo the last reveal, strike, award or control change (Ctrl+Z)">↶ Undo</button>
           <button class="btn sm" id="hRevealAll">Reveal remaining</button>
         </div>
       </div>
@@ -581,7 +655,7 @@ details.tool .bzroom{font-size:15px}
           <div class="sbteam" id="sbT0"><div class="sbn">Team 1</div><div class="sbs">0</div><button class="btn sm sbctl" data-t="0">Give control</button><button class="btn gold sbaw" data-t="0">Award pot</button></div>
           <div class="sbpot"><div class="l">ROUND POT</div><div class="v" id="hPot">0</div><div class="m" id="hPotM">1x</div>
             <div class="seg" id="hMult"><button data-m="1">1x</button><button data-m="2">2x</button><button data-m="3">3x</button></div>
-            <button class="btn sm ghost" id="hUndoAward" hidden>↶ Undo award</button></div>
+</div>
           <div class="sbteam" id="sbT1"><div class="sbn">Team 2</div><div class="sbs">0</div><button class="btn sm sbctl" data-t="1">Give control</button><button class="btn gold sbaw" data-t="1">Award pot</button></div>
         </div>
         <div class="sbbuzz">
@@ -610,6 +684,7 @@ details.tool .bzroom{font-size:15px}
           <button class="btn sm" id="sNext">🎲 Next built-in</button>
           <select class="field" id="sPick" style="flex:1;min-width:0;padding:6px 8px;font-size:13px"></select>
         </div>
+        <div class="tip" id="hDeck" style="margin:6px 0 0"></div>
       </div>
 
       <!-- TOOLS & SETUP: tucked away until needed -->
@@ -617,8 +692,9 @@ details.tool .bzroom{font-size:15px}
         <h3 style="margin-bottom:0">Tools &amp; Setup</h3>
         <details class="tool" id="bzJoin">
           <summary>📱 Phone buzzer setup · Room <span class="bzroom" id="bzCode">----</span></summary>
-          <div class="row"><button class="btn sm" id="bzShowTV">📺 Show join screen on TV</button>
-            <label class="tog" title="You can still change control by hand"><input type="checkbox" id="bzAuto"> First buzz takes control</label></div>
+          <div class="row"><button class="btn sm" id="bzShowTV">📺 Show join screen on TV</button></div>
+          <div class="sblabel" style="margin-top:10px">Players</div>
+          <div id="bzRoster"></div>
           <div class="bzjoin2">
             <div class="bzq"><div class="bzqr" id="bzQR0">QR loading…</div><b class="bzqn" id="bzQN0">Team 1</b><button class="btn sm" data-copy="0">Copy link</button></div>
             <div class="bzq"><div class="bzqr" id="bzQR1">QR loading…</div><b class="bzqn" id="bzQN1">Team 2</b><button class="btn sm" data-copy="1">Copy link</button></div>
@@ -633,7 +709,26 @@ details.tool .bzroom{font-size:15px}
 Tent, 35
 Sleeping Bag, 22
 Flashlight, 14"></textarea>
-          <div class="row" style="margin-top:8px"><button class="btn sm gold" id="cLoad">Load my survey</button><span class="tip">Up to 8 answers. The points don't have to add up to 100.</span></div>
+          <div class="row" style="margin-top:8px"><button class="btn sm gold" id="cLoad">▶ Play it now</button><button class="btn sm" id="cAdd">➕ Add to pack</button><button class="btn sm ghost" id="cCancel" hidden>Cancel edit</button><span class="tip" id="cCount" style="margin:0"></span></div>
+          <div class="tip">Up to 8 answers. The points don't have to add up to 100.</div>
+        </details>
+        <details class="tool" id="dPack">
+          <summary>📦 Survey pack · <span id="pkCount">0</span> questions</summary>
+          <div class="row" style="flex-wrap:nowrap"><input class="field" id="pkName" maxlength="40" placeholder="Pack name" style="flex:1"><label class="tog"><input type="checkbox" id="pkUse"> Play pack in order</label></div>
+          <div class="pkbar" style="margin-top:8px">
+            <button class="btn sm" id="pkAddCur" title="Save the survey on the board now into the pack">➕ Add current survey</button>
+            <button class="btn sm" id="pkShuffle" title="Shuffle the questions you haven't played yet">🔀 Shuffle unplayed</button>
+            <button class="btn sm" id="pkRestart">↺ Restart</button>
+            <button class="btn sm" id="pkExport">⬇ Export .json</button>
+            <button class="btn sm" id="pkImport">⬆ Import .json</button>
+            <button class="btn sm ghost" id="pkClear">Clear pack</button>
+            <input type="file" id="pkFile" accept=".json,application/json" hidden>
+          </div>
+          <div class="pklist" id="pkList"></div>
+          <details class="tool" style="margin-top:8px"><summary>Copy / paste pack as text</summary>
+            <textarea class="field" id="pkText" placeholder='Paste a pack here, e.g. {"surveys":[{"question":"Name a fruit","answers":[{"text":"Apple","points":40}]}]}' style="min-height:90px"></textarea>
+            <div class="row" style="margin-top:6px"><button class="btn sm gold" id="pkPaste">Import pasted text</button><button class="btn sm" id="pkCopy">Copy pack as text</button></div>
+          </details>
         </details>
         <details class="tool" id="dGame">
           <summary>⚙️ Vibe &amp; game settings</summary>
@@ -642,6 +737,13 @@ Flashlight, 14"></textarea>
           <div class="row" style="margin-top:10px"><label class="muted" for="gTarget" style="font-size:13px;width:60px">Win at</label>
             <input class="field" id="gTarget" type="number" min="10" step="10" style="width:100px">
             <div class="spacer"></div><button class="btn sm" id="gNew">🔄 New Game</button></div>
+          <div class="row" style="margin-top:10px"><label class="muted" for="gRounds" style="font-size:13px;width:60px">Rounds</label>
+            <input class="field" id="gRounds" type="number" min="0" max="30" style="width:100px" placeholder="any"><span class="tip" style="margin:0">Shows "Round 2 of 4". Leave at 0 for open-ended.</span></div>
+          <div class="row" style="margin-top:10px"><label class="muted" for="gStandbyMsg" style="font-size:13px;width:60px">Standby</label>
+            <input class="field" id="gStandbyMsg" maxlength="60" placeholder="WE'LL BE RIGHT BACK!" style="flex:1"></div>
+          <div class="row" style="margin-top:10px"><label class="muted" for="gSafe" style="font-size:13px;width:60px">TV fit</label>
+            <select class="field" id="gSafe" style="width:auto"><option value="0">Full screen</option><option value="3">3% safe margin</option><option value="5">5% safe margin (overscan)</option><option value="8">8% safe margin</option></select>
+            <span class="tip" style="margin:0">Use a margin if your TV crops the edges.</span></div>
         </details>
       </div>
     </div>
@@ -680,6 +782,7 @@ Flashlight, 14"></textarea>
       <div class="card" style="min-width:230px;text-align:center">
         <h3>Total</h3>
         <div class="fmtotal" id="hfmTotal">0</div>
+        <div class="fmmeter" id="hfmMeter"><i></i></div>
         <div class="muted" id="hfmTo" style="font-size:13px;margin:4px 0 10px">of 200 to win</div>
         <button class="btn gold" id="fmNext">▶ Reveal Next</button> <span class="kbd">N</span>
       </div>
@@ -693,7 +796,7 @@ Flashlight, 14"></textarea>
     <span><span class="kbd">1</span>–<span class="kbd">8</span> reveal/hide</span>
     <span><span class="kbd">X</span> strike</span><span><span class="kbd">B</span> buzz</span>
     <span><span class="kbd">C</span> clear strikes</span><span><span class="kbd">S</span> steal</span>
-    <span><span class="kbd">Q</span> show/hide question</span><span><span class="kbd">/</span> type a guess</span><span><span class="kbd">R</span> reset phone buzzers</span>
+    <span><span class="kbd">Q</span> show/hide question</span><span><span class="kbd">/</span> type a guess</span><span><span class="kbd">R</span> reset buzzers</span><span><span class="kbd">Ctrl</span>+<span class="kbd">Z</span> undo</span><span><span class="kbd">M</span> mute TV</span><span><span class="kbd">I</span> standby</span>
     <span class="spacer"></span><span>Shortcuts are off while you're typing in a box.</span>
   </div>
 </section>
@@ -704,6 +807,7 @@ Flashlight, 14"></textarea>
     <div class="logo"><b>FEUD NIGHT</b><span>PHONE BUZZER</span></div>
     <p style="margin:0;color:#c9d6ff">Enter the 4-digit room code from the host's laptop.</p>
     <input class="field" id="bzRoom" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="0000" aria-label="Room code">
+    <input class="field" id="bzName" maxlength="20" autocomplete="nickname" placeholder="Your name (optional)" aria-label="Your name" style="text-align:center;max-width:280px">
     <button class="btn gold lg" id="bzFind">Connect</button>
     <div id="bzPick" hidden>
       <p style="margin:4px 0 0;color:#c9d6ff">Which team is this phone for?</p>
@@ -714,7 +818,7 @@ Flashlight, 14"></textarea>
     <p class="tip">One shared phone per team. Pass it to the next teammate between face-offs.</p>
   </div>
   <div class="bzplay" id="bzPlay" hidden>
-    <div class="bztop"><span class="bzdot" id="bzConn"></span><span id="bzMe">TEAM</span><span class="tag" id="bzRoomTag"></span><button class="btn sm" id="bzSwitch">Switch team</button></div>
+    <div class="bztop"><span class="bzdot" id="bzConn"></span><span id="bzMe">TEAM</span><button class="btn sm" id="bzNameBtn">✎ Name</button><button class="btn sm" id="bzSwitch">Switch</button></div>
     <button class="bzbig wait" id="bzBtn" type="button"><span class="l1">CONNECTING…</span><span class="l2"></span></button>
   </div>
 </section>
@@ -742,21 +846,22 @@ Flashlight, 14"></textarea>
       <div class="lobby" id="tvLobby" hidden>
         <div class="lbtitle">GRAB YOUR BUZZERS!</div>
         <div class="lbteams">
-          <div class="lbteam t0" id="lbT0"><div class="lbname"></div><div class="lbqr"></div><div class="lbstat">SCAN TO JOIN</div></div>
+          <div class="lbteam t0" id="lbT0"><div class="lbname"></div><div class="lbqr"></div><div class="lbstat">SCAN TO JOIN</div><div class="lbppl"></div></div>
           <div class="lbmid"><div class="logo"><b>FEUD NIGHT</b><span>SURVEY SAYS!</span></div>
             <div class="how">Point your phone's camera at <b>your team's</b> code. Your phone becomes your buzzer.</div>
             <div class="lbroom">ROOM<b id="lbRoom">----</b></div></div>
-          <div class="lbteam t1" id="lbT1"><div class="lbname"></div><div class="lbqr"></div><div class="lbstat">SCAN TO JOIN</div></div>
+          <div class="lbteam t1" id="lbT1"><div class="lbname"></div><div class="lbqr"></div><div class="lbstat">SCAN TO JOIN</div><div class="lbppl"></div></div>
         </div>
         <div class="lbfoot" id="lbFoot"></div>
       </div>
-      <div class="buzzban" id="tvBuzz"><span class="bell">🔔</span><span id="tvBuzzT"></span></div>
+      <div class="buzzban" id="tvBuzz"><span class="bell">🔔</span><span id="tvBuzzT"></span><span class="who" id="tvBuzzW"></span></div>
+      <div class="standby" id="tvStandby"><div class="logo"><b>FEUD NIGHT</b><span>SURVEY SAYS!</span></div><div class="sbm" id="tvStandbyMsg">WE'LL BE RIGHT BACK!</div></div>
       <div class="awardban" id="tvAward"><div class="a1" id="tvAward1"></div><div class="a2" id="tvAward2"></div></div>
       <div class="winov" id="tvWin"><div class="trophy">🏆</div><div class="w1" id="tvWin1"></div><div class="w2">WINS!</div><div class="w3" id="tvWin3"></div></div>
       <div class="fmboard" id="fmBoard" hidden>
         <div class="fmhead"><div class="fmwho" id="fmWho"></div><div class="fmtitle">FAST MONEY</div><div class="fmtimer idle" id="fmTimer"><span id="fmTimerV">20</span></div></div>
         <div class="fmgrid"><div class="fmcol" id="fmCol0"></div><div class="fmcol" id="fmCol1"></div></div>
-        <div class="fmfoot"><div class="fmname" id="fmName0"></div><div class="fmtot" id="fmTot"><span class="l">TOTAL</span><span class="v" id="fmTotV">0</span><span class="t" id="fmTotT">200 TO WIN</span></div><div class="fmname r" id="fmName1"></div></div>
+        <div class="fmfoot"><div class="fmname" id="fmName0"></div><div class="fmtot" id="fmTot"><span class="l">TOTAL</span><span class="v" id="fmTotV">0</span><span class="t" id="fmTotT">200 TO WIN</span><div class="fmm"><i id="fmBar"></i></div></div><div class="fmname r" id="fmName1"></div></div>
         <div class="fmload" id="fmLoad" hidden><div class="z">⚡</div><div>GETTING FAST MONEY READY…</div></div>
         <div class="fmban" id="fmBan"><div class="b1" id="fmBan1"></div><div class="b2" id="fmBan2"></div></div>
       </div>
@@ -1278,7 +1383,8 @@ function defaultState(){
     target:300, multiplier:1, strikes:0, steal:false, control:null,
     question:'', showQuestion:false, answers:[], roundId:0, roundNum:0, source:'',
     awarded:false, lastAward:null, winner:null, celebrate:false,
-    tvMuted:false, pot:0, fx:[], fxSeq:0, updated:0, fm:null
+    tvMuted:false, pot:0, fx:[], fxSeq:0, updated:0, fm:null,
+    faceoff:null, faceoffWho:'', roundsPlanned:0, tvVol:90, safe:0, standby:false, standbyMsg:'', packIdx:null
   };
 }
 function calcPot(s){ return s.awarded ? 0 : s.answers.reduce((a,x) => a + (x.counted ? x.points : 0), 0) * s.multiplier; }
@@ -1295,7 +1401,8 @@ function initTV(){
   let st = null, lastFx = null, curRound = null, muted = false, lastHost = 0;
 
   // ---- scale fixed 1920x1080 stage to any viewport ----
-  function fit(){ const s = Math.min(innerWidth/1920, innerHeight/1080); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
+  let safe = 0, vol = null;
+  function fit(){ const s = Math.min(innerWidth/1920, innerHeight/1080) * (1 - 2*safe/100); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
   addEventListener('resize', fit); fit();
 
   // ---- build 8 tiles ----
@@ -1351,6 +1458,10 @@ function initTV(){
   function render(ns){
     st = ns;
     muted = !!ns.tvMuted; setText($('#tvMute'), muted ? '🔇' : '🔊');
+    const v = ns.tvVol == null ? 90 : ns.tvVol; if(v !== vol){ vol = v; Sound.setVolume(Math.max(0, Math.min(1, v / 100))); }
+    if((ns.safe || 0) !== safe){ safe = ns.safe || 0; fit(); }
+    $('#tvStandby').classList.toggle('show', !!ns.standby);
+    setText($('#tvStandbyMsg'), (ns.standbyMsg || '').trim() || "WE'LL BE RIGHT BACK!");
     // teams
     ns.teams.forEach((t, i) => {
       const el = $('#tvT'+i), nm = $('.tn span', el);
@@ -1359,7 +1470,9 @@ function initTV(){
       const stealing = ns.steal && ns.control != null && ns.control !== i;
       el.classList.toggle('ctl', ns.control === i && !ns.steal);
       el.classList.toggle('steal', stealing);
-      setText($('.tflag', el), stealing ? 'STEAL!' : (ns.control === i ? 'IN CONTROL' : ''));
+      const fo = ns.faceoff === i && ns.control !== i && !stealing;
+      el.classList.toggle('fo', fo);
+      setText($('.tflag', el), stealing ? 'STEAL!' : ns.control === i ? 'IN CONTROL' : fo ? 'BUZZED IN' : '');
     });
     // pot
     const pv = $('#tvPotV'); const oldPot = pv._v;
@@ -1400,7 +1513,7 @@ function initTV(){
     }
     // strikes & labels
     $$('.bpip').forEach((p, i) => p.classList.toggle('on', i < ns.strikes));
-    setText($('#tvRound'), ns.roundNum ? 'ROUND ' + ns.roundNum : '');
+    setText($('#tvRound'), !ns.roundNum ? '' : ns.roundsPlanned && ns.roundNum <= ns.roundsPlanned ? `ROUND ${ns.roundNum} OF ${ns.roundsPlanned}` : 'ROUND ' + ns.roundNum);
     const stealTeam = ns.control != null ? ns.teams[1-ns.control] : null;
     setHTML($('#tvSteal'), ns.steal ? `<span class="stealtag">${stealTeam ? esc(stealTeam.name.toUpperCase()) + ' CAN ' : ''}STEAL!</span>` : (ns.multiplier > 1 ? (ns.multiplier === 2 ? 'DOUBLE POINTS' : 'TRIPLE POINTS') : ''));
     // winner
@@ -1429,6 +1542,7 @@ function initTV(){
         if(nm.textContent !== name){ nm.textContent = name; fitLine(nm, 64, 28); }
         card.classList.toggle('live', live[t]);
         setText($('.lbstat', card), live[t] ? '✓ BUZZER READY' : 'SCAN TO JOIN');
+        const ppl = bz.players && bz.players[t] || []; setText($('.lbppl', card), ppl.length ? ppl.join(' · ') : '');
         const q = $('.lbqr', card), url = bz.urls && bz.urls[t];
         if(url && q._for !== url) drawQR(q, url);
         if(!url && q._for !== ''){ q._for = ''; q.innerHTML = '<div>Opening room…</div>'; }
@@ -1472,8 +1586,11 @@ function initTV(){
       });
     });
     tween($('#fmTotV'), tot);
-    setText($('#fmTotT'), fm.target + ' TO WIN');
-    $('#fmTot').classList.toggle('hit', tot >= fm.target);
+    const hit = tot >= fm.target, ft = $('#fmTot');
+    setText($('#fmTotT'), hit ? `🎉 ${fm.target} REACHED!` : fm.target + ' TO WIN');
+    $('#fmBar').style.width = Math.min(100, fm.target ? tot / fm.target * 100 : 0) + '%';
+    if(hit && !ft.classList.contains('hit') && !fresh){ ft.classList.remove('burst'); void ft.offsetWidth; ft.classList.add('burst'); }
+    ft.classList.toggle('hit', hit);
     if(fresh){ void board.offsetWidth; requestAnimationFrame(() => board.classList.remove('instant')); }
   }
   function fmBanner(a, b, win){
@@ -1505,7 +1622,7 @@ function initTV(){
     if(f.name === 'fmlose'){ fmBanner('SO CLOSE!', f.total + ' POINTS', false); }
     if(f.name === 'buzzin'){
       const team = st.teams[f.team] || {name:'Team'}, el = $('#tvBuzz');
-      $('#tvBuzzT').textContent = team.name.toUpperCase() + ' BUZZED IN!';
+      $('#tvBuzzT').textContent = team.name.toUpperCase() + ' BUZZED IN!'; $('#tvBuzzW').textContent = f.who ? '· ' + String(f.who).toUpperCase() : '';
       el.className = 'buzzban t' + (f.team ? 1 : 0); void el.offsetWidth; el.classList.add('show');
       const tEl = $('#tvT' + f.team); if(tEl){ tEl.classList.remove('bump'); void tEl.offsetWidth; tEl.classList.add('bump'); }
     }
@@ -2003,7 +2120,7 @@ function initHost(){
   //  PHONE BUZZERS: host side (PeerJS / WebRTC, peer-to-peer)
   // =====================================================================
   function newRoomCode(){ return String(1000 + Math.floor(Math.random() * 9000)); }
-  const Buzz = {peer:null, code: String(LS.get('buzzRoom', '') || ''), conns:new Map(), team:[null, null], armed:true, first:null, firstAt:0, second:null, gap:null,
+  const Buzz = {peer:null, code: String(LS.get('buzzRoom', '') || ''), conns:new Map(), seen:new Set(), who:'', whoPid:null, armed:true, first:null, firstAt:0, second:null, gap:null,
     status:'off', err:'', names:'', retryT:null, qrFor:null, collapsed:false};
   if(!/^\d{4}$/.test(Buzz.code)){ Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); }
   const joinUrl = t => location.origin + location.pathname + '?view=buzzer&room=' + Buzz.code + (t === 0 || t === 1 ? '&team=' + t : '');
@@ -2020,7 +2137,7 @@ function initHost(){
   function openHostPeer(attempt){
     clearTimeout(Buzz.retryT);
     if(Buzz.peer){ const old = Buzz.peer; Buzz.peer = null; try{ old.destroy(); }catch(e){} }
-    Buzz.conns.clear(); Buzz.team = [null, null];
+    Buzz.conns.clear();
     let peer;
     try{ peer = new window.Peer(PEER_PREFIX + Buzz.code, peerOpts()); }
     catch(e){ Buzz.status = 'error'; Buzz.err = "This browser can't host phone buzzers (no WebRTC)."; renderBuzz(); return; }
@@ -2052,15 +2169,12 @@ function initHost(){
     });
   }
   function buzzSetupConn(conn){
-    conn.on('open', () => { Buzz.conns.set(conn, {team:null, last:Date.now()}); buzzSend(conn); renderBuzz(); });
+    conn.on('open', () => { Buzz.conns.set(conn, {team:null, last:Date.now(), pid:'', name:'', bz:[]}); buzzSend(conn); renderBuzz(); });
     conn.on('data', d => buzzOnData(conn, d));
-    const drop = () => {
-      const info = Buzz.conns.get(conn); Buzz.conns.delete(conn);
-      if(info && info.team != null && Buzz.team[info.team] === conn) Buzz.team[info.team] = null;
-      renderBuzz();
-    };
+    const drop = () => { Buzz.conns.delete(conn); renderBuzz(); };
     conn.on('close', drop); conn.on('error', drop);
   }
+  const cleanName = n => String(n || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 20);
   function buzzOnData(conn, d){
     if(!d || typeof d !== 'object') return;
     const info = Buzz.conns.get(conn); if(!info) return;
@@ -2068,41 +2182,60 @@ function initHost(){
     if(d.type === 'ping'){ try{ conn.send({type:'pong'}); }catch(e){} return; }
     if(d.type === 'hello'){ buzzSend(conn); return; }
     if(d.type === 'join'){
-      const t = d.team === 1 ? 1 : 0, old = Buzz.team[t], wasEmpty = !old || !old.open;
-      if(info.team != null && info.team !== t && Buzz.team[info.team] === conn) Buzz.team[info.team] = null;
-      if(old && old !== conn){ const oi = Buzz.conns.get(old); if(oi) oi.team = null; try{ old.send({type:'replaced', team:t}); }catch(e){} }
-      info.team = t; Buzz.team[t] = conn; buzzSend(conn); renderBuzz();
-      if(wasEmpty && old !== conn) toast(`📱 ${S.teams[t].name}'s buzzer is connected.`, 'ok');
+      const t = d.team === 1 ? 1 : 0, pid = String(d.pid || '').slice(0, 40);
+      // same phone reconnecting: retire its old connection
+      if(pid) Buzz.conns.forEach((oi, oc) => { if(oc !== conn && oi.pid === pid){ Buzz.conns.delete(oc); try{ oc.close(); }catch(e){} } });
+      const isNew = pid && !Buzz.seen.has(pid);
+      info.team = t; info.pid = pid; info.name = cleanName(d.name);
+      if(pid) Buzz.seen.add(pid);
+      buzzSend(conn); renderBuzz();
+      if(isNew) toast(`📱 ${info.name || 'A player'} joined ${S.teams[t].name}.`, 'ok');
       return;
     }
-    if(d.type === 'leave'){ if(info.team != null && Buzz.team[info.team] === conn) Buzz.team[info.team] = null; info.team = null; buzzSend(conn); renderBuzz(); return; }
-    if(d.type === 'buzz' && info.team != null && Buzz.team[info.team] === conn) buzzHandle(info.team);
+    if(d.type === 'rename'){ info.name = cleanName(d.name); buzzSend(conn); renderBuzz(); return; }
+    if(d.type === 'leave'){ info.team = null; buzzSend(conn); renderBuzz(); return; }
+    if(d.type === 'buzz' && info.team != null){
+      const now = Date.now(); info.bz = info.bz.filter(x => now - x < 3000); info.bz.push(now);
+      if(info.bz.length > 8) return;               // ignore button-mashing
+      buzzHandle(info.team, info);
+    }
   }
-  function buzzHandle(t){
+  function buzzHandle(t, info){
     const now = performance.now();
     if(!Buzz.armed){
       // the other team's press that crossed paths with the lockout: record how far behind it was
-      if(Buzz.first != null && Buzz.second == null && t !== Buzz.first && now - Buzz.firstAt < 5000){ Buzz.second = t; Buzz.gap = Math.max(0, Math.round(now - Buzz.firstAt)); renderBuzz(); }
+      if(Buzz.first != null && Buzz.second == null && t !== Buzz.first && now - Buzz.firstAt < 5000){ Buzz.second = t; Buzz.secondWho = info.name; Buzz.gap = Math.max(0, Math.round(now - Buzz.firstAt)); renderBuzz(); }
       return;
     }
-    Buzz.armed = false; Buzz.first = t; Buzz.firstAt = now; Buzz.second = null; Buzz.gap = null;
+    Buzz.armed = false; Buzz.first = t; Buzz.firstAt = now; Buzz.second = null; Buzz.gap = null; Buzz.who = info.name || ''; Buzz.whoPid = info.pid || null;
     buzzSendAll();
-    if(prefs.buzzAuto && !(S.fm && S.fm.active)) S.control = t;
-    fx('buzzin', {team:t}); commit();
+    setFaceoff(t, info.name, true);
+  }
+  function buzzReset(silent){
+    Buzz.armed = true; Buzz.first = null; Buzz.second = null; Buzz.gap = null; Buzz.who = ''; Buzz.whoPid = null;
+    buzzSendAll();
+    if(!silent && S.faceoff != null){ S.faceoff = null; S.faceoffWho = ''; commit(); }
     renderBuzz();
   }
-  function buzzReset(){ Buzz.armed = true; Buzz.first = null; Buzz.second = null; Buzz.gap = null; buzzSendAll(); renderBuzz(); }
   function buzzSend(conn){
     const info = Buzz.conns.get(conn); if(!info || !conn.open) return;
-    try{ conn.send({type:'state', room:Buzz.code, teams:S.teams.map(x => x.name), armed:Buzz.armed, winner:Buzz.first, you:info.team}); }catch(e){}
+    try{ conn.send({type:'state', room:Buzz.code, teams:S.teams.map(x => x.name), armed:Buzz.armed, winner:Buzz.first, who:Buzz.who || '', whoPid:Buzz.whoPid, you:info.team, name:info.name}); }catch(e){}
   }
   function buzzSendAll(){ Buzz.conns.forEach((_, c) => buzzSend(c)); }
   function buzzNamesSync(){ const n = S.teams.map(t => t.name).join('\u0001'); if(n !== Buzz.names){ Buzz.names = n; buzzSendAll(); } }
+  function buzzKick(pid){
+    Buzz.conns.forEach((info, conn) => { if(info.pid === pid){ try{ conn.send({type:'kicked'}); }catch(e){} setTimeout(() => { try{ conn.close(); }catch(e){} }, 300); Buzz.conns.delete(conn); } });
+    Buzz.seen.delete(pid); renderBuzz();
+  }
+  function buzzMove(pid, t){ Buzz.conns.forEach((info, conn) => { if(info.pid === pid){ info.team = t; buzzSend(conn); } }); renderBuzz(); }
+  const teamPhones = t => [...Buzz.conns.values()].filter(i => i.team === t);
+  const isFresh = i => Date.now() - i.last < 8000;
 
   function renderQR(){ [0,1].forEach(t => { const box = $('#bzQR' + t), u = joinUrl(t); if(box && box._for !== u) drawQR(box, u); }); }
   // Shares the room + per-team join links + live status with the TV (for its join screen)
   function buzzPublish(live){
-    const pub = {room:Buzz.code, urls:[joinUrl(0), joinUrl(1)], live, status:Buzz.status};
+    const players = [0,1].map(t => teamPhones(t).filter(isFresh).map(i => i.name).filter(Boolean).slice(0, 6));
+    const pub = {room:Buzz.code, urls:[joinUrl(0), joinUrl(1)], live, players, status:Buzz.status};
     if(JSON.stringify(pub) !== JSON.stringify(S.buzz || null)){ S.buzz = pub; commit(); }
   }
   function renderBuzz(){
@@ -2115,30 +2248,41 @@ function initHost(){
       : isLocalPage() ? `<div class="msg info">This page is running from ${location.protocol === 'file:' ? 'a local file' : 'localhost'}, so phones can't open the join link. Use your GitHub Pages address on game night.</div>` : '';
     let live = 0; const liveArr = [false, false];
     [0,1].forEach(t => {
-      const c = Buzz.team[t], info = c && Buzz.conns.get(c), el = $('#bzT' + t), el2 = $$('#hLobbyT .bzt')[t];
-      const open = !!(c && c.open), fresh = open && info && Date.now() - info.last < 8000;
+      const ph = teamPhones(t), nFresh = ph.filter(isFresh).length, el = $('#bzT' + t), el2 = $$('#hLobbyT .bzt')[t];
+      const fresh = nFresh > 0, open = ph.length > 0;
       if(fresh){ live++; liveArr[t] = true; }
       const cls = 'bzt' + (fresh ? ' on' : open ? ' idle' : '') + (Buzz.first === t ? ' first' : '');
-      const txt = `${S.teams[t].name}: ${fresh ? 'Connected' : open ? 'Phone asleep, reconnecting…' : 'Waiting for phone'}`;
+      const txt = `${S.teams[t].name}: ${fresh ? nFresh + (nFresh > 1 ? ' phones' : ' phone') : open ? 'phone asleep…' : 'no phone yet'}`;
       el.className = cls; $('span', el).textContent = txt; el2.className = cls; $('span', el2).textContent = txt;
     });
     $('#hLobby').hidden = !S.lobby || !!(S.fm && S.fm.active);
     $('#bzShowTV').textContent = S.lobby ? '📺 Hide join screen on TV' : '📺 Show join screen on TV';
     $('#bzShowTV').classList.toggle('on', !!S.lobby);
-    const b = $('#bzBanner');
+    const b = $('#bzBanner'); let bh;
     if(Buzz.first != null){
       const n = S.teams[Buzz.first].name, o = S.teams[1 - Buzz.first].name;
-      b.innerHTML = `<div class="bzban t${Buzz.first}">🔔 ${esc(n.toUpperCase())} BUZZED FIRST!${Buzz.second != null ? `<small>${esc(o)} pressed ${Buzz.gap} ms later</small>` : ''}</div>`;
-    } else b.innerHTML = live ? `<div class="bzarm">✅ Buzzers armed. Waiting for a buzz…</div>` : '';
+      bh = `<div class="bzban t${Buzz.first}">🔔 ${Buzz.who ? esc(Buzz.who) + ' · ' : ''}${esc(n.toUpperCase())} BUZZED FIRST!${Buzz.second != null ? `<small>${esc(Buzz.secondWho || o)} (${esc(o)}) pressed ${Buzz.gap} ms later</small>` : ''}</div>`;
+    } else bh = live ? `<div class="bzarm">✅ Buzzers armed. Waiting for a buzz…</div>` : '';
+    if(b._h !== bh){ b._h = bh; b.innerHTML = bh; }
     const pill = $('#hBuzzPill'); pill.hidden = Buzz.first == null; if(Buzz.first != null) pill.textContent = '🔔 ' + S.teams[Buzz.first].name;
-    $('#bzReset').disabled = Buzz.armed;
+    $('#bzReset').disabled = Buzz.armed && S.faceoff == null;
+    // roster
+    const ros = [...Buzz.conns.values()].filter(i => i.team != null).sort((a, b) => a.team - b.team || a.name.localeCompare(b.name));
+    const rh = ros.length ? ros.map(i => `<div class="ros"><span class="rdot ${isFresh(i) ? 'on' : 'idle'}"></span><b>${esc(i.name || 'Unnamed player')}</b>
+        <div class="seg">${[0,1].map(t => `<button data-move="${esc(i.pid)}" data-t="${t}" class="${i.team === t ? 'on' : ''}">${esc(S.teams[t].name)}</button>`).join('')}</div>
+        <button class="btn sm ghost" data-kick="${esc(i.pid)}" title="Remove this phone">✕</button></div>`).join('')
+      : '<div class="tip" style="margin:4px 0 0">No phones yet. Players scan their team\'s code on the TV join screen.</div>';
+    if($('#bzRoster')._h !== rh){ $('#bzRoster')._h = rh; $('#bzRoster').innerHTML = rh; }
     $('#bzAuto').checked = !!prefs.buzzAuto;
     buzzPublish(liveArr);
   }
   setInterval(() => { if(Buzz.status !== 'off') renderBuzz(); }, 2000);
   addEventListener('pagehide', () => { try{ Buzz.peer && Buzz.peer.destroy(); }catch(e){} });
-  $('#bzReset').onclick = buzzReset;
-  $('#bzAuto').onchange = e => { prefs.buzzAuto = e.target.checked; LS.set('prefs', prefs); };
+  $('#bzReset').onclick = () => buzzReset();
+  $('#bzRoster').addEventListener('click', e => {
+    const k = e.target.closest('[data-kick]'); if(k){ if(confirm('Remove this phone from the game? They can rejoin by scanning again.')) buzzKick(k.dataset.kick); return; }
+    const m = e.target.closest('[data-move]'); if(m) buzzMove(m.dataset.move, +m.dataset.t);
+  });
   $('#bzJoin').addEventListener('click', e => {
     const b = e.target.closest('[data-copy]'); if(!b) return;
     const t = +b.dataset.copy, u = joinUrl(t);
@@ -2257,7 +2401,8 @@ function initHost(){
       .sort((a, b) => b.points - a.points);
     S.roundId = (S.roundId || 0) + 1; S.roundNum = (S.roundNum || 0) + 1;
     S.strikes = 0; S.steal = false; S.control = null; S.awarded = false; S.lastAward = null; S.showQuestion = false; S.source = source;
-    markUsed(q); buzzReset(); judge = null; $('#gOut').innerHTML = ''; $('#gIn').value = '';
+    S.faceoff = null; S.faceoffWho = ''; S.packIdx = null; undoStack.length = 0;
+    markUsed(q); buzzReset(true); judge = null; $('#gOut').innerHTML = ''; $('#gIn').value = '';
     fx('newround'); commit(); buildPicker();
   }
   function loadBuiltIn(i){ const s = SURVEYS[i]; loadSurvey(s.q, s.a, 'Built-in #' + (i+1)); }
@@ -2415,36 +2560,76 @@ reason: one short, friendly sentence the host can read.`;
   }
 
   // ---------- game actions ----------
-  function setReveal(i, on){
-    if(on) S.lobby = false;
-    const a = S.answers[i]; if(!a) return;
-    if(on && !a.revealed){ a.revealed = true; a.counted = !S.awarded; fx('reveal', {idx:i}); }
-    else if(!on && a.revealed){ a.revealed = false; a.counted = false; }
+  // Undo (Ctrl+Z): snapshots of the round before each reveal / strike / award / control change
+  const undoStack = [];
+  const UNDO_KEEP = ['fx','fxSeq','updated','buzz','tvMuted','tvVol','fm','lobby','standby','standbyMsg','safe','pot'];
+  function snap(label){
+    const c = JSON.parse(JSON.stringify(S)); UNDO_KEEP.forEach(k => delete c[k]);
+    undoStack.push({label, s:c, round:S.roundId}); if(undoStack.length > 40) undoStack.shift();
+  }
+  function undo(){
+    while(undoStack.length && undoStack[undoStack.length-1].round !== S.roundId) undoStack.pop();   // never undo across rounds
+    const u = undoStack.pop(); if(!u){ toast('Nothing to undo in this round.'); return; }
+    const keep = {}; UNDO_KEEP.forEach(k => keep[k] = S[k]);
+    S = Object.assign(u.s, keep);
+    if(S.winner == null) S.celebrate = false;
+    commit(); toast('↶ Undid: ' + u.label, 'ok');
+  }
+  function setReveal(i, on, noSnap){
+    const a = S.answers[i]; if(!a || on === !!a.revealed) return;
+    if(!noSnap) snap((on ? 'reveal #' : 'hide #') + (i+1) + ' ' + a.text);
+    if(on){ S.lobby = false; a.revealed = true; a.counted = !S.awarded; fx('reveal', {idx:i}); }
+    else { a.revealed = false; a.counted = false; }
     commit();
   }
   const toggleAnswer = i => { const a = S.answers[i]; if(a) setReveal(i, !a.revealed); };
-  function addStrike(){ S.strikes = Math.min(3, S.strikes + 1); fx('strike', {count:S.strikes}); commit(); if(S.strikes === 3 && !S.steal && S.control != null) toast('3 strikes. Press S to turn on the steal.'); }
+  function addStrike(){ snap('strike'); S.strikes = Math.min(3, S.strikes + 1); fx('strike', {count:S.strikes}); commit(); }
   function buzz(){ fx('buzz'); commit(); }
-  function clearStrikes(){ S.strikes = 0; commit(); }
-  function toggleSteal(){ S.steal = !S.steal; if(S.steal) S.strikes = Math.max(S.strikes, 0); commit(); }
-  function award(t){
+  function clearStrikes(){ if(!S.strikes) return; snap('clear strikes'); S.strikes = 0; commit(); }
+  function toggleSteal(){
+    if(!S.steal && S.control == null){ toast('Mark which team is in control first, so the other team can steal.', 'err'); return; }
+    snap(S.steal ? 'cancel steal' : 'start steal'); S.steal = !S.steal; commit();
+  }
+  function setControl(t){ snap('control change'); S.control = t; commit(); }
+  function award(t, noSnap){
     const p = calcPot(S);
     if(S.awarded){ toast('This round\'s pot was already awarded.', 'err'); return; }
     if(p <= 0){ toast('The pot is empty. Reveal some answers first.', 'err'); return; }
+    if(!noSnap) snap(`award ${p} to ${S.teams[t].name}`);
     S.teams[t].score += p; S.awarded = true; S.lastAward = {team:t, amount:p};
     S.steal = false; fx('award', {team:t, amount:p}); checkWinner(); commit();
   }
-  function undoAward(){
-    if(!S.lastAward) return;
-    S.teams[S.lastAward.team].score -= S.lastAward.amount; S.awarded = false;
-    S.answers.forEach(a => { if(a.revealed) a.counted = true; });
-    if(S.winner != null && S.teams[S.winner].score < S.target){ S.winner = null; S.celebrate = false; }
-    S.lastAward = null; commit();
+  // Steal: a hit gives the pot to the stealing team; a miss gives it back to the team that had control
+  function resolveSteal(ok){
+    if(!S.steal || S.control == null || S.awarded) return;
+    if(calcPot(S) <= 0){ toast('The pot is empty.', 'err'); return; }
+    const stealer = 1 - S.control, keeper = S.control;
+    snap(ok ? 'steal succeeded' : 'steal missed');
+    if(ok) award(stealer, true);
+    else { fx('strike', {count:1}); commit(); setTimeout(() => { if(S.steal && !S.awarded) award(keeper, true); }, 1500); }
   }
-  function adjust(t, d){ S.teams[t].score = Math.max(0, S.teams[t].score + d); checkWinner(); commit(); }
+  // Face-off: who buzzed first (from a phone, or picked by the host)
+  function setFaceoff(t, who, fromPhone){
+    snap('face-off: ' + S.teams[t].name);
+    S.faceoff = t; S.faceoffWho = who || ''; S.lobby = false;
+    if(prefs.buzzAuto && !(S.fm && S.fm.active)) S.control = t;
+    if(!fromPhone && Buzz.armed){ Buzz.armed = false; Buzz.first = t; Buzz.firstAt = performance.now(); Buzz.second = null; Buzz.gap = null; Buzz.who = ''; Buzz.whoPid = null; buzzSendAll(); }
+    fx('buzzin', {team:t, who: who || ''}); commit();
+    hostAlert(t, who);
+  }
+  function hostAlert(t, who){
+    const el = $('#hAlert'); el.className = 'halert t' + t;
+    el.textContent = `🔔 ${who ? who + ' · ' : ''}${S.teams[t].name.toUpperCase()} BUZZED IN!`;
+    void el.offsetWidth; el.classList.add('show');
+    const base = 'Host Controller — Feud Night'; let n = 0; clearInterval(hostAlert._t);
+    hostAlert._t = setInterval(() => { document.title = (n++ % 2) ? base : `🔔 ${S.teams[t].name} buzzed!`; if(n > 7){ clearInterval(hostAlert._t); document.title = base; } }, 500);
+  }
+  function adjust(t, d){ snap('score change'); S.teams[t].score = Math.max(0, S.teams[t].score + d); checkWinner(); commit(); }
   function newGame(doCommit=true){
     const names = S.teams.map(t => t.name), target = S.target, muted = S.tvMuted, seq = S.fxSeq;
-    S = defaultState(); S.teams.forEach((t, i) => t.name = names[i]); S.target = target; S.tvMuted = muted; S.fxSeq = seq;
+    const keep = {roundsPlanned:S.roundsPlanned, tvVol:S.tvVol, safe:S.safe, standbyMsg:S.standbyMsg};
+    S = defaultState(); S.teams.forEach((t, i) => t.name = names[i]); S.target = target; S.tvMuted = muted; S.fxSeq = seq; Object.assign(S, keep);
+    undoStack.length = 0;
     if(doCommit) commit();
   }
   async function revealAll(){
@@ -2624,6 +2809,24 @@ ${items}`;
     if(S.fm !== fm) return;
     cell.shown = 2; fx('fmpts', {pts: cell.pts}); fmCheckEnd(); commit();
   }
+  function fmShowAnswer(c, i){
+    const fm = S.fm, cell = fm.cells[c][i]; if(cell.shown) return;
+    if(cell.match == null && cell.guess.trim()) fmLocal(c, i);
+    if(c === 1 && fm.hideP1) fm.hideP1 = false;
+    cell.shown = 1; cell.dup = false; fx('fmtext'); commit();
+  }
+  function fmShowPoints(c, i){
+    const cell = S.fm.cells[c][i]; if(cell.shown !== 1) return;
+    cell.shown = 2; fx('fmpts', {pts: cell.pts}); fmCheckEnd(); commit();
+  }
+  function fmClear2(){
+    const fm = S.fm; if(!fm) return;
+    if(fm.cells[1].some(x => x.guess || x.shown) && !confirm(`Clear all of ${fm.names[1]}'s answers?`)) return;
+    fm.cells[1] = Array.from({length:5}, fmBlankCell);
+    fm.lost = false; fm.won = fmTotal(fm) >= fm.target;
+    fm.timer = {player:1, dur:FM_DUR[1], endsAt:null, left:FM_DUR[1]};
+    commit(); toast(`Cleared ${fm.names[1]}'s answers. The clock is reset to ${FM_DUR[1]}s.`, 'ok');
+  }
   function fmHide(c, i){
     const fm = S.fm; fm.cells[c][i].shown = 0;
     if(fmTotal(fm) < fm.target) fm.won = false;
@@ -2660,14 +2863,14 @@ ${items}`;
   function buildFMTable(){
     const fm = S.fm, tb = $('#fmTable');
     let h = `<div class="fmth">Question <span class="muted" style="text-transform:none;letter-spacing:0;font-weight:500">(read aloud · not shown on TV)</span></div>`;
-    [0,1].forEach(c => { h += `<div class="fmth"><span class="pn" data-c="${c}"></span><span class="spacer" style="flex:1"></span><button class="btn sm" id="fmJudge${c}" data-act="judge" data-c="${c}">⚖️ Judge</button><button class="btn sm gold" data-act="revall" data-c="${c}">▶ Reveal all</button></div>`; });
+    [0,1].forEach(c => { h += `<div class="fmth"><span class="pn" data-c="${c}"></span><span class="spacer" style="flex:1"></span><button class="btn sm" id="fmJudge${c}" data-act="judge" data-c="${c}">⚖️ Judge</button><button class="btn sm gold" data-act="revall" data-c="${c}">▶ Reveal all</button>${c ? '<button class="btn sm ghost" data-act="clear2" data-c="1" title="Wipe Player 2\'s answers to replay or redo the run">🧹 Clear</button>' : ''}</div>`; });
     fm.qs.forEach((q, i) => {
       h += `<div class="fmq"><b>${i+1}. ${esc(q.q)}</b><div class="alist">${q.a.map(([t, p], j) => `<span>${j+1}. ${esc(t)} <b>${p}</b></span>`).join('')}</div></div>`;
       [0,1].forEach(c => {
         h += `<div class="fmc" data-c="${c}" data-i="${i}">
           <input class="field fmg" data-c="${c}" data-i="${i}" placeholder="Answer ${i+1}…" autocomplete="off" spellcheck="false">
           <div class="row" style="flex-wrap:nowrap"><select class="field fms" data-c="${c}" data-i="${i}" style="flex:1"><option value="">Not judged</option>${q.a.map(([t, p], j) => `<option value="${j}">#${j+1} ${esc(t)} (${p})</option>`).join('')}<option value="-1">No match (0)</option></select><span class="fmpp">–</span></div>
-          <div class="info"><span class="jt"></span><span style="flex:1"></span>${c ? `<button class="btn sm red" data-act="dup" data-i="${i}" title="Buzz: same answer as Player 1, so ask again">Dup buzz</button>` : ''}<button class="btn sm gold" data-act="rev" data-c="${c}" data-i="${i}">Reveal</button></div>
+          <div class="info"><span class="jt"></span><span style="flex:1"></span>${c ? `<button class="btn sm red" data-act="dup" data-i="${i}" title="Buzz: same answer as Player 1, so ask again">Dup buzz</button>` : ''}<button class="btn sm" data-act="ans" data-c="${c}" data-i="${i}" title="Show only the answer text on the TV (build suspense before the points)">Answer</button><button class="btn sm gold" data-act="rev" data-c="${c}" data-i="${i}">Reveal</button></div>
           <div class="dupw" hidden></div>
         </div>`;
       });
@@ -2691,7 +2894,8 @@ ${items}`;
     const left = fmLeft(t), ck = $('#hfmClock'); ck.textContent = Math.ceil(left); ck.className = 'fmclock' + (running ? ' run' : '') + (running && left <= 5 ? ' low' : '');
     const tot = fmTotal(fm);
     $('#hfmTotal').textContent = tot; $('#hfmTotal').classList.toggle('hit', tot >= fm.target);
-    $('#hfmTo').textContent = fm.won ? `🏆 Won! (needed ${fm.target})` : fm.lost ? `So close. Needed ${fm.target}` : `of ${fm.target} to win`;
+    $('#hfmMeter').classList.toggle('hit', tot >= fm.target); $('#hfmMeter i').style.width = Math.min(100, fm.target ? tot / fm.target * 100 : 0) + '%';
+    $('#hfmTo').textContent = fm.won ? `🏆 Won! Passed ${fm.target}` : tot >= fm.target ? `🎉 Past ${fm.target}!` : fm.lost ? `So close. Needed ${fm.target}` : `${Math.max(0, fm.target - tot)} more to reach ${fm.target}`;
     $$('#fmTable .pn').forEach(el => el.textContent = fm.names[+el.dataset.c]);
     $$('#fmTable .fmc').forEach(el => {
       const c = +el.dataset.c, i = +el.dataset.i, cell = fm.cells[c][i];
@@ -2700,7 +2904,8 @@ ${items}`;
       $('.fmpp', el).textContent = cell.match == null ? '–' : cell.pts;
       $('.jt', el).innerHTML = cell.type ? `<span class="mt ${cell.manual ? 'manual' : cell.type}">${cell.manual ? 'host pick' : cell.type}</span> <span title="${esc(cell.reason)}">${esc(cell.manual ? '' : cell.by)}</span>` : '';
       el.classList.toggle('shown', cell.shown >= 2); el.classList.toggle('dup', !!cell.dup);
-      const rb = $('[data-act="rev"]', el); rb.textContent = cell.shown >= 2 ? 'Hide' : cell.shown === 1 ? '…' : 'Reveal'; rb.classList.toggle('gold', !cell.shown); rb.title = cell.reason || '';
+      const rb = $('[data-act="rev"]', el); rb.textContent = cell.shown >= 2 ? 'Hide' : cell.shown === 1 ? 'Show points' : 'Reveal'; rb.classList.toggle('gold', cell.shown < 2); rb.title = cell.shown ? '' : 'Show the answer, then the points';
+      $('[data-act="ans"]', el).hidden = !!cell.shown;
       const dw = $('.dupw', el); dw.hidden = !cell.dup; if(cell.dup) dw.textContent = `⚠ Same answer as ${fm.names[0]}. Hit "Dup buzz" and ask again.`;
     });
     $$('#fmTable [data-act="judge"]').forEach(b => { if(!b.disabled || !b.querySelector('.spin')){ b.disabled = false; b.innerHTML = Gemini.hasKey() ? '⚖️ Judge with Gemini' : '⚖️ Judge'; } });
@@ -2726,6 +2931,7 @@ ${items}`;
     if(el.value === ''){ cell.manual = false; fmLocal(c, i); }
     else { const idx = +el.value; Object.assign(cell, {match: idx, pts: idx >= 0 ? S.fm.qs[i].a[idx][1] : 0, type: idx >= 0 ? 'close' : 'none', by:'Host', reason:'Picked by the host.', manual:true}); fmDup(i); }
     commit();
+    if(el.value !== ''){ const nx = $(`.fmg[data-c="${c}"][data-i="${i + 1}"]`); if(nx) nx.focus(); }   // keep typing while the clock runs
   });
   $('#fmTable').addEventListener('click', e => {
     const b = e.target.closest('[data-act]'); if(!b) return;
@@ -2733,7 +2939,9 @@ ${items}`;
     if(act === 'judge') fmJudge(c);
     else if(act === 'revall') fmRevealSeq(c, true);
     else if(act === 'dup') fmDupBuzz(i);
-    else if(act === 'rev'){ const cell = S.fm.cells[c][i]; if(cell.shown >= 2) fmHide(c, i); else if(!cell.shown) fmReveal(c, i); }
+    else if(act === 'ans') fmShowAnswer(c, i);
+    else if(act === 'clear2') fmClear2();
+    else if(act === 'rev'){ const cell = S.fm.cells[c][i]; if(cell.shown >= 2) fmHide(c, i); else if(cell.shown === 1) fmShowPoints(c, i); else fmReveal(c, i); }
   });
   $('#fmNewQ').onclick = () => fmGenerate($('#fmTheme').value);
   $('#fmTheme').addEventListener('keydown', e => { if(e.key === 'Enter') fmGenerate(e.target.value); });
@@ -2771,8 +2979,9 @@ ${items}`;
     const fmOn = !!(S.fm && S.fm.active);
     $('main.hgrid').hidden = fmOn; $('#host .hfoot').hidden = fmOn; $('#fmPanel').hidden = !fmOn;
     const hb = $('#hFM'); hb.textContent = fmOn ? '↩ Main Game' : '⚡ Fast Money'; hb.classList.toggle('gold', !fmOn);
-    if(fmOn){ $('#hTvSound').checked = !S.tvMuted; $('#hPreview').checked = prefs.preview; renderFM(); updSync(); return; }
-    $('#hRound').textContent = S.roundNum ? 'Round ' + S.roundNum : 'No round yet';
+    if(fmOn){ renderHeaderAudio(); $('#hPreview').checked = prefs.preview; renderFM(); updSync(); return; }
+    $('#hRound').textContent = !S.roundNum ? 'No round yet' : S.roundsPlanned && S.roundNum <= S.roundsPlanned ? `Round ${S.roundNum} of ${S.roundsPlanned}` : 'Round ' + S.roundNum;
+    $('#hSkip').disabled = !S.question;
     $('#hSrc').textContent = S.source || ''; $('#hSrc').hidden = !S.source;
     const hq = $('#hQ'); hq.textContent = S.question || 'No survey loaded. Pick or generate one on the right →'; hq.classList.toggle('empty', !S.question);
     const sq = $('#hShowQ'); sq.textContent = S.showQuestion ? '🙈 Hide question on TV' : '👁 Show question on TV'; sq.classList.toggle('on', S.showQuestion); sq.disabled = !S.question;
@@ -2784,10 +2993,28 @@ ${items}`;
     renderHostAnswers();
     $('#hPips').innerHTML = [0,1,2].map(i => `<div class="pip${i < S.strikes ? ' on' : ''}">X</div>`).join('');
     const stl = $('#hSteal'); stl.textContent = 'Steal: ' + (S.steal ? 'ON' : 'OFF'); stl.classList.toggle('on', S.steal);
+    $$('#hFace button').forEach(b => { const f = +b.dataset.f; b.classList.toggle('on', f >= 0 && S.faceoff === f); if(f >= 0) b.textContent = S.teams[f].name; });
+    $('#bzAuto').checked = !!prefs.buzzAuto;
+    const un = $('#hUndo'), last = undoStack.length && undoStack[undoStack.length-1].round === S.roundId ? undoStack[undoStack.length-1] : null;
+    un.disabled = !last; un.title = last ? `Undo ${last.label} (Ctrl+Z)` : 'Nothing to undo (Ctrl+Z)';
+    let sh = '';
+    if(S.question && !S.awarded){
+      if(S.steal && S.control != null){
+        const st = esc(S.teams[1 - S.control].name), kp = esc(S.teams[S.control].name);
+        sh = `<div class="stealbar on"><b>🥷 ${st} is stealing</b><span>One guess for the ${pot}-point pot. If their answer is on the board, reveal it first.</span>
+          <div class="row"><button class="btn green" data-steal="1">✓ Got it: ${st} takes ${pot}</button><button class="btn red" data-steal="0">✗ Missed: ${kp} keeps ${pot}</button><button class="btn sm ghost" data-steal="x">Cancel</button></div></div>`;
+      } else if(S.strikes >= 3 && S.control != null){
+        sh = `<div class="stealbar"><b>3 strikes!</b><span>${esc(S.teams[1 - S.control].name)} gets one guess to steal the pot.</span><button class="btn gold" data-steal="go">🥷 Start steal attempt</button><span class="kbd">S</span></div>`;
+      } else if(S.strikes >= 3){
+        sh = `<div class="stealbar"><b>3 strikes!</b><span>Click "Give control" on the scoreboard for the team that was playing, then start the steal.</span></div>`;
+      }
+    }
+    const sbar = $('#hStealBar'); if(sbar._h !== sh){ sbar._h = sh; sbar.innerHTML = sh; }
     [0,1].forEach(i => {
       const el = $('#sbT' + i), t = S.teams[i], on = S.control === i;
       $('.sbn', el).textContent = t.name; $('.sbs', el).textContent = t.score;
-      el.classList.toggle('ctl', on);
+      el.classList.toggle('ctl', on); el.classList.toggle('buzzed', S.faceoff === i);
+      let fl = $('.bzflag', el); if(S.faceoff === i){ if(!fl){ fl = document.createElement('div'); fl.className = 'bzflag'; el.insertBefore(fl, el.firstChild); } fl.textContent = '🔔 ' + (S.faceoffWho || 'Buzzed first'); } else if(fl) fl.remove();
       const cb = $('.sbctl', el); cb.classList.toggle('on', on); cb.textContent = on ? '★ In control' : 'Give control';
       const aw = $('.sbaw', el); aw.disabled = S.awarded || pot <= 0; aw.textContent = aw.disabled ? 'Award pot' : `Award ${pot} pts`;
     });
@@ -2807,12 +3034,15 @@ ${items}`;
       $('.score', el).textContent = t.score;
       el.classList.toggle('ctl', S.control === i);
     });
-    $('#hUndoAward').hidden = !S.lastAward;
     $('#hWin').innerHTML = S.winner != null ? `<div class="winbar">🏆 ${esc(S.teams[S.winner].name)} wins! <span class="spacer" style="flex:1"></span>
       <button class="btn sm" id="wHide">${S.celebrate ? 'Hide celebration' : 'Show celebration'}</button><button class="btn sm gold" id="wFM">⚡ Fast Money for ${esc(S.teams[S.winner].name)}</button><button class="btn sm" id="wNew">New Game</button></div>` : '';
     if(S.winner != null){ $('#wHide').onclick = () => { S.celebrate = !S.celebrate; commit(); }; $('#wNew').onclick = () => $('#gNew').click(); $('#wFM').onclick = () => enterFM(S.winner, true); }
     if(document.activeElement !== $('#gTarget')) $('#gTarget').value = S.target;
-    $('#hTvSound').checked = !S.tvMuted; $('#hPreview').checked = prefs.preview;
+    renderHeaderAudio(); $('#hPreview').checked = prefs.preview;
+    if(document.activeElement !== $('#gRounds')) $('#gRounds').value = S.roundsPlanned || 0;
+    if(document.activeElement !== $('#gStandbyMsg')) $('#gStandbyMsg').value = S.standbyMsg || '';
+    $('#gSafe').value = String(S.safe || 0);
+    renderDeckInfo();
     $('#gMode').textContent = Gemini.hasKey() ? '· Gemini AI judge' : '· smart judge, synonyms included';
     updSync();
   }
@@ -2821,21 +3051,38 @@ ${items}`;
   $('#hAnswers').addEventListener('click', e => { const el = e.target.closest('[data-i]'); if(el) toggleAnswer(+el.dataset.i); });
   $('#hShowQ').onclick = () => { S.showQuestion = !S.showQuestion; if(S.showQuestion) S.lobby = false; commit(); };
   $('#hRevealAll').onclick = revealAll;
-  $('#hMult').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; S.multiplier = +b.dataset.m; commit(); });
+  $('#hMult').addEventListener('click', e => { const b = e.target.closest('button'); if(!b || +b.dataset.m === S.multiplier) return; snap('multiplier'); S.multiplier = +b.dataset.m; commit(); });
   $('.sb').addEventListener('click', e => {
-    const c = e.target.closest('.sbctl'); if(c){ const t = +c.dataset.t; S.control = S.control === t ? null : t; commit(); return; }
+    const c = e.target.closest('.sbctl'); if(c){ const t = +c.dataset.t; setControl(S.control === t ? null : t); return; }
     const a = e.target.closest('.sbaw'); if(a) award(+a.dataset.t);
   });
   $('#hStrike').onclick = addStrike; $('#hBuzz').onclick = buzz; $('#hClearStrikes').onclick = clearStrikes; $('#hSteal').onclick = toggleSteal;
-  $('#hUndoAward').onclick = undoAward;
   $('#hTeams').addEventListener('click', e => {
     const card = e.target.closest('.teamc'); if(!card) return; const t = +card.dataset.t;
     if(e.target.dataset.d) adjust(t, +e.target.dataset.d);
-    else if(e.target.classList.contains('setb')){ const v = parseInt($('.setv', card).value, 10); if(!isNaN(v)){ S.teams[t].score = Math.max(0, v); $('.setv', card).value = ''; checkWinner(); commit(); } }
+    else if(e.target.classList.contains('setb')){ const v = parseInt($('.setv', card).value, 10); if(!isNaN(v)){ snap('score change'); S.teams[t].score = Math.max(0, v); $('.setv', card).value = ''; checkWinner(); commit(); } }
   });
   $('#hTeams').addEventListener('input', e => { if(e.target.classList.contains('tname')){ const t = +e.target.closest('.teamc').dataset.t; S.teams[t].name = e.target.value.slice(0, 24) || ('Team ' + (t+1)); commit(); } });
   $('#hTeams').addEventListener('keydown', e => { if(e.key === 'Enter' && e.target.classList.contains('setv')) $('.setb', e.target.closest('.teamc')).click(); });
-  $('#hTvSound').onchange = e => { S.tvMuted = !e.target.checked; commit(); };
+  function renderHeaderAudio(){
+    const m = $('#hMute'); m.textContent = S.tvMuted ? '🔇' : '🔊'; m.classList.toggle('muted', !!S.tvMuted); m.title = S.tvMuted ? 'TV sound is muted (M)' : 'Mute TV sound (M)';
+    const v = $('#hVol'); if(document.activeElement !== v) v.value = S.tvVol == null ? 90 : S.tvVol;
+    const sb = $('#hStandby'); sb.classList.toggle('on', !!S.standby); sb.textContent = S.standby ? '▶ Resume TV' : '⏸ Standby';
+  }
+  const toggleMute = () => { S.tvMuted = !S.tvMuted; commit(); };
+  const toggleStandby = () => { S.standby = !S.standby; commit(); };
+  $('#hMute').onclick = toggleMute;
+  $('#hVol').addEventListener('input', e => { S.tvVol = +e.target.value; if(S.tvMuted && S.tvVol > 0) S.tvMuted = false; commit(); });
+  $('#hStandby').onclick = toggleStandby;
+  $('#gRounds').addEventListener('change', e => { S.roundsPlanned = Math.max(0, Math.min(30, parseInt(e.target.value, 10) || 0)); commit(); });
+  $('#gStandbyMsg').addEventListener('input', e => { S.standbyMsg = e.target.value.slice(0, 60); commit(); });
+  $('#gSafe').addEventListener('change', e => { S.safe = +e.target.value || 0; commit(); });
+  $('#hUndo').onclick = undo;
+  $('#hFace').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; const f = +b.dataset.f; if(f < 0) buzzReset(); else setFaceoff(f, '', false); });
+  $('#bzAuto').onchange = e => { prefs.buzzAuto = e.target.checked; LS.set('prefs', prefs); };
+  $('#hStealBar').addEventListener('click', e => { const b = e.target.closest('[data-steal]'); if(!b) return; const v = b.dataset.steal;
+    if(v === 'go' || v === 'x') toggleSteal(); else resolveSteal(v === '1'); });
+  $('#hSkip').onclick = skipQuestion;
   $('#hPreview').onchange = e => { prefs.preview = e.target.checked; LS.set('prefs', prefs); if(prefs.preview){ Sound.ensure(); Sound.setVolume(0.35); Sound.play('reveal'); } };
   Sound.setVolume(0.35);
   $('#gBtn').onclick = check;
@@ -2863,7 +3110,145 @@ ${items}`;
   $('#hVibeTag').onclick = () => { const d = $('#dGame'); d.open = true; d.scrollIntoView({behavior:'smooth', block:'center'}); };
   renderTone();
   $('#sChips').addEventListener('click', e => { if(e.target.classList.contains('chip')){ $('#sTheme').value = e.target.textContent === 'Surprise me' ? '' : e.target.textContent; generate($('#sTheme').value); } });
-  $('#sNext').onclick = () => { if(guardDiscard()){ loadBuiltIn(nextBuiltInIndex()); $('#sMsg').innerHTML = ''; } };
+  // ---------- survey packs (import / export / reorder / play in order) ----------
+  let pack = Object.assign({name:'My Pack', items:[], pos:0, use:false}, LS.get('pack', {}) || {});
+  if(!Array.isArray(pack.items)) pack.items = [];
+  const pkOpen = new Set(); let pkEdit = null;
+  const savePack = () => { LS.set('pack', pack); renderPack(); renderDeckInfo(); };
+  const packItem = (q, a) => ({q: String(q || '').replace(/\s+/g, ' ').trim().slice(0, 160),
+    a: (a || []).map(([t, p]) => [String(t == null ? '' : t).replace(/\s+/g, ' ').trim().slice(0, 60), Math.max(0, Math.round(+p || 0))]).filter(x => x[0]).slice(0, 8).sort((x, y) => y[1] - x[1])});
+  function parseWriter(){
+    const q = $('#cQ').value.trim();
+    const rows = $('#cA').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const m = l.match(/^(.*?)[\s,|:;\-–—=]+(\d{1,3})\s*$/); return m ? [m[1].trim().slice(0, 60), +m[2]] : null; });
+    if(!q){ toast('Type a survey question first.', 'err'); return null; }
+    if(rows.some(r => !r) || !rows.length){ toast('Each line needs an answer and a number, like "Tent, 35".', 'err'); return null; }
+    if(rows.length > 8) toast('Only the top 8 answers will be used.', '');
+    return {q, rows};
+  }
+  function writerCount(){
+    const n = $('#cA').value.split('\n').filter(l => /\d\s*$/.test(l.trim())).length;
+    $('#cCount').textContent = n ? `${Math.min(n, 8)}/8 answers` : '';
+  }
+  function parsePack(text){
+    let j; try{ j = JSON.parse(text); }catch(e){ throw new Error("That isn't valid JSON."); }
+    const arr = Array.isArray(j) ? j : j && (j.surveys || j.questions || j.items);
+    if(!Array.isArray(arr)) throw new Error('No list of surveys found (expected a "surveys" array).');
+    const items = arr.map(x => {
+      if(!x || typeof x !== 'object') return null;
+      const q = x.question || x.q; let a = x.answers || x.a; if(!q || !Array.isArray(a)) return null;
+      a = a.map(y => Array.isArray(y) ? [y[0], y[1]] : y && typeof y === 'object' ? [y.text != null ? y.text : y.answer, y.points != null ? y.points : (y.score != null ? y.score : y.p)] : null).filter(y => y && y[0] != null);
+      const it = packItem(q, a); return it.q && it.a.length ? it : null;
+    }).filter(Boolean);
+    if(!items.length) throw new Error('No usable surveys in that pack.');
+    return {name: (j && !Array.isArray(j) && j.name) || 'Imported pack', items};
+  }
+  const packJSON = () => JSON.stringify({app:'Feud Night', version:1, name:pack.name, surveys: pack.items.map(it => ({question:it.q, answers: it.a.map(([t, p]) => ({text:t, points:p}))}))}, null, 2);
+  function importPack(text){
+    let res; try{ res = parsePack(text); }catch(e){ toast(e.message, 'err', 5000); return; }
+    if(pack.items.length && confirm(`Replace your current pack (${pack.items.length} questions) with "${res.name}" (${res.items.length})?\n\nClick Cancel to add them to the end instead.`)){
+      pack = {name:res.name, items:res.items, pos:0, use:true};
+    } else { if(!pack.items.length){ pack.name = res.name; pack.pos = 0; } pack.items = pack.items.concat(res.items); pack.use = true; }
+    pkOpen.clear(); savePack(); $('#dPack').open = true;
+    toast(`📦 Imported ${res.items.length} question${res.items.length > 1 ? 's' : ''}.`, 'ok');
+  }
+  function packPlay(i){
+    const it = pack.items[i]; if(!it || !guardDiscard()) return;
+    loadSurvey(it.q, it.a, `📦 ${pack.name} · Q${i + 1}/${pack.items.length}`);
+    S.packIdx = i; pack.pos = Math.max(pack.pos, i + 1); commit(); savePack();
+  }
+  function packNext(){
+    if(pack.pos >= pack.items.length){
+      if(confirm(`You've played all ${pack.items.length} questions in "${pack.name}". Start the pack over?`)){ pack.pos = 0; savePack(); } else return;
+    }
+    packPlay(pack.pos);
+  }
+  function renderPack(){
+    setText2($('#pkCount'), pack.items.length);
+    if(document.activeElement !== $('#pkName')) $('#pkName').value = pack.name || '';
+    $('#pkUse').checked = !!pack.use;
+    const h = pack.items.length ? pack.items.map((it, i) => {
+      const n = it.a.length, sum = it.a.reduce((x, y) => x + y[1], 0);
+      const cls = n < 3 ? 'bad' : n < 5 ? 'warn' : '';
+      return `<div class="pk${i === pack.pos ? ' next' : ''}${i < pack.pos ? ' done' : ''}${i === pkEdit ? ' editing' : ''}" data-i="${i}">
+        <div class="pkh"><span class="pkn">${i + 1}.</span><span class="pkq" title="${esc(it.q)}">${esc(it.q)}</span>
+          <span class="pkb ${cls}" title="${n} answers · ${sum} points total">${n}/8</span>
+          <button class="ib" data-a="prev" title="Preview answers">👁</button><button class="ib" data-a="play" title="Play this one now">▶</button>
+          <button class="ib" data-a="edit" title="Edit in the survey writer">✎</button><button class="ib" data-a="dup" title="Duplicate">⧉</button>
+          <button class="ib" data-a="up" title="Move up">↑</button><button class="ib" data-a="down" title="Move down">↓</button><button class="ib" data-a="del" title="Delete">🗑</button></div>
+        ${pkOpen.has(i) ? `<div class="pkans">${it.a.map(([t, p], j) => `<span>${j + 1}. ${esc(t)} <b>${p}</b></span>`).join('')}<span>· total ${sum}</span></div>` : ''}
+      </div>`; }).join('') : '<div class="tip" style="margin:0">Your pack is empty. Write a survey above and click "➕ Add to pack", add the one on the board, or import a .json pack.</div>';
+    const L = $('#pkList'); if(L._h !== h){ L._h = h; L.innerHTML = h; }
+    const nb = $('#sNext'); const usePk = pack.use && pack.items.length;
+    nb.textContent = usePk ? `📦 Next from pack (${Math.min(pack.pos + 1, pack.items.length)}/${pack.items.length})` : '🎲 Next built-in';
+  }
+  function setText2(el, v){ v = String(v); if(el.textContent !== v) el.textContent = v; }
+  function renderDeckInfo(){
+    const tone = getTone();
+    const left = SURVEYS.filter((x, i) => toneOk(i, tone) && !used.has(keyQ(x.q))).length;
+    const usePk = pack.use && pack.items.length;
+    setText2($('#hDeck'), usePk ? `📦 ${pack.name}: ${Math.max(0, pack.items.length - pack.pos)} of ${pack.items.length} questions left` : `🎲 ${left} built-in ${TONE_LABEL[tone].split(' ').slice(1).join(' ')} surveys unplayed · the generator never runs out`);
+  }
+  $('#pkList').addEventListener('click', e => {
+    const b = e.target.closest('[data-a]'); if(!b) return;
+    const i = +b.closest('.pk').dataset.i, it = pack.items[i], a = b.dataset.a; if(!it) return;
+    if(a === 'prev'){ pkOpen.has(i) ? pkOpen.delete(i) : pkOpen.add(i); renderPack(); }
+    else if(a === 'play') packPlay(i);
+    else if(a === 'dup'){ pack.items.splice(i + 1, 0, {q: it.q + ' (copy)', a: it.a.map(x => x.slice())}); if(i + 1 < pack.pos) pack.pos++; pkOpen.clear(); savePack(); }
+    else if(a === 'up' && i > 0){ [pack.items[i-1], pack.items[i]] = [pack.items[i], pack.items[i-1]]; pkOpen.clear(); savePack(); }
+    else if(a === 'down' && i < pack.items.length - 1){ [pack.items[i+1], pack.items[i]] = [pack.items[i], pack.items[i+1]]; pkOpen.clear(); savePack(); }
+    else if(a === 'del'){ if(!confirm(`Delete "${it.q}" from the pack?`)) return; pack.items.splice(i, 1); if(i < pack.pos) pack.pos--; if(pkEdit === i) pkEdit = null; pkOpen.clear(); savePack(); }
+    else if(a === 'edit'){
+      pkEdit = i; $('#cQ').value = it.q; $('#cA').value = it.a.map(([t, p]) => `${t}, ${p}`).join('\n');
+      $('#cAdd').textContent = '💾 Save to pack'; $('#cCancel').hidden = false; writerCount();
+      const d = $('#cQ').closest('details'); d.open = true; d.scrollIntoView({behavior:'smooth', block:'center'}); renderPack();
+    }
+  });
+  function endEdit(){ pkEdit = null; $('#cAdd').textContent = '➕ Add to pack'; $('#cCancel').hidden = true; renderPack(); }
+  $('#cAdd').onclick = () => {
+    const w = parseWriter(); if(!w) return;
+    const it = packItem(w.q, w.rows);
+    if(pkEdit != null && pack.items[pkEdit]){ pack.items[pkEdit] = it; toast('Saved changes to the pack.', 'ok'); endEdit(); }
+    else { pack.items.push(it); toast(`Added to "${pack.name}" (${pack.items.length} questions).`, 'ok'); }
+    $('#cQ').value = ''; $('#cA').value = ''; writerCount(); savePack();
+  };
+  $('#cCancel').onclick = () => { $('#cQ').value = ''; $('#cA').value = ''; writerCount(); endEdit(); };
+  $('#cA').addEventListener('input', writerCount);
+  $('#pkName').addEventListener('input', e => { pack.name = e.target.value.slice(0, 40) || 'My Pack'; LS.set('pack', pack); renderDeckInfo(); });
+  $('#pkUse').onchange = e => { pack.use = e.target.checked; savePack(); };
+  $('#pkAddCur').onclick = () => { if(!S.question){ toast('No survey on the board yet.', 'err'); return; } pack.items.push(packItem(S.question, S.answers.map(a => [a.text, a.points]))); savePack(); toast('Added the current survey to the pack.', 'ok'); };
+  $('#pkShuffle').onclick = () => { const head = pack.items.slice(0, pack.pos), tail = shuffle(pack.items.slice(pack.pos)); pack.items = head.concat(tail); pkOpen.clear(); savePack(); toast('Shuffled the unplayed questions.', 'ok'); };
+  $('#pkRestart').onclick = () => { pack.pos = 0; savePack(); toast('Pack restarted from question 1.', 'ok'); };
+  $('#pkClear').onclick = () => { if(pack.items.length && confirm(`Clear all ${pack.items.length} questions from "${pack.name}"? Export it first if you want to keep it.`)){ pack.items = []; pack.pos = 0; pkOpen.clear(); endEdit(); savePack(); } };
+  $('#pkExport').onclick = () => {
+    if(!pack.items.length){ toast('The pack is empty.', 'err'); return; }
+    const blob = new Blob([packJSON()], {type:'application/json'}), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = (pack.name || 'feud-night-pack').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() + '.json';
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  };
+  $('#pkImport').onclick = () => $('#pkFile').click();
+  $('#pkFile').onchange = e => { const f = e.target.files[0]; if(!f) return; const rd = new FileReader(); rd.onload = () => importPack(String(rd.result)); rd.readAsText(f); e.target.value = ''; };
+  $('#pkPaste').onclick = () => { const t = $('#pkText').value.trim(); if(t){ importPack(t); $('#pkText').value = ''; } };
+  $('#pkCopy').onclick = () => { const t = packJSON(); $('#pkText').value = t; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Pack copied as text.', 'ok'), () => { $('#pkText').select(); toast('Select-all and copy the text box.'); }); };
+  renderPack();
+
+  // ---------- skip / return to deck ----------
+  function nextQuestion(){
+    if(pack.use && pack.items.length) return packNext();
+    if(/^Built-in/.test(S.source || '')) return loadBuiltIn(nextBuiltInIndex());
+    generate($('#sTheme').value);
+  }
+  function skipQuestion(){
+    if(!S.question) return;
+    if(S.answers.some(a => a.revealed) && !confirm('Skip this question? It goes back in the deck for later.')) return;
+    const k = keyQ(S.question), idx = S.packIdx;
+    if(idx != null && pack.items[idx] && pack.items[idx].q === S.question){ const [it] = pack.items.splice(idx, 1); pack.items.push(it); pack.pos = Math.max(0, Math.min(pack.pos - 1, idx)); savePack(); }
+    S.answers.forEach(a => { a.revealed = false; a.counted = false; });   // empty pot, so nothing to confirm again
+    S.roundNum = Math.max(0, (S.roundNum || 1) - 1);
+    nextQuestion();
+    used.delete(k); SS.set('used', Array.from(used)); buildPicker(); renderDeckInfo();
+    toast('⏭ Skipped. That question is back in the deck for later.', 'ok');
+  }
+  $('#sNext').onclick = () => { if(pack.use && pack.items.length){ packNext(); $('#sMsg').innerHTML = ''; return; } if(guardDiscard()){ loadBuiltIn(nextBuiltInIndex()); $('#sMsg').innerHTML = ''; } };
   $('#sPick').onchange = e => { const v = e.target.value; if(v !== '' && guardDiscard()){ loadBuiltIn(+v); $('#sMsg').innerHTML = ''; } e.target.value = ''; };
   $('#cLoad').onclick = () => {
     const q = $('#cQ').value.trim();
@@ -2873,14 +3258,19 @@ ${items}`;
     if(rows.length > 8){ toast('Only the top 8 answers will be used.', ''); }
     if(guardDiscard()){ loadSurvey(q, rows, 'Custom'); toast('Custom survey loaded.', 'ok'); }
   };
+  renderDeckInfo();
   $('#gTarget').addEventListener('change', e => { const v = parseInt(e.target.value, 10); if(v > 0){ S.target = v; checkWinner(); commit(); } });
   $('#gNew').onclick = () => { if(!confirm('Start a new game? Scores reset to 0 and a fresh survey loads. Team names stay.')) return; newGame(false); loadBuiltIn(nextBuiltInIndex()); toast('New game started.', 'ok'); };
 
   // keyboard shortcuts
   document.addEventListener('keydown', e => {
-    if($('#host').hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+    if($('#host').hidden) return;
     const tg = e.target; if(tg && ((tg.tagName === 'INPUT' && !/^(checkbox|radio|button|range)$/.test(tg.type)) || tg.tagName === 'TEXTAREA' || tg.tagName === 'SELECT' || tg.isContentEditable)) return;
     const k = e.key.toLowerCase();
+    if((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && k === 'z'){ if(!(S.fm && S.fm.active)){ e.preventDefault(); undo(); } return; }
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    if(k === 'm'){ e.preventDefault(); toggleMute(); return; }
+    if(k === 'i'){ e.preventDefault(); toggleStandby(); return; }
     if(S.fm && S.fm.active){
       if(k === 't'){ e.preventDefault(); fmPause(); }
       else if(k === 'n'){ e.preventDefault(); fmRevealNext(); }
@@ -2912,7 +3302,12 @@ function initBuzzer(){
   const qs = new URLSearchParams(location.search);
   const saved = LS.get('buzzer', {}) || {};
   const B = {room: String(qs.get('room') || saved.room || '').replace(/\D/g, '').slice(0, 4), team:null, peer:null, conn:null, connected:false,
-    names:['Team 1','Team 2'], armed:false, winner:null, pending:false, lastPong:0, retry:0, retryT:null, pendT:null, wake:null, notFound:false, busy:false};
+    names:['Team 1','Team 2'], armed:false, winner:null, who:'', whoPid:null, pending:false, lastPong:0, retry:0, retryT:null, pendT:null, wake:null, notFound:false, busy:false,
+    pid: LS.get('buzzerPid', '') || ('p' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36)), name: LS.get('buzzerName', '') || '', cue:''};
+  LS.set('buzzerPid', B.pid);
+  $('#bzName').value = B.name;
+  Sound.setVolume(0.6);
+  const joinMsg = () => ({type:'join', team:B.team, pid:B.pid, name:B.name});
   if(saved.room && saved.room === B.room && (saved.team === 0 || saved.team === 1)) B.team = saved.team;
   const qTeam = qs.get('team');
   if(qs.get('room') && (qTeam === '0' || qTeam === '1')) B.team = +qTeam;   // scanned a team's QR code: join that team automatically
@@ -2951,7 +3346,7 @@ function initBuzzer(){
       conn.on('open', () => {
         if(B.conn !== conn) return;
         B.connected = true; B.ever = true; B.busy = false; B.retry = 0; B.notFound = false; B.lastPong = Date.now(); msg('');
-        send(B.team != null ? {type:'join', team:B.team} : {type:'hello'});
+        send(B.team != null ? joinMsg() : {type:'hello'});
         ui();
       });
       conn.on('data', onData);
@@ -2976,12 +3371,22 @@ function initBuzzer(){
       if(Array.isArray(d.teams)) B.names = [String(d.teams[0] || 'Team 1').slice(0, 24), String(d.teams[1] || 'Team 2').slice(0, 24)];
       B.armed = !!d.armed;
       B.winner = d.winner === 0 || d.winner === 1 ? d.winner : null;
+      B.who = String(d.who || ''); B.whoPid = d.whoPid || null;
       if(B.winner != null) B.pending = false;
-      if(B.team != null && d.you !== B.team) send({type:'join', team:B.team});   // host restarted: rejoin our team
+      if(B.team != null){
+        if(d.you === 0 || d.you === 1){ if(d.you !== B.team){ B.team = d.you; save(); } }   // the host moved this phone to the other team
+        else send(joinMsg());                                                                 // host restarted: rejoin our team
+      }
+      // a clear cue for who won the buzz
+      const cue = B.team == null || B.winner == null ? '' : B.winner === B.team ? 'won' : 'lost';
+      if(cue && cue !== B.cue){
+        try{ if(cue === 'won'){ Sound.play('bell'); navigator.vibrate && navigator.vibrate([60, 40, 160]); } else { Sound.play('zero'); navigator.vibrate && navigator.vibrate(40); } }catch(_){}
+      }
+      B.cue = cue;
       ui();
-    } else if(d.type === 'replaced'){
-      B.team = null; save(); releaseWake();
-      msg('Another phone joined as that team, so this one stepped back. Pick a team to take over again.', 'info'); ui();
+    } else if(d.type === 'kicked'){
+      B.team = null; save(); releaseWake(); teardown();
+      msg('The host removed this phone from the game. You can rejoin anytime.', 'info'); ui();
     }
   }
   async function requestWake(){
@@ -2998,12 +3403,14 @@ function initBuzzer(){
     const find = $('#bzFind'); find.hidden = B.connected && !joined;
     find.disabled = B.busy; find.innerHTML = B.busy ? '<span class="spin"></span> Connecting…' : 'Connect';
     if(!joined) return;
-    $('#bzMe').textContent = B.names[B.team]; $('#bzRoomTag').textContent = 'Room ' + B.room;
+    $('#bzMe').textContent = B.names[B.team]; $('#bzNameBtn').textContent = B.name ? '✎ ' + B.name : '✎ Add name';
     $('#bzConn').className = 'bzdot' + (B.connected ? ' on' : '');
     let cls, l1, l2;
     if(!B.connected){ cls = 'wait'; l1 = B.ever ? 'RECONNECTING…' : 'CONNECTING…'; l2 = B.notFound ? `Looking for room ${B.room}. Is the host screen open?` : 'Hang tight. Getting back into the room.'; if(!B.ever && !B.notFound) l2 = 'Joining room ' + B.room + '…'; }
-    else if(B.winner === B.team){ cls = 'won'; l1 = 'YOU BUZZED FIRST!'; l2 = 'Give your answer!'; }
-    else if(B.winner != null){ cls = 'locked'; l1 = 'LOCKED'; l2 = `${B.names[B.winner]} buzzed first!`; }
+    else if(B.winner === B.team){ cls = 'won';
+      if(!B.whoPid || B.whoPid === B.pid){ l1 = 'YOU BUZZED FIRST!'; l2 = 'Give your answer!'; }
+      else { l1 = 'YOUR TEAM HAS IT!'; l2 = `${B.who || 'A teammate'} buzzed first. Help them out!`; } }
+    else if(B.winner != null){ cls = 'locked'; l1 = 'LOCKED'; l2 = `${B.who ? B.who + ' · ' : ''}${B.names[B.winner]} buzzed first!`; }
     else if(B.armed){ cls = B.pending ? 'pending' : 'armed'; l1 = B.pending ? 'BUZZED!' : 'BUZZ IN!'; l2 = B.pending ? 'Checking who was first…' : 'Tap the moment you know it'; }
     else { cls = 'wait'; l1 = 'GET READY'; l2 = 'The host will re-arm the buzzers.'; }
     const btn = $('#bzBtn'); btn.className = 'bzbig ' + cls; $('.l1', btn).textContent = l1; $('.l2', btn).textContent = l2;
@@ -3011,7 +3418,7 @@ function initBuzzer(){
 
   // ---- controls ----
   $('#bzBtn').addEventListener('pointerdown', e => {
-    e.preventDefault(); requestWake();
+    e.preventDefault(); requestWake(); Sound.ensure();
     if(!B.connected || B.team == null || !B.armed || B.pending || B.winner != null) return;
     B.pending = true;
     try{ navigator.vibrate && navigator.vibrate(120); }catch(_){}
@@ -3019,7 +3426,15 @@ function initBuzzer(){
     clearTimeout(B.pendT); B.pendT = setTimeout(() => { if(B.pending){ B.pending = false; ui(); } }, 4000);
   });
   $('#bzBtn').addEventListener('contextmenu', e => e.preventDefault());
+  const saveName = v => { B.name = String(v || '').replace(/[<>]/g, '').trim().slice(0, 20); LS.set('buzzerName', B.name); };
+  $('#bzName').addEventListener('change', e => saveName(e.target.value));
+  $('#bzNameBtn').onclick = () => {
+    const v = prompt('Your name (shows on the host screen and the TV when you buzz in):', B.name);
+    if(v == null) return; saveName(v); send({type:'rename', name:B.name}); ui();
+  };
+  document.addEventListener('pointerdown', () => Sound.ensure(), {once:true});
   $('#bzFind').onclick = () => {
+    saveName($('#bzName').value);
     const r = $('#bzRoom').value.replace(/\D/g, '').slice(0, 4);
     if(r.length !== 4){ msg('Room codes are 4 digits.', 'err'); return; }
     if(r !== B.room) B.team = null;
@@ -3029,8 +3444,9 @@ function initBuzzer(){
   $('#bzRoom').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); });
   $('#bzPick').addEventListener('click', e => {
     const b = e.target.closest('[data-team]'); if(!b) return;
+    saveName($('#bzName').value);
     B.team = +b.dataset.team; save(); msg('');
-    send({type:'join', team:B.team}); requestWake(); ui();
+    send(joinMsg()); requestWake(); ui();
   });
   $('#bzSwitch').onclick = () => { send({type:'leave'}); B.team = null; save(); releaseWake(); ui(); };
 
