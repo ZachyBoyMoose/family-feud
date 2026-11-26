@@ -351,6 +351,32 @@ body.is-tv{overflow:hidden;background:#000}
 .bzurl{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;word-break:break-all;background:#081133;border:1px solid #2c4392;border-radius:8px;padding:6px 8px;margin:6px 0}
 .bzroom{font-family:var(--display);font-size:22px;color:var(--gold);letter-spacing:.12em}
 .bzpill{font-family:var(--display);font-size:14px;padding:6px 12px;border-radius:999px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;animation:pulse 1s infinite}
+/* ---------- Buzzer join screen (host + TV) ---------- */
+.bzjoin2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.bzq{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border-radius:12px;background:#0a1438;border:1px solid #243a80;min-width:0}
+.bzq .bzqr{flex:0 0 auto;width:132px;height:132px}
+.bzqn{font-size:13px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lobbyc{border-color:var(--gold);background:linear-gradient(180deg,#1a2f78,#0b1640);box-shadow:0 0 0 1px rgba(255,200,61,.35),0 0 30px rgba(255,200,61,.15)}
+.lobby{position:absolute;inset:0;z-index:57;display:flex;flex-direction:column;align-items:center;padding-top:34px;background:radial-gradient(ellipse 70% 60% at 50% 45%,#1b52e0 0%,#0c2c92 38%,#061652 68%,#020825 100%)}
+.lbtitle{font-size:104px;line-height:1;letter-spacing:.03em;background:linear-gradient(#fff8d6,#ffd75e 45%,#f29b00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #3a1d00) drop-shadow(0 0 30px rgba(255,200,61,.45))}
+.lbteams{display:flex;align-items:center;justify-content:center;gap:56px;margin-top:34px}
+.lbteam{width:610px;padding:24px 30px 30px;border-radius:40px;background:linear-gradient(#0d2b8f,#071c64);border:8px solid var(--gold);box-shadow:0 0 0 8px #04103f,0 0 60px rgba(255,200,61,.45);display:flex;flex-direction:column;align-items:center;gap:20px;transition:border-color .4s,box-shadow .4s}
+.lbteam.t1{border-color:#8fb3ff;box-shadow:0 0 0 8px #04103f,0 0 60px rgba(120,160,255,.45)}
+.lbname{font-size:64px;line-height:1.1;white-space:nowrap;overflow:hidden;max-width:100%;text-align:center;text-transform:uppercase;text-shadow:0 5px 0 #020a2e}
+.lbqr{width:470px;height:470px;background:#fff;border-radius:26px;padding:18px;display:grid;place-items:center;color:#0b2a8a;font-size:34px}
+.lbqr svg,.lbqr img{width:100%;height:100%;display:block}
+.lbstat{font-size:40px;letter-spacing:.08em;color:#ffe9a8;padding:8px 34px;border-radius:999px;background:rgba(0,0,0,.28)}
+.lbteam.live{border-color:#5dffb0;box-shadow:0 0 0 8px #04103f,0 0 100px rgba(60,255,160,.75)}
+.lbteam.live .lbstat{background:#14a865;color:#fff}
+.lbmid{display:flex;flex-direction:column;align-items:center;gap:34px;width:400px;text-align:center}
+.lbmid .logo{padding:26px 46px;border-width:8px}
+.lbmid .logo b{font-size:66px}
+.lbmid .logo span{font-size:18px}
+.lbroom{font-size:30px;color:#c9d6ff;letter-spacing:.2em}
+.lbroom b{display:block;color:var(--gold);font-size:72px;letter-spacing:.18em;margin-top:6px;text-shadow:0 0 24px rgba(255,200,61,.6)}
+.lbmid .how{font-size:26px;color:#c9d6ff;line-height:1.35;letter-spacing:.02em}
+.lbfoot{position:absolute;bottom:40px;left:0;right:0;text-align:center;font-size:38px;color:#ffe9a8;letter-spacing:.08em;animation:pulse 2.2s infinite}
+.lobby.ready .lbfoot{color:#7ff0b8;animation:none}
 /* ---------- Phone buzzers: TV callout ---------- */
 .buzzban{position:absolute;left:50%;top:300px;transform:translate(-50%,-50%) scale(.6);opacity:0;z-index:48;display:flex;align-items:center;gap:26px;padding:26px 64px;border-radius:999px;background:linear-gradient(#ffe07a,#ffb31a);color:#2a1600;font-size:72px;white-space:nowrap;border:6px solid #fff;box-shadow:0 0 0 8px #04103f,0 0 120px rgba(255,210,90,.95);pointer-events:none;text-transform:uppercase}
 .buzzban.t1{background:linear-gradient(#8fb3ff,#3b6bff);color:#fff;box-shadow:0 0 0 8px #04103f,0 0 120px rgba(120,160,255,.95)}
@@ -476,6 +502,15 @@ body.is-buzzer{background:radial-gradient(ellipse at 50% 0%,#1a3fb0,#061650 60%,
 
   <main class="hgrid">
     <div class="col">
+      <div class="card lobbyc" id="hLobby" hidden>
+        <div class="row between" style="align-items:flex-start;flex-wrap:nowrap">
+          <div><h3 style="margin:0">📺 The TV is showing the buzzer join screen</h3>
+            <div class="tip" style="margin:4px 0 0">Each team scans its own QR code on the TV. That phone opens as their buzzer, already connected and ready to go.</div></div>
+          <button class="btn gold lg" id="hLobbyGo">▶ Start Game</button>
+        </div>
+        <div class="bzteams" id="hLobbyT"><div class="bzt"><i></i><span></span></div><div class="bzt"><i></i><span></span></div></div>
+        <div class="row" style="margin-top:8px"><button class="btn sm ghost" id="hLobbySkip">Skip phone buzzers, I'll run it myself</button></div>
+      </div>
       <div class="card">
         <div class="row between">
           <div class="row"><span class="tag gold" id="hRound">No round yet</span><span class="tag" id="hSrc"></span></div>
@@ -523,16 +558,14 @@ body.is-buzzer{background:radial-gradient(ellipse at 50% 0%,#1a3fb0,#061650 60%,
           <button class="btn gold sm" id="bzReset">🔄 Reset Buzzers</button><span class="kbd">R</span>
           <label class="tog" style="margin-left:auto" title="You can still change control by hand"><input type="checkbox" id="bzAuto"> First buzz takes control</label>
         </div>
+        <div class="row" style="margin-top:8px"><button class="btn sm" id="bzShowTV">📺 Show join screen on TV</button></div>
         <details id="bzJoin" open>
-          <summary>Join from a phone · Room <span class="bzroom" id="bzCode">----</span></summary>
-          <div class="bzjoin">
-            <div class="bzqr" id="bzQR">QR loading…</div>
-            <div style="min-width:0">
-              <div class="tip" style="margin:0">One phone per team. Scan this, or open the link and type the room code.</div>
-              <div class="bzurl" id="bzUrl"></div>
-              <button class="btn sm" id="bzCopy">Copy link</button> <button class="btn sm ghost" id="bzNewRoom">New room code</button>
-            </div>
+          <summary>Team QR codes · Room <span class="bzroom" id="bzCode">----</span></summary>
+          <div class="bzjoin2">
+            <div class="bzq"><div class="bzqr" id="bzQR0">QR loading…</div><b class="bzqn" id="bzQN0">Team 1</b><button class="btn sm" data-copy="0">Copy link</button></div>
+            <div class="bzq"><div class="bzqr" id="bzQR1">QR loading…</div><b class="bzqn" id="bzQN1">Team 2</b><button class="btn sm" data-copy="1">Copy link</button></div>
           </div>
+          <div class="row" style="margin-top:8px;flex-wrap:nowrap"><span class="tip" style="margin:0;flex:1">The TV shows the same codes. Each one sends that phone straight to its team's buzzer.</span><button class="btn sm ghost" id="bzNewRoom">New room code</button></div>
         </details>
         <div id="bzErr"></div>
       </div>
@@ -684,6 +717,17 @@ Flashlight, 14"></textarea>
         <div class="side r" id="tvSteal"></div>
       </div>
       <div class="xov" id="tvX"></div>
+      <div class="lobby" id="tvLobby" hidden>
+        <div class="lbtitle">GRAB YOUR BUZZERS!</div>
+        <div class="lbteams">
+          <div class="lbteam t0" id="lbT0"><div class="lbname"></div><div class="lbqr"></div><div class="lbstat">SCAN TO JOIN</div></div>
+          <div class="lbmid"><div class="logo"><b>FEUD NIGHT</b><span>SURVEY SAYS!</span></div>
+            <div class="how">Point your phone's camera at <b>your team's</b> code. Your phone becomes your buzzer.</div>
+            <div class="lbroom">ROOM<b id="lbRoom">----</b></div></div>
+          <div class="lbteam t1" id="lbT1"><div class="lbname"></div><div class="lbqr"></div><div class="lbstat">SCAN TO JOIN</div></div>
+        </div>
+        <div class="lbfoot" id="lbFoot"></div>
+      </div>
       <div class="buzzban" id="tvBuzz"><span class="bell">🔔</span><span id="tvBuzzT"></span></div>
       <div class="awardban" id="tvAward"><div class="a1" id="tvAward1"></div><div class="a2" id="tvAward2"></div></div>
       <div class="winov" id="tvWin"><div class="trophy">🏆</div><div class="w1" id="tvWin1"></div><div class="w2">WINS!</div><div class="w3" id="tvWin3"></div></div>
@@ -727,13 +771,29 @@ const QR_URL = 'https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js';
 const PEER_PREFIX = 'feudnight-v1-room-';
 // Optional: a self-hosted PeerServer via localStorage "feudnight.peerServer" = {"host":"…","port":443,"path":"/","secure":true}
 function peerOpts(){ const o = LS.get('peerServer', null); return Object.assign({debug:0}, o && typeof o === 'object' ? o : {}); }
+const _scripts = {};
 function loadScript(src, globalName){
-  return new Promise((res, rej) => {
-    if(window[globalName]) return res(window[globalName]);
+  if(window[globalName]) return Promise.resolve(window[globalName]);
+  if(_scripts[src]) return _scripts[src];
+  return _scripts[src] = new Promise((res, rej) => {
     const s = document.createElement('script'); s.src = src; s.async = true;
     s.onload = () => window[globalName] ? res(window[globalName]) : rej(new Error('missing ' + globalName));
-    s.onerror = () => { s.remove(); rej(new Error('load failed: ' + src)); };
+    s.onerror = () => { s.remove(); delete _scripts[src]; rej(new Error('load failed: ' + src)); };
     document.head.appendChild(s);
+  });
+}
+// Draws a crisp SVG QR code into box (falls back to a QR image service if the library can't load)
+function drawQR(box, url){
+  if(!box) return; box._for = url;
+  loadScript(QR_URL, 'qrcode').then(qrcode => {
+    if(box._for !== url) return;
+    const q = qrcode(0, 'M'); q.addData(url); q.make();
+    const n = q.getModuleCount(), m = 2; let d = '';
+    for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(q.isDark(r, c)) d += `M${c+m},${r+m}h1v1h-1z`;
+    box.innerHTML = `<svg viewBox="0 0 ${n+m*2} ${n+m*2}" shape-rendering="crispEdges" role="img" aria-label="QR code to join as a buzzer"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }).catch(() => {
+    if(box._for !== url) return;
+    box.innerHTML = `<img alt="QR code to join as a buzzer" src="https://api.qrserver.com/v1/create-qr-code/?size=480x480&margin=8&data=${encodeURIComponent(url)}">`;
   });
 }
 const SS = {
@@ -1327,6 +1387,33 @@ function initTV(){
     if(showWin && !w.classList.contains('show')){ w.classList.add('show'); $('#tvAward').classList.remove('show'); Confetti.start(); }
     if(!showWin && w.classList.contains('show')){ w.classList.remove('show'); Confetti.stop(); }
     renderFM(ns);
+    renderLobby(ns);
+  }
+
+  // ---- buzzer join screen ----
+  let lbPrev = null;
+  function renderLobby(ns){
+    const on = !!ns.lobby && !(ns.fm && ns.fm.active), el = $('#tvLobby');
+    el.hidden = !on;
+    const bz = ns.buzz || {}, live = [!!(bz.live && bz.live[0]), !!(bz.live && bz.live[1])];
+    if(on){
+      [0,1].forEach(t => {
+        const card = $('#lbT' + t), nm = $('.lbname', card), name = ns.teams[t].name.toUpperCase();
+        if(nm.textContent !== name){ nm.textContent = name; fitLine(nm, 64, 28); }
+        card.classList.toggle('live', live[t]);
+        $('.lbstat', card).textContent = live[t] ? '✓ BUZZER READY' : 'SCAN TO JOIN';
+        const q = $('.lbqr', card), url = bz.urls && bz.urls[t];
+        if(url && q._for !== url) drawQR(q, url);
+        if(!url && q._for !== ''){ q._for = ''; q.innerHTML = '<div>Opening room…</div>'; }
+        if(lbPrev && live[t] && !lbPrev[t]) playSfx('reveal');
+      });
+      $('#lbRoom').textContent = bz.room || '----';
+      const both = live[0] && live[1];
+      el.classList.toggle('ready', both);
+      $('#lbFoot').textContent = bz.status === 'error' ? 'PHONE BUZZERS NEED AN INTERNET CONNECTION'
+        : both ? 'BOTH TEAMS READY! THE HOST WILL START THE GAME' : 'ONE PHONE PER TEAM · PASS IT TO A TEAMMATE EACH ROUND';
+    }
+    lbPrev = live;
   }
 
   // ---- Fast Money board ----
@@ -1890,7 +1977,7 @@ function initHost(){
   const Buzz = {peer:null, code: String(LS.get('buzzRoom', '') || ''), conns:new Map(), team:[null, null], armed:true, first:null, firstAt:0, second:null, gap:null,
     status:'off', err:'', names:'', retryT:null, qrFor:null, collapsed:false};
   if(!/^\d{4}$/.test(Buzz.code)){ Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); }
-  const joinUrl = () => location.origin + location.pathname + '?view=buzzer&room=' + Buzz.code;
+  const joinUrl = t => location.origin + location.pathname + '?view=buzzer&room=' + Buzz.code + (t === 0 || t === 1 ? '&team=' + t : '');
   const isLocalPage = () => location.protocol === 'file:' || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
 
   function buzzInit(){
@@ -1983,32 +2070,32 @@ function initHost(){
   function buzzSendAll(){ Buzz.conns.forEach((_, c) => buzzSend(c)); }
   function buzzNamesSync(){ const n = S.teams.map(t => t.name).join('\u0001'); if(n !== Buzz.names){ Buzz.names = n; buzzSendAll(); } }
 
-  function renderQR(){
-    const box = $('#bzQR'), url = joinUrl(); if(!box || Buzz.qrFor === url) return; Buzz.qrFor = url;
-    const fallback = () => { box.innerHTML = `<img alt="QR code for the buzzer join link" width="168" height="168" src="https://api.qrserver.com/v1/create-qr-code/?size=336x336&margin=8&data=${encodeURIComponent(url)}">`; };
-    loadScript(QR_URL, 'qrcode').then(qrcode => {
-      const q = qrcode(0, 'M'); q.addData(url); q.make();
-      const n = q.getModuleCount(), m = 2; let d = '';
-      for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(q.isDark(r, c)) d += `M${c+m},${r+m}h1v1h-1z`;
-      box.innerHTML = `<svg viewBox="0 0 ${n+m*2} ${n+m*2}" shape-rendering="crispEdges" role="img" aria-label="QR code for the buzzer join link"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
-    }).catch(fallback);
+  function renderQR(){ [0,1].forEach(t => { const box = $('#bzQR' + t), u = joinUrl(t); if(box && box._for !== u) drawQR(box, u); }); }
+  // Shares the room + per-team join links + live status with the TV (for its join screen)
+  function buzzPublish(live){
+    const pub = {room:Buzz.code, urls:[joinUrl(0), joinUrl(1)], live, status:Buzz.status};
+    if(JSON.stringify(pub) !== JSON.stringify(S.buzz || null)){ S.buzz = pub; commit(); }
   }
   function renderBuzz(){
     if(!$('#bzCard')) return;
     const tag = $('#bzStatus');
     tag.textContent = {off:'Off', starting:'Opening room…', ready:'● Room open', reconnecting:'Reconnecting…', error:'Offline'}[Buzz.status] || '';
     tag.className = 'tag' + (Buzz.status === 'ready' ? ' okc' : Buzz.status === 'error' ? ' badc' : '');
-    $('#bzCode').textContent = Buzz.code; $('#bzUrl').textContent = joinUrl();
+    $('#bzCode').textContent = Buzz.code; [0,1].forEach(t => $('#bzQN' + t).textContent = S.teams[t].name);
     $('#bzErr').innerHTML = Buzz.err ? `<div class="msg err">${esc(Buzz.err)}</div>`
       : isLocalPage() ? `<div class="msg info">This page is running from ${location.protocol === 'file:' ? 'a local file' : 'localhost'}, so phones can't open the join link. Use your GitHub Pages address on game night.</div>` : '';
-    let live = 0;
+    let live = 0; const liveArr = [false, false];
     [0,1].forEach(t => {
-      const c = Buzz.team[t], info = c && Buzz.conns.get(c), el = $('#bzT' + t);
+      const c = Buzz.team[t], info = c && Buzz.conns.get(c), el = $('#bzT' + t), el2 = $$('#hLobbyT .bzt')[t];
       const open = !!(c && c.open), fresh = open && info && Date.now() - info.last < 8000;
-      if(fresh) live++;
-      el.className = 'bzt' + (fresh ? ' on' : open ? ' idle' : '') + (Buzz.first === t ? ' first' : '');
-      $('span', el).textContent = `${S.teams[t].name}: ${fresh ? 'Connected' : open ? 'Phone asleep, reconnecting…' : 'Waiting for phone'}`;
+      if(fresh){ live++; liveArr[t] = true; }
+      const cls = 'bzt' + (fresh ? ' on' : open ? ' idle' : '') + (Buzz.first === t ? ' first' : '');
+      const txt = `${S.teams[t].name}: ${fresh ? 'Connected' : open ? 'Phone asleep, reconnecting…' : 'Waiting for phone'}`;
+      el.className = cls; $('span', el).textContent = txt; el2.className = cls; $('span', el2).textContent = txt;
     });
+    $('#hLobby').hidden = !S.lobby || !!(S.fm && S.fm.active);
+    $('#bzShowTV').textContent = S.lobby ? '📺 Hide join screen on TV' : '📺 Show join screen on TV';
+    $('#bzShowTV').classList.toggle('on', !!S.lobby);
     const b = $('#bzBanner');
     if(Buzz.first != null){
       const n = S.teams[Buzz.first].name, o = S.teams[1 - Buzz.first].name;
@@ -2018,15 +2105,23 @@ function initHost(){
     $('#bzReset').disabled = Buzz.armed;
     if(live === 2 && !Buzz.collapsed){ Buzz.collapsed = true; $('#bzJoin').open = false; }
     $('#bzAuto').checked = !!prefs.buzzAuto;
+    buzzPublish(liveArr);
   }
   setInterval(() => { if(Buzz.status !== 'off') renderBuzz(); }, 2000);
   addEventListener('pagehide', () => { try{ Buzz.peer && Buzz.peer.destroy(); }catch(e){} });
   $('#bzReset').onclick = buzzReset;
   $('#bzAuto').onchange = e => { prefs.buzzAuto = e.target.checked; LS.set('prefs', prefs); };
-  $('#bzCopy').onclick = () => { const u = joinUrl(); (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(() => toast('Join link copied.', 'ok'), () => toast(u)); };
+  $('#bzJoin').addEventListener('click', e => {
+    const b = e.target.closest('[data-copy]'); if(!b) return;
+    const t = +b.dataset.copy, u = joinUrl(t);
+    (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(() => toast(`${S.teams[t].name} buzzer link copied.`, 'ok'), () => toast(u));
+  });
+  const lobbyOff = () => { S.lobby = false; commit(); };
+  $('#hLobbyGo').onclick = lobbyOff; $('#hLobbySkip').onclick = lobbyOff;
+  $('#bzShowTV').onclick = () => { S.lobby = !S.lobby; commit(); };
   $('#bzNewRoom').onclick = () => {
     if(!confirm('Make a new room code? Both phones will need to scan the new QR code.')) return;
-    Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); Buzz.collapsed = false; $('#bzJoin').open = true;
+    Buzz.code = newRoomCode(); LS.set('buzzRoom', Buzz.code); Buzz.collapsed = false; $('#bzJoin').open = true; S.lobby = true;
     renderQR(); if(window.Peer) openHostPeer(0); renderBuzz();
   };
 
@@ -2061,8 +2156,8 @@ function initHost(){
   };
   $('#lKeyDel').onclick = () => { LS.del('geminiKey'); $('#lKey').value = ''; $('#lKeyMsg').innerHTML = '<div class="msg info">Key removed from this browser.</div>'; keyBadge(); };
   $('#lModel').addEventListener('change', saveKeyField);
-  $('#lPlay').onclick = () => { saveKeyField(); newGame(false); applyLauncherTeams(); loadBuiltIn(nextBuiltInIndex()); showHost(); };
-  $('#lPlayAI').onclick = () => { saveKeyField(); newGame(false); applyLauncherTeams(); commit(); showHost(); generate(''); };
+  $('#lPlay').onclick = () => { saveKeyField(); newGame(false); S.lobby = true; applyLauncherTeams(); loadBuiltIn(nextBuiltInIndex()); showHost(); };
+  $('#lPlayAI').onclick = () => { saveKeyField(); newGame(false); S.lobby = true; applyLauncherTeams(); commit(); showHost(); generate(''); };
   $('#lResume').onclick = () => { saveKeyField(); applyLauncherTeams(); commit(); showHost(); };
   $('#hSetup').onclick = showLauncher;
   $('#lCount').textContent = `${Engine.size} surveys in rotation (👪 ${Engine.count('family')} · 🎤 ${Engine.count('normal')} · 🌶️ ${Engine.count('dirty')}), with fresh answer mixes every time. No sign-up, no API key, no limits.`;
@@ -2293,6 +2388,7 @@ reason: one short, friendly sentence the host can read.`;
 
   // ---------- game actions ----------
   function setReveal(i, on){
+    if(on) S.lobby = false;
     const a = S.answers[i]; if(!a) return;
     if(on && !a.revealed){ a.revealed = true; a.counted = !S.awarded; fx('reveal', {idx:i}); }
     else if(!on && a.revealed){ a.revealed = false; a.counted = false; }
@@ -2346,7 +2442,7 @@ reason: one short, friendly sentence the host can read.`;
   function enterFM(team, fresh){
     if(fresh || !S.fm || !S.fm.qs.length) S.fm = fmNew(team);
     else { S.fm.active = true; if(team != null) S.fm.team = team; }
-    S.celebrate = false;
+    S.celebrate = false; S.lobby = false;
     commit(); showHost();
     if(!S.fm.qs.length) fmGenerate($('#fmTheme').value);
   }
@@ -2690,7 +2786,7 @@ ${items}`;
 
   // ---------- host wiring ----------
   $('#hAnswers').addEventListener('click', e => { const el = e.target.closest('[data-i]'); if(el) toggleAnswer(+el.dataset.i); });
-  $('#hShowQ').onclick = () => { S.showQuestion = !S.showQuestion; commit(); };
+  $('#hShowQ').onclick = () => { S.showQuestion = !S.showQuestion; if(S.showQuestion) S.lobby = false; commit(); };
   $('#hRevealAll').onclick = revealAll;
   $('#hMult').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; S.multiplier = +b.dataset.m; commit(); });
   $('#hCtl').addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; const c = +b.dataset.c; S.control = c < 0 ? null : c; commit(); });
@@ -2759,7 +2855,7 @@ ${items}`;
     else if(k === 'b'){ e.preventDefault(); buzz(); }
     else if(k === 'c'){ e.preventDefault(); clearStrikes(); }
     else if(k === 's'){ e.preventDefault(); toggleSteal(); }
-    else if(k === 'q'){ e.preventDefault(); if(S.question){ S.showQuestion = !S.showQuestion; commit(); } }
+    else if(k === 'q'){ e.preventDefault(); if(S.question){ S.showQuestion = !S.showQuestion; if(S.showQuestion) S.lobby = false; commit(); } }
     else if(k === '/'){ e.preventDefault(); $('#gIn').focus(); }
     else if(k === 'r'){ e.preventDefault(); buzzReset(); }
   });
@@ -2781,6 +2877,9 @@ function initBuzzer(){
   const B = {room: String(qs.get('room') || saved.room || '').replace(/\D/g, '').slice(0, 4), team:null, peer:null, conn:null, connected:false,
     names:['Team 1','Team 2'], armed:false, winner:null, pending:false, lastPong:0, retry:0, retryT:null, pendT:null, wake:null, notFound:false, busy:false};
   if(saved.room && saved.room === B.room && (saved.team === 0 || saved.team === 1)) B.team = saved.team;
+  const qTeam = qs.get('team');
+  if(qs.get('room') && (qTeam === '0' || qTeam === '1')) B.team = +qTeam;   // scanned a team's QR code: join that team automatically
+  if(B.team != null) LS.set('buzzer', {room:B.room, team:B.team});
   $('#bzRoom').value = B.room;
   const save = () => LS.set('buzzer', {room:B.room, team:B.team});
   const msg = (html, kind) => { $('#bzMsg').innerHTML = html ? `<div class="msg ${kind || 'info'}">${html}</div>` : ''; };
@@ -2814,7 +2913,7 @@ function initBuzzer(){
       setTimeout(() => { if(B.conn === conn && !B.connected) scheduleRetry(); }, 12000);
       conn.on('open', () => {
         if(B.conn !== conn) return;
-        B.connected = true; B.busy = false; B.retry = 0; B.notFound = false; B.lastPong = Date.now(); msg('');
+        B.connected = true; B.ever = true; B.busy = false; B.retry = 0; B.notFound = false; B.lastPong = Date.now(); msg('');
         send(B.team != null ? {type:'join', team:B.team} : {type:'hello'});
         ui();
       });
@@ -2865,7 +2964,7 @@ function initBuzzer(){
     $('#bzMe').textContent = B.names[B.team]; $('#bzRoomTag').textContent = 'Room ' + B.room;
     $('#bzConn').className = 'bzdot' + (B.connected ? ' on' : '');
     let cls, l1, l2;
-    if(!B.connected){ cls = 'wait'; l1 = 'RECONNECTING…'; l2 = B.notFound ? `Looking for room ${B.room}. Is the host screen open?` : 'Hang tight. Getting back into the room.'; }
+    if(!B.connected){ cls = 'wait'; l1 = B.ever ? 'RECONNECTING…' : 'CONNECTING…'; l2 = B.notFound ? `Looking for room ${B.room}. Is the host screen open?` : 'Hang tight. Getting back into the room.'; if(!B.ever && !B.notFound) l2 = 'Joining room ' + B.room + '…'; }
     else if(B.winner === B.team){ cls = 'won'; l1 = 'YOU BUZZED FIRST!'; l2 = 'Give your answer!'; }
     else if(B.winner != null){ cls = 'locked'; l1 = 'LOCKED'; l2 = `${B.names[B.winner]} buzzed first!`; }
     else if(B.armed){ cls = B.pending ? 'pending' : 'armed'; l1 = B.pending ? 'BUZZED!' : 'BUZZ IN!'; l2 = B.pending ? 'Checking who was first…' : 'Tap the moment you know it'; }
